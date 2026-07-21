@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400" role="img" aria-label="Placeholder project image">
+  <rect width="640" height="400" fill="#0e1226" />
+  <rect x="8" y="8" width="624" height="384" fill="none" stroke="#ffb037" stroke-opacity="0.5" stroke-width="2" stroke-dasharray="10 8" />
+  <text x="320" y="190" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="20" fill="#ffd699">PROJECT SCREENSHOT</text>
+  <text x="320" y="220" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="14" fill="#8a7350">Replace: /public/images/projects/placeholder-3.svg</text>
+</svg>

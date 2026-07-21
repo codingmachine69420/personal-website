@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="Neon site icon">
+  <rect width="48" height="48" rx="8" fill="#05060d" />
+  <circle cx="24" cy="24" r="14" fill="none" stroke="#ff2ec4" stroke-width="2.5" opacity="0.9" />
+  <circle cx="24" cy="24" r="14" fill="none" stroke="#2de3ff" stroke-width="1" opacity="0.6" />
+</svg>
