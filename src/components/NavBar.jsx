@@ -1,33 +1,39 @@
+import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { site, directory } from '../content/site'
-
-const activeGlow = {
-  magenta: 'text-neon-magenta',
-  cyan: 'text-neon-cyan',
-  blue: 'text-neon-blue',
-  amber: 'text-neon-amber',
-  jade: 'text-neon-jade',
-}
+import { directory } from '../content/site'
 
 export function NavBar() {
+  const [open, setOpen] = useState(false)
+
   return (
-    <header className="sticky top-0 z-40 border-b border-white/10 bg-night-950/80 backdrop-blur">
+    <header
+      style={{ background: 'var(--color-black, #000)', height: 60 }}
+      className="sticky top-0 z-50 flex items-center"
+    >
       <nav
         aria-label="Primary"
-        className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-3 sm:px-6"
+        className="mx-auto flex w-full max-w-7xl items-center justify-between px-6"
       >
-        <NavLink to="/" className="neon-cyan font-display text-sm tracking-wide sm:text-base">
-          {site.name}
+        {/* Wordmark */}
+        <NavLink
+          to="/"
+          className="font-editorial text-white"
+          style={{ fontSize: 18, letterSpacing: '0.08em' }}
+        >
+          ANSON CHAN
         </NavLink>
-        <ul className="flex flex-wrap items-center gap-x-5 gap-y-1 text-sm">
+
+        {/* Desktop links */}
+        <ul className="hidden md:flex items-center" style={{ gap: 32 }}>
           {directory.map((item) => (
             <li key={item.id}>
               <NavLink
                 to={item.href}
                 className={({ isActive }) =>
-                  `rounded px-1 py-0.5 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/70 ${
-                    isActive ? activeGlow[item.color] : 'text-slate-300'
-                  }`
+                  [
+                    'label-caps text-white transition-opacity hover:opacity-70 relative pb-2',
+                    isActive ? 'nav-active' : '',
+                  ].join(' ')
                 }
               >
                 {item.label}
@@ -35,7 +41,49 @@ export function NavBar() {
             </li>
           ))}
         </ul>
+
+        {/* Hamburger — mobile only */}
+        <button
+          className="md:hidden flex flex-col justify-center gap-[5px] p-2"
+          aria-label={open ? 'Close menu' : 'Open menu'}
+          onClick={() => setOpen((v) => !v)}
+        >
+          <span
+            className="block h-[2px] w-6 bg-white transition-transform duration-200"
+            style={{ transform: open ? 'translateY(7px) rotate(45deg)' : '' }}
+          />
+          <span
+            className="block h-[2px] w-6 bg-white transition-opacity duration-200"
+            style={{ opacity: open ? 0 : 1 }}
+          />
+          <span
+            className="block h-[2px] w-6 bg-white transition-transform duration-200"
+            style={{ transform: open ? 'translateY(-7px) rotate(-45deg)' : '' }}
+          />
+        </button>
       </nav>
+
+      {/* Mobile menu */}
+      {open && (
+        <div
+          className="absolute top-[60px] left-0 w-full md:hidden"
+          style={{ background: 'var(--color-black, #000)' }}
+        >
+          <ul className="flex flex-col px-6 py-4" style={{ gap: 24 }}>
+            {directory.map((item) => (
+              <li key={item.id}>
+                <NavLink
+                  to={item.href}
+                  className="label-caps text-white block"
+                  onClick={() => setOpen(false)}
+                >
+                  {item.label}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </header>
   )
 }

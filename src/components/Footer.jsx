@@ -2,24 +2,43 @@ import { site } from '../content/site'
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-night-950 py-8 text-center text-sm text-slate-400">
-      <div className="mx-auto flex max-w-6xl flex-col items-center gap-3 px-4">
-        <div className="flex flex-wrap justify-center gap-4">
+    <footer
+      style={{
+        background: 'var(--color-ink)',
+        borderTop: '1px solid rgba(255,255,255,0.08)',
+        padding: '40px clamp(20px, 5vw, 48px)',
+      }}
+    >
+      <div
+        style={{
+          maxWidth: 860,
+          margin: '0 auto',
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          gap: 16,
+        }}
+      >
+        <p className="label-caps" style={{ color: 'var(--color-body-dark)' }}>
+          &copy; {new Date().getFullYear()} {site.name}
+        </p>
+        <div style={{ display: 'flex', gap: 32 }}>
           {site.social.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              className="transition-colors hover:text-neon-cyan hover:[text-shadow:0_0_8px_var(--color-neon-cyan)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/70"
+              className="label-caps"
+              style={{ color: 'var(--color-body-dark)', textDecoration: 'none', transition: 'color 0.15s' }}
               target={link.href.startsWith('http') ? '_blank' : undefined}
               rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
+              onMouseEnter={e => e.currentTarget.style.color = 'var(--color-accent)'}
+              onMouseLeave={e => e.currentTarget.style.color = 'var(--color-body-dark)'}
             >
               {link.label}
             </a>
           ))}
         </div>
-        <p>
-          &copy; {new Date().getFullYear()} {site.name}. Built with React, Tailwind, and neon.
-        </p>
       </div>
     </footer>
   )

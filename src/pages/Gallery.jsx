@@ -3,34 +3,58 @@ import { photosByYear } from '../content/gallery'
 
 export function Gallery() {
   return (
-    <div className="pb-24">
-      <PageHeader eyebrow="04 — Directory" title="Gallery" color="amber" description="Photos — travel and elsewhere." />
+    <div>
+      <PageHeader
+        eyebrow="04 — Gallery"
+        title="Gallery"
+        description="Photos — travel and elsewhere."
+      />
 
-      <div className="mx-auto max-w-5xl px-4 space-y-16">
-        {photosByYear.map(({ year, photos }) => (
-          <section key={year}>
-            <div className="flex items-center gap-4 mb-6">
-              <span className="neon-amber font-display text-3xl">{year}</span>
-              <div className="flex-1 border-t border-white/10" />
-            </div>
-            <div className="columns-1 gap-4 sm:columns-2 lg:columns-3">
-              {photos.map((photo) => (
-                <figure
-                  key={photo.src}
-                  className="mb-4 break-inside-avoid overflow-hidden rounded-lg border border-white/10 bg-night-900/50"
+      <div style={{ background: 'var(--color-paper)', padding: 'clamp(32px, 5vw, 64px) clamp(20px, 5vw, 48px) 96px' }}>
+        <div style={{ maxWidth: 1080, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 64 }}>
+          {photosByYear.map(({ year, photos }) => (
+            <section key={year}>
+              {/* Year divider */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 20, marginBottom: 24 }}>
+                <span
+                  className="font-editorial"
+                  style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', color: 'var(--color-ink)', lineHeight: 1 }}
                 >
-                  <img
-                    src={`${import.meta.env.BASE_URL}${photo.src.replace(/^\//, '')}`}
-                    alt={photo.alt}
-                    className="w-full"
-                    loading="lazy"
-                  />
-                  <figcaption className="px-3 py-2 text-sm text-slate-400">{photo.caption}</figcaption>
-                </figure>
-              ))}
-            </div>
-          </section>
-        ))}
+                  {year}
+                </span>
+                <div style={{ flex: 1, height: 2, background: 'var(--color-accent)' }} aria-hidden="true" />
+              </div>
+
+              {/* Masonry grid */}
+              <div style={{ columns: '1', columnGap: 16 }} className="sm:columns-2 lg:columns-3">
+                {photos.map((photo) => (
+                  <figure
+                    key={photo.src}
+                    style={{
+                      breakInside: 'avoid',
+                      marginBottom: 16,
+                      background: 'var(--color-ink)',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <img
+                      src={`${import.meta.env.BASE_URL}${photo.src.replace(/^\//, '')}`}
+                      alt={photo.alt}
+                      style={{ width: '100%', display: 'block' }}
+                      loading="lazy"
+                    />
+                    <figcaption
+                      className="label-caps"
+                      style={{ color: 'var(--color-body-dark)', padding: '10px 14px', fontSize: 10 }}
+                    >
+                      {photo.caption}
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
       </div>
     </div>
   )

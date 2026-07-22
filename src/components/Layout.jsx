@@ -4,7 +4,7 @@ import { Footer } from './Footer'
 
 export function Layout() {
   return (
-    <div className="flex min-h-screen flex-col bg-night-950">
+    <div className="flex min-h-screen flex-col" style={{ background: '#000' }}>
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-night-900 focus:px-4 focus:py-2 focus:text-neon-cyan"

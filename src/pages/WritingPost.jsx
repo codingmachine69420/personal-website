@@ -9,28 +9,54 @@ export function WritingPost() {
 
   if (!post) {
     return (
-      <div className="mx-auto max-w-2xl px-4 py-24 text-center">
-        <h1 className="neon-magenta font-display text-3xl">Post not found</h1>
-        <p className="mt-4 text-slate-300">That one doesn't exist (yet).</p>
-        <Link to="/writing" className="neon-cyan mt-6 inline-block">
-          &larr; Back to Writing &amp; Ideas
+      <div style={{ background: 'var(--color-paper)', minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '80px 20px', textAlign: 'center' }}>
+        <h1 className="font-editorial" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', color: 'var(--color-ink)', marginBottom: 16 }}>
+          Post not found
+        </h1>
+        <p style={{ color: 'var(--color-body-light)', marginBottom: 32 }}>That one doesn't exist yet.</p>
+        <Link to="/writing" className="cta-link" style={{ background: 'var(--color-ink)', color: '#fff' }}>
+          &larr; Back to Writing
         </Link>
       </div>
     )
   }
 
   return (
-    <article className="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:pt-24">
-      <Link to="/writing" className="text-sm text-slate-400 hover:text-neon-cyan">
-        &larr; Back to Writing &amp; Ideas
-      </Link>
-      <p className="mt-6 text-sm text-slate-500">{dateFormatter.format(new Date(post.date))}</p>
-      <h1 className="neon-cyan font-display mt-1 text-3xl sm:text-4xl">{post.title}</h1>
-      <div className="prose-invert mt-8 space-y-4 text-lg leading-relaxed text-slate-300">
-        {post.body.map((paragraph, i) => (
-          <p key={i}>{paragraph}</p>
-        ))}
+    <div>
+      {/* Dark header */}
+      <div style={{ background: 'var(--color-ink)', padding: 'clamp(40px, 6vw, 80px) clamp(20px, 5vw, 48px) 0' }}>
+        <div style={{ maxWidth: 860, margin: '0 auto', paddingBottom: 'clamp(32px, 4vw, 56px)' }}>
+          <Link
+            to="/writing"
+            className="label-caps"
+            style={{ color: 'var(--color-accent)', textDecoration: 'none', display: 'inline-block', marginBottom: 24 }}
+          >
+            &larr; Writing & Ideas
+          </Link>
+          <span
+            style={{ display: 'block', height: 8, background: 'var(--color-accent)', width: 64, marginBottom: 20 }}
+            aria-hidden="true"
+          />
+          <p className="label-caps" style={{ color: 'var(--color-body-dark)', marginBottom: 14 }}>
+            {dateFormatter.format(new Date(post.date))}
+            {post.tags?.length ? ` — ${post.tags.join(', ')}` : ''}
+          </p>
+          <h1 className="font-editorial" style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', color: '#fff' }}>
+            {post.title}
+          </h1>
+        </div>
       </div>
-    </article>
+
+      {/* Body */}
+      <div style={{ background: 'var(--color-paper)', padding: 'clamp(40px, 6vw, 80px) clamp(20px, 5vw, 48px) 96px' }}>
+        <div style={{ maxWidth: 680, margin: '0 auto' }}>
+          {post.body.map((paragraph, i) => (
+            <p key={i} style={{ color: 'var(--color-body-light)', fontSize: 15, lineHeight: 1.65, marginBottom: 24 }}>
+              {paragraph}
+            </p>
+          ))}
+        </div>
+      </div>
+    </div>
   )
 }

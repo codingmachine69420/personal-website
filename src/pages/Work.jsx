@@ -1,102 +1,136 @@
 import { PageHeader } from '../components/PageHeader'
 import { bio, experience, education, leadership, competitions, resumeUrl } from '../content/work'
 
+const sectionHeading = (text, id) => (
+  <h2
+    id={id}
+    className="font-editorial"
+    style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', color: 'var(--color-ink)', marginBottom: 32, paddingTop: 64 }}
+  >
+    {text}
+  </h2>
+)
+
 export function Work() {
   return (
-    <div className="pb-24">
-      <PageHeader eyebrow="01 — Directory" title="Work & Experience" color="magenta" />
+    <div>
+      <PageHeader eyebrow="01 — Work & Experience" title="Work & Experience" />
 
-      <div className="mx-auto max-w-3xl px-4">
-        <p className="text-lg text-slate-300">{bio}</p>
+      <div style={{ background: 'var(--color-paper)', padding: 'clamp(32px, 5vw, 64px) clamp(20px, 5vw, 48px) 96px' }}>
+        <div style={{ maxWidth: 860, margin: '0 auto' }}>
 
-        <a
-          href={`${import.meta.env.BASE_URL}${resumeUrl.replace(/^\//, '')}`}
-          target="_blank"
-          rel="noreferrer"
-          className="glow-box-magenta neon-magenta font-display mt-6 inline-block rounded border border-neon-magenta/50 px-6 py-3 text-sm transition-transform hover:scale-[1.03] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/70"
-        >
-          Download Resume (PDF)
-        </a>
+          <p style={{ color: 'var(--color-body-light)', fontSize: 15, lineHeight: 1.65, maxWidth: '60ch', marginBottom: 32 }}>
+            {bio}
+          </p>
 
-        <section className="mt-16" aria-labelledby="experience-heading">
-          <h2 id="experience-heading" className="neon-cyan font-display mb-6 text-xl">
-            Experience
-          </h2>
-          <ol className="space-y-10 border-l border-white/10 pl-6">
+          <a
+            href={`${import.meta.env.BASE_URL}${resumeUrl.replace(/^\//, '')}`}
+            target="_blank"
+            rel="noreferrer"
+            className="cta-link"
+          >
+            Download Resume (PDF)
+          </a>
+
+          {sectionHeading('Experience', 'experience-heading')}
+          <ol style={{ borderLeft: '2px solid rgba(28,28,28,0.12)', paddingLeft: 32, display: 'flex', flexDirection: 'column', gap: 40 }}>
             {experience.map((role) => (
-              <li key={`${role.org}-${role.role}`} className="relative">
+              <li key={`${role.org}-${role.role}`} style={{ position: 'relative' }}>
                 <span
                   aria-hidden="true"
-                  className="glow-box-cyan absolute -left-[29px] top-1.5 h-2.5 w-2.5 rounded-full bg-neon-cyan"
+                  style={{
+                    position: 'absolute',
+                    left: -40,
+                    top: 6,
+                    width: 10,
+                    height: 10,
+                    background: 'var(--color-accent)',
+                    display: 'block',
+                  }}
                 />
-                <h3 className="text-lg font-semibold text-white">{role.role}</h3>
-                <p className="text-sm text-slate-400">
+                <h3 style={{ fontSize: 17, fontWeight: 600, color: 'var(--color-ink)', marginBottom: 4 }}>
+                  {role.role}
+                </h3>
+                <p className="label-caps" style={{ color: 'var(--color-body-light)', fontSize: 11, marginBottom: 8 }}>
                   {role.org} &middot; {role.period} &middot; {role.location}
                 </p>
-                <p className="mt-2 text-slate-300">{role.summary}</p>
-                <ul className="mt-2 list-inside list-disc space-y-1 text-slate-400">
+                <p style={{ color: 'var(--color-body-light)', fontSize: 15, lineHeight: 1.65, marginBottom: 10 }}>
+                  {role.summary}
+                </p>
+                <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
                   {role.bullets.map((bullet, i) => (
-                    <li key={i}>{bullet}</li>
+                    <li key={i} style={{ display: 'flex', gap: 10, color: 'var(--color-body-light)', fontSize: 15, lineHeight: 1.65 }}>
+                      <span style={{ color: 'var(--color-accent)', flexShrink: 0, marginTop: 2 }}>▸</span>
+                      {bullet}
+                    </li>
                   ))}
                 </ul>
               </li>
             ))}
           </ol>
-        </section>
 
-        <section className="mt-16" aria-labelledby="leadership-heading">
-          <h2 id="leadership-heading" className="neon-cyan font-display mb-6 text-xl">
-            Leadership & Extracurriculars
-          </h2>
-          <ol className="space-y-8 border-l border-white/10 pl-6">
+          {sectionHeading('Leadership & Extracurriculars', 'leadership-heading')}
+          <ol style={{ borderLeft: '2px solid rgba(28,28,28,0.12)', paddingLeft: 32, display: 'flex', flexDirection: 'column', gap: 32 }}>
             {leadership.map((item) => (
-              <li key={`${item.org}-${item.role}`} className="relative">
+              <li key={`${item.org}-${item.role}`} style={{ position: 'relative' }}>
                 <span
                   aria-hidden="true"
-                  className="glow-box-cyan absolute -left-[29px] top-1.5 h-2.5 w-2.5 rounded-full bg-neon-cyan"
+                  style={{
+                    position: 'absolute',
+                    left: -40,
+                    top: 6,
+                    width: 10,
+                    height: 10,
+                    background: 'var(--color-accent)',
+                    display: 'block',
+                  }}
                 />
-                <h3 className="text-lg font-semibold text-white">{item.role}</h3>
-                <p className="text-sm text-slate-400">{item.org} &middot; {item.period}</p>
-                <ul className="mt-2 list-inside list-disc space-y-1 text-slate-400">
+                <h3 style={{ fontSize: 17, fontWeight: 600, color: 'var(--color-ink)', marginBottom: 4 }}>
+                  {item.role}
+                </h3>
+                <p className="label-caps" style={{ color: 'var(--color-body-light)', fontSize: 11, marginBottom: 8 }}>
+                  {item.org} &middot; {item.period}
+                </p>
+                <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
                   {item.bullets.map((bullet, i) => (
-                    <li key={i}>{bullet}</li>
+                    <li key={i} style={{ display: 'flex', gap: 10, color: 'var(--color-body-light)', fontSize: 15, lineHeight: 1.65 }}>
+                      <span style={{ color: 'var(--color-accent)', flexShrink: 0, marginTop: 2 }}>▸</span>
+                      {bullet}
+                    </li>
                   ))}
                 </ul>
               </li>
             ))}
           </ol>
-        </section>
 
-        <section className="mt-16" aria-labelledby="competitions-heading">
-          <h2 id="competitions-heading" className="neon-cyan font-display mb-6 text-xl">
-            Case Competitions
-          </h2>
-          <ul className="space-y-3">
+          {sectionHeading('Case Competitions', 'competitions-heading')}
+          <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
             {competitions.map((c, i) => (
-              <li key={i} className="flex gap-3 text-slate-300">
-                <span className="neon-amber mt-1 shrink-0">▸</span>
+              <li key={i} style={{ display: 'flex', gap: 12, color: 'var(--color-body-light)', fontSize: 15, lineHeight: 1.65 }}>
+                <span style={{ color: 'var(--color-accent)', flexShrink: 0 }}>▸</span>
                 {c}
               </li>
             ))}
           </ul>
-        </section>
 
-        <section className="mt-16" aria-labelledby="education-heading">
-          <h2 id="education-heading" className="neon-cyan font-display mb-6 text-xl">
-            Education
-          </h2>
-          <ul className="space-y-6">
+          {sectionHeading('Education', 'education-heading')}
+          <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: 24 }}>
             {education.map((item) => (
               <li key={item.school}>
-                <h3 className="text-lg font-semibold text-white">{item.school}</h3>
-                <p className="text-sm text-slate-400">
+                <h3 style={{ fontSize: 17, fontWeight: 600, color: 'var(--color-ink)', marginBottom: 4 }}>
+                  {item.school}
+                </h3>
+                <p className="label-caps" style={{ color: 'var(--color-body-light)', fontSize: 11, marginBottom: 8 }}>
                   {item.program} &middot; {item.period}
                 </p>
-                <p className="mt-1 text-slate-300">{item.notes}</p>
+                <p style={{ color: 'var(--color-body-light)', fontSize: 15, lineHeight: 1.65 }}>
+                  {item.notes}
+                </p>
               </li>
             ))}
           </ul>
-        </section>
+
+        </div>
       </div>
     </div>
   )

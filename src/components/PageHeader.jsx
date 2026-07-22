@@ -1,19 +1,34 @@
-const GLOW_CLASS = {
-  magenta: 'neon-magenta',
-  cyan: 'neon-cyan',
-  blue: 'neon-blue',
-  amber: 'neon-amber',
-  jade: 'neon-jade',
-}
-
-export function PageHeader({ eyebrow, title, color = 'cyan', description }) {
+export function PageHeader({ eyebrow, title, description }) {
   return (
-    <div className="mx-auto max-w-3xl px-4 pb-10 pt-16 text-center sm:pt-24">
-      {eyebrow ? (
-        <p className="mb-2 text-sm uppercase tracking-widest text-slate-500">{eyebrow}</p>
-      ) : null}
-      <h1 className={`font-display text-3xl sm:text-5xl ${GLOW_CLASS[color] ?? GLOW_CLASS.cyan}`}>{title}</h1>
-      {description ? <p className="mt-4 text-lg text-slate-300">{description}</p> : null}
+    <div style={{ background: 'var(--color-ink)', padding: 'clamp(40px, 6vw, 80px) clamp(20px, 5vw, 48px) 0' }}>
+      <div style={{ maxWidth: 860, margin: '0 auto', paddingBottom: 'clamp(32px, 4vw, 56px)' }}>
+        <span
+          style={{
+            display: 'block',
+            height: 8,
+            background: 'var(--color-accent)',
+            width: 64,
+            marginBottom: 20,
+          }}
+          aria-hidden="true"
+        />
+        {eyebrow && (
+          <p className="label-caps" style={{ color: 'var(--color-accent)', marginBottom: 14 }}>
+            {eyebrow}
+          </p>
+        )}
+        <h1
+          className="font-editorial"
+          style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', color: '#fff' }}
+        >
+          {title}
+        </h1>
+        {description && (
+          <p style={{ color: 'var(--color-body-dark)', fontSize: 15, lineHeight: 1.65, maxWidth: '50ch', marginTop: 16 }}>
+            {description}
+          </p>
+        )}
+      </div>
     </div>
   )
 }

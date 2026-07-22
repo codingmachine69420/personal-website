@@ -3,50 +3,77 @@ import { projects } from '../content/projects'
 
 export function Projects() {
   return (
-    <div className="pb-24">
+    <div>
       <PageHeader
-        eyebrow="03 — Directory"
+        eyebrow="03 — Projects"
         title="Projects"
-        color="blue"
         description="Trading dashboards, bots, and tools I've built."
       />
 
-      <div className="mx-auto grid max-w-5xl gap-6 px-4 sm:grid-cols-2">
-        {projects.map((project) => (
-          <article
-            key={project.name}
-            className="flex flex-col overflow-hidden rounded-lg border border-white/10 bg-night-900/50 transition-shadow hover:shadow-[0_0_30px_rgba(77,125,255,0.25)]"
-          >
-            <img
-              src={project.image}
-              alt={`Placeholder screenshot for the ${project.name} project`}
-              className="h-40 w-full border-b border-white/10 object-cover"
-            />
-            <div className="flex flex-1 flex-col p-5">
-              <h2 className="neon-blue font-display text-lg">{project.name}</h2>
-              <p className="mt-2 flex-1 text-slate-300">{project.description}</p>
-              <ul className="mt-4 flex flex-wrap gap-2">
-                {project.stack.map((tech) => (
-                  <li key={tech} className="rounded-full border border-white/10 px-2.5 py-0.5 text-xs text-slate-400">
-                    {tech}
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-4 flex gap-4 text-sm">
-                {project.demoUrl ? (
-                  <a href={project.demoUrl} className="neon-blue" target="_blank" rel="noreferrer">
-                    Live demo
-                  </a>
-                ) : null}
-                {project.repoUrl ? (
-                  <a href={project.repoUrl} className="text-slate-400 hover:text-white" target="_blank" rel="noreferrer">
-                    Source
-                  </a>
-                ) : null}
+      <div style={{ background: 'var(--color-paper)', padding: 'clamp(32px, 5vw, 64px) clamp(20px, 5vw, 48px) 96px' }}>
+        <div style={{ maxWidth: 960, margin: '0 auto', display: 'grid', gap: 24, gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))' }}>
+          {projects.map((project) => (
+            <article
+              key={project.name}
+              style={{
+                background: 'var(--color-ink)',
+                overflow: 'hidden',
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
+              <img
+                src={project.image}
+                alt={`Screenshot for the ${project.name} project`}
+                style={{ height: 160, width: '100%', objectFit: 'cover', display: 'block', borderBottom: '1px solid rgba(255,255,255,0.08)' }}
+              />
+              <div style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: 24 }}>
+                <h2
+                  className="font-editorial"
+                  style={{ fontSize: '1.5rem', color: '#fff', marginBottom: 8 }}
+                >
+                  {project.name}
+                </h2>
+                <p style={{ color: 'var(--color-body-dark)', fontSize: 15, lineHeight: 1.65, flex: 1 }}>
+                  {project.description}
+                </p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, margin: '16px 0' }}>
+                  {project.stack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="label-caps"
+                      style={{ fontSize: 10, color: 'var(--color-body-dark)', border: '1px solid rgba(255,255,255,0.12)', padding: '3px 8px' }}
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+                <div style={{ display: 'flex', gap: 20 }}>
+                  {project.demoUrl && (
+                    <a
+                      href={project.demoUrl}
+                      className="label-caps"
+                      style={{ color: 'var(--color-accent)', fontSize: 11, textDecoration: 'none' }}
+                      target="_blank" rel="noreferrer"
+                    >
+                      Live demo
+                    </a>
+                  )}
+                  {project.repoUrl && (
+                    <a
+                      href={project.repoUrl}
+                      className="label-caps"
+                      style={{ color: 'var(--color-body-dark)', fontSize: 11, textDecoration: 'none' }}
+                      target="_blank" rel="noreferrer"
+                    >
+                      Source
+                    </a>
+                  )}
+                </div>
               </div>
-            </div>
-          </article>
-        ))}
+            </article>
+          ))}
+        </div>
       </div>
     </div>
   )
