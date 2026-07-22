@@ -98,6 +98,11 @@
     opacity: 0.85;
   }
 
+  /* Gallery hover caption */
+  .gallery-item:hover .gallery-caption {
+    opacity: 1 !important;
+  }
+
   /* Active nav link: 2px accent underline sitting 8px below the text */
   .nav-active::after {
     content: '';
