@@ -8,6 +8,9 @@ import { Projects } from './pages/Projects'
 import { Gallery } from './pages/Gallery'
 import { Interests } from './pages/Interests'
 import { NotFound } from './pages/NotFound'
+import { Driven } from './pages/Driven'
+import { Curious } from './pages/Curious'
+import { Attitude } from './pages/Attitude'
 
 function App() {
   return (
@@ -20,6 +23,9 @@ function App() {
         <Route path="projects" element={<Projects />} />
         <Route path="gallery" element={<Gallery />} />
         <Route path="interests" element={<Interests />} />
+        <Route path="driven" element={<Driven />} />
+        <Route path="curious" element={<Curious />} />
+        <Route path="attitude" element={<Attitude />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

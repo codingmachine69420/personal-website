@@ -12,7 +12,7 @@ export function Gallery() {
             key={photo.src}
             className="mb-4 break-inside-avoid overflow-hidden rounded-lg border border-white/10 bg-night-900/50"
           >
-            <img src={photo.src} alt={photo.alt} className="w-full" loading="lazy" />
+            <img src={`${import.meta.env.BASE_URL}${photo.src.replace(/^\//, '')}`} alt={photo.alt} className="w-full" loading="lazy" />
             <figcaption className="px-3 py-2 text-sm text-slate-400">{photo.caption}</figcaption>
           </figure>
         ))}

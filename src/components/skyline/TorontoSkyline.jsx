@@ -28,14 +28,12 @@ export function TorontoSkyline({ className = '' }) {
       <Buildings seed={23} count={16} baseY={BASE_Y} bandHeight={130} stroke="#4d7dff" />
       <Buildings seed={58} count={11} baseY={BASE_Y} bandHeight={190} stroke="#33ffb0" />
 
-      {/* CN Tower — shaft, observation pod, mast, antenna light. Kept off
-          to the right edge (not dead center) so it never crosses the hero
-          headline, which spans most of the frame's width. */}
-      <g filter="url(#to-tube-glow)" stroke="#4d7dff" strokeWidth={1.5} fill="rgba(6,10,24,0.6)">
-        <rect x={1068} y={110} width={24} height={270} />
-        <ellipse cx={1080} cy={125} rx={34} ry={16} />
-        <rect x={1076} y={60} width={8} height={55} />
-        <circle cx={1080} cy={56} r={3} fill="#4d7dff" className="animate-twinkle" style={{ animationDuration: '2.6s' }} />
+      {/* CN Tower — made larger and shifted left so it reads clearly */}
+      <g filter="url(#to-tube-glow)" stroke="#4d7dff" strokeWidth={2} fill="rgba(6,10,24,0.6)">
+        <rect x={920} y={60} width={32} height={320} />
+        <ellipse cx={936} cy={80} rx={50} ry={22} />
+        <rect x={930} y={10} width={12} height={55} />
+        <circle cx={936} cy={6} r={4} fill="#4d7dff" className="animate-twinkle" style={{ animationDuration: '2.6s' }} />
       </g>
 
       <Buildings seed={91} count={14} baseY={BASE_Y} bandHeight={100} stroke="#ffb037" />

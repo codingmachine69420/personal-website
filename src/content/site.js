@@ -1,7 +1,7 @@
 // Site-wide identity, nav, and social links.
 // TODO: replace every placeholder value below with your real info.
 export const site = {
-  name: 'Your Name',
+  name: "Anson's World",
   tagline: 'Finance & markets by day, builder by night.',
   location: 'Toronto, Canada / Hong Kong',
   email: 'you@example.com',

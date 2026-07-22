@@ -10,7 +10,7 @@ export function Work() {
         <p className="text-lg text-slate-300">{bio}</p>
 
         <a
-          href={resumeUrl}
+          href={`${import.meta.env.BASE_URL}${resumeUrl.replace(/^\//, '')}`}
           target="_blank"
           rel="noreferrer"
           className="glow-box-magenta neon-magenta font-display mt-6 inline-block rounded border border-neon-magenta/50 px-6 py-3 text-sm transition-transform hover:scale-[1.03] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/70"
