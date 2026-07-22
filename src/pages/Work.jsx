@@ -1,5 +1,5 @@
 import { PageHeader } from '../components/PageHeader'
-import { bio, experience, education, resumeUrl } from '../content/work'
+import { bio, experience, education, leadership, competitions, resumeUrl } from '../content/work'
 
 export function Work() {
   return (
@@ -42,6 +42,43 @@ export function Work() {
               </li>
             ))}
           </ol>
+        </section>
+
+        <section className="mt-16" aria-labelledby="leadership-heading">
+          <h2 id="leadership-heading" className="neon-cyan font-display mb-6 text-xl">
+            Leadership & Extracurriculars
+          </h2>
+          <ol className="space-y-8 border-l border-white/10 pl-6">
+            {leadership.map((item) => (
+              <li key={`${item.org}-${item.role}`} className="relative">
+                <span
+                  aria-hidden="true"
+                  className="glow-box-cyan absolute -left-[29px] top-1.5 h-2.5 w-2.5 rounded-full bg-neon-cyan"
+                />
+                <h3 className="text-lg font-semibold text-white">{item.role}</h3>
+                <p className="text-sm text-slate-400">{item.org} &middot; {item.period}</p>
+                <ul className="mt-2 list-inside list-disc space-y-1 text-slate-400">
+                  {item.bullets.map((bullet, i) => (
+                    <li key={i}>{bullet}</li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <section className="mt-16" aria-labelledby="competitions-heading">
+          <h2 id="competitions-heading" className="neon-cyan font-display mb-6 text-xl">
+            Case Competitions
+          </h2>
+          <ul className="space-y-3">
+            {competitions.map((c, i) => (
+              <li key={i} className="flex gap-3 text-slate-300">
+                <span className="neon-amber mt-1 shrink-0">▸</span>
+                {c}
+              </li>
+            ))}
+          </ul>
         </section>
 
         <section className="mt-16" aria-labelledby="education-heading">

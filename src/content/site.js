@@ -4,11 +4,10 @@ export const site = {
   name: "Anson's World",
   tagline: 'Finance & markets by day, builder by night.',
   location: 'Toronto, Canada / Hong Kong',
-  email: 'you@example.com',
+  email: 'ansonpy.chan@mail.utoronto.ca',
   social: [
-    { label: 'GitHub', href: 'https://github.com/your-handle' },
-    { label: 'LinkedIn', href: 'https://linkedin.com/in/your-handle' },
-    { label: 'Email', href: 'mailto:you@example.com' },
+    { label: 'LinkedIn', href: 'https://linkedin.com/in/anson-chan-67b155291/' },
+    { label: 'Email', href: 'mailto:ansonpy.chan@mail.utoronto.ca' },
   ],
 }
 
