@@ -44,7 +44,8 @@ export function NavBar() {
 
         {/* Hamburger — mobile only */}
         <button
-          className="md:hidden flex flex-col justify-center gap-[5px] p-2"
+          className="md:hidden flex flex-col justify-center gap-[5px]"
+          style={{ minWidth: 44, minHeight: 44, padding: '0 10px' }}
           aria-label={open ? 'Close menu' : 'Open menu'}
           onClick={() => setOpen((v) => !v)}
         >

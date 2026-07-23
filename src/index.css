@@ -98,9 +98,21 @@
     opacity: 0.85;
   }
 
-  /* Gallery hover caption */
-  .gallery-item:hover .gallery-caption {
-    opacity: 1 !important;
+  /* Gallery captions: always visible on touch screens (≤768px),
+     hover + focus-within reveal on desktop */
+  .gallery-caption {
+    opacity: 0;
+  }
+
+  .gallery-item:hover .gallery-caption,
+  .gallery-item:focus-within .gallery-caption {
+    opacity: 1;
+  }
+
+  @media (max-width: 768px) {
+    .gallery-caption {
+      opacity: 1;
+    }
   }
 
   /* Active nav link: 2px accent underline sitting 8px below the text */

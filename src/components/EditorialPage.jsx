@@ -87,7 +87,7 @@ export function EditorialPage({ title, label, photo, photoAlt, blocks = [] }) {
         style={{ minHeight: '70vh', background: 'var(--color-ink)' }}
       >
         <img
-          src={photo}
+          src={photo.startsWith('http') ? photo : `${import.meta.env.BASE_URL}${photo.replace(/^\//, '')}`}
           alt={photoAlt}
           className="absolute inset-0 h-full w-full object-cover"
           loading="eager"

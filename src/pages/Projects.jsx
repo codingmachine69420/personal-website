@@ -23,7 +23,7 @@ export function Projects() {
               }}
             >
               <img
-                src={project.image}
+                src={`${import.meta.env.BASE_URL}${project.image.replace(/^\//, '')}`}
                 alt={`Screenshot for the ${project.name} project`}
                 style={{ height: 160, width: '100%', objectFit: 'cover', display: 'block', borderBottom: '1px solid rgba(255,255,255,0.08)' }}
               />

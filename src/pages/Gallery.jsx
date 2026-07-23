@@ -14,23 +14,12 @@ export function Gallery() {
       />
 
       <div style={{ background: '#000', padding: 4 }}>
-        <div
-          style={{
-            columns: 3,
-            columnGap: 4,
-          }}
-          className="sm:columns-3 columns-1 md:columns-4"
-        >
+        <div className="columns-1 sm:columns-3 md:columns-4" style={{ columnGap: 4 }}>
           {allPhotos.map((photo) => (
             <figure
               key={photo.src}
-              style={{
-                breakInside: 'avoid',
-                marginBottom: 4,
-                position: 'relative',
-                overflow: 'hidden',
-                cursor: 'default',
-              }}
+              tabIndex={0}
+              style={{ breakInside: 'avoid', marginBottom: 4, position: 'relative', overflow: 'hidden' }}
               className="gallery-item"
             >
               <img
@@ -39,7 +28,6 @@ export function Gallery() {
                 style={{ width: '100%', display: 'block' }}
                 loading="lazy"
               />
-              {/* Caption on hover */}
               <figcaption
                 className="gallery-caption"
                 style={{
@@ -53,9 +41,7 @@ export function Gallery() {
                   fontFamily: 'var(--font-body)',
                   letterSpacing: '0.04em',
                   padding: '8px 12px',
-                  opacity: 0,
                   transition: 'opacity 0.2s',
-                  pointerEvents: 'none',
                 }}
               >
                 {photo.caption}
