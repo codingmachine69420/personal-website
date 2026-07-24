@@ -1,12 +1,16 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import { directory } from '../content/site'
 
 export function NavBar() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header
+    <motion.header
+      initial={{ opacity: 0, y: -12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
       style={{ background: 'var(--color-black, #000)', height: 60 }}
       className="sticky top-0 z-50 flex items-center"
     >
@@ -14,13 +18,21 @@ export function NavBar() {
         aria-label="Primary"
         className="mx-auto flex w-full max-w-7xl items-center justify-between px-6"
       >
-        {/* Wordmark */}
+        {/* Wordmark — Cormorant Garamond, masthead style */}
         <NavLink
           to="/"
-          className="font-editorial text-white"
-          style={{ fontSize: 18, letterSpacing: '0.08em' }}
+          style={{
+            fontFamily: 'var(--font-wordmark)',
+            fontSize: 17,
+            fontWeight: 400,
+            letterSpacing: '0.22em',
+            textTransform: 'uppercase',
+            color: '#fff',
+            textDecoration: 'none',
+            lineHeight: 1,
+          }}
         >
-          ANSON CHAN
+          Anson Chan
         </NavLink>
 
         {/* Desktop links */}
@@ -85,6 +97,6 @@ export function NavBar() {
           </ul>
         </div>
       )}
-    </header>
+    </motion.header>
   )
 }

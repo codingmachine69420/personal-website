@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
+import { MotionConfig } from 'framer-motion'
 import { Layout } from './components/Layout'
 import { Home } from './pages/Home'
 import { Work } from './pages/Work'
@@ -14,6 +15,7 @@ import { Attitude } from './pages/Attitude'
 
 function App() {
   return (
+    <MotionConfig reducedMotion="user">
     <Routes>
       <Route element={<Layout />}>
         <Route index element={<Home />} />
@@ -29,6 +31,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
+    </MotionConfig>
   )
 }
 

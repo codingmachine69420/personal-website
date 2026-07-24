@@ -25,8 +25,11 @@ export function Gallery() {
               <img
                 src={`${import.meta.env.BASE_URL}${photo.src.replace(/^\//, '')}`}
                 alt={photo.alt}
-                style={{ width: '100%', display: 'block' }}
+                width={photo.width}
+                height={photo.height}
+                style={{ width: '100%', height: 'auto', aspectRatio: `${photo.width} / ${photo.height}`, display: 'block' }}
                 loading="lazy"
+                decoding="async"
               />
               <figcaption
                 className="gallery-caption"

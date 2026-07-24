@@ -2,23 +2,10 @@
 
 /*
   Tailwind v4 uses CSS-first config: tokens declared in @theme become
-  utilities automatically (e.g. --color-neon-magenta -> bg-neon-magenta,
-  text-neon-magenta, border-neon-magenta, etc).
+  utilities automatically (e.g. --color-accent -> bg-accent, text-accent,
+  border-accent, etc).
 */
 @theme {
-  /* ── Legacy neon tokens (used by Work, Gallery, Writing pages) ── */
-  --color-night-950: #05060d;
-  --color-night-900: #090c1a;
-  --color-night-800: #0e1226;
-  --color-night-700: #161a33;
-  --color-neon-magenta: #ff2ec4;
-  --color-neon-cyan: #2de3ff;
-  --color-neon-blue: #4d7dff;
-  --color-neon-amber: #ffb037;
-  --color-neon-jade: #33ffb0;
-  --font-display: "Monoton", cursive;
-  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
-
   /* ── Editorial design tokens ── */
   /* To swap the accent color sitewide, change ONE value here: */
   --color-accent:     #D9A21B;   /* warm ochre — frames, rules, active states */
@@ -26,9 +13,12 @@
   --color-paper:      #F4F2ED;   /* light section background */
   --color-body-dark:  #B8B8B8;   /* body copy on dark panels */
   --color-body-light: #4A4A4A;   /* body copy on light backgrounds */
+  --color-black:      #000;      /* nav background, gutters */
 
-  --font-editorial: "Barlow Condensed", sans-serif;
-  --font-body:      "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-editorial: "Big Shoulders Display", sans-serif;
+  --font-wordmark:  "Cormorant Garamond", Georgia, serif;
+  --font-mono:      "Space Mono", ui-monospace, monospace;
+  --font-body:      "DM Sans", ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {
@@ -37,7 +27,8 @@
   }
 
   body {
-    @apply bg-night-950 text-slate-200 font-sans antialiased;
+    @apply text-slate-200 antialiased;
+    background: #000;
     font-family: var(--font-body);
   }
 
@@ -56,10 +47,10 @@
 @layer utilities {
   .font-editorial {
     font-family: var(--font-editorial);
-    font-weight: 700;
+    font-weight: 900;
     text-transform: uppercase;
-    letter-spacing: -0.01em;
-    line-height: 0.95;
+    letter-spacing: 0.01em;
+    line-height: 0.92;
   }
 
   /* The accent rule that "breaks out" wider than its container's padding */
@@ -74,11 +65,11 @@
 
   /* Section label — tiny caps above headings */
   .label-caps {
-    font-family: var(--font-body);
-    font-size: 12px;
-    font-weight: 500;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 400;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.12em;
   }
 
   /* CTA link/button style */
@@ -127,170 +118,10 @@
   }
 }
 
-/*
-  Neon glow system.
-  Realistic neon glass tubes glow via several stacked shadows: a crisp
-  near-white core, then wider, softer, more-saturated halos further out.
-  We reuse this recipe for both text-shadow (signage/headings) and
-  box-shadow (glowing panels/buttons), swapping only the hue.
-*/
-@layer utilities {
-  .neon-magenta {
-    color: #ffe3f8;
-    text-shadow:
-      0 0 2px #fff,
-      0 0 6px #fff,
-      0 0 14px var(--color-neon-magenta),
-      0 0 28px var(--color-neon-magenta),
-      0 0 48px var(--color-neon-magenta);
-  }
-  .neon-cyan {
-    color: #e3fbff;
-    text-shadow:
-      0 0 2px #fff,
-      0 0 6px #fff,
-      0 0 14px var(--color-neon-cyan),
-      0 0 28px var(--color-neon-cyan),
-      0 0 48px var(--color-neon-cyan);
-  }
-  .neon-blue {
-    color: #e6edff;
-    text-shadow:
-      0 0 2px #fff,
-      0 0 6px #fff,
-      0 0 14px var(--color-neon-blue),
-      0 0 28px var(--color-neon-blue),
-      0 0 48px var(--color-neon-blue);
-  }
-  .neon-amber {
-    color: #fff3e0;
-    text-shadow:
-      0 0 2px #fff,
-      0 0 6px #fff,
-      0 0 14px var(--color-neon-amber),
-      0 0 28px var(--color-neon-amber),
-      0 0 48px var(--color-neon-amber);
-  }
-  .neon-jade {
-    color: #e3fff4;
-    text-shadow:
-      0 0 2px #fff,
-      0 0 6px #fff,
-      0 0 14px var(--color-neon-jade),
-      0 0 28px var(--color-neon-jade),
-      0 0 48px var(--color-neon-jade);
-  }
-
-  .glow-box-magenta {
-    box-shadow:
-      0 0 8px var(--color-neon-magenta),
-      0 0 24px color-mix(in srgb, var(--color-neon-magenta) 60%, transparent),
-      0 0 60px color-mix(in srgb, var(--color-neon-magenta) 35%, transparent);
-  }
-  .glow-box-cyan {
-    box-shadow:
-      0 0 8px var(--color-neon-cyan),
-      0 0 24px color-mix(in srgb, var(--color-neon-cyan) 60%, transparent),
-      0 0 60px color-mix(in srgb, var(--color-neon-cyan) 35%, transparent);
-  }
-  .glow-box-blue {
-    box-shadow:
-      0 0 8px var(--color-neon-blue),
-      0 0 24px color-mix(in srgb, var(--color-neon-blue) 60%, transparent),
-      0 0 60px color-mix(in srgb, var(--color-neon-blue) 35%, transparent);
-  }
-  .glow-box-amber {
-    box-shadow:
-      0 0 8px var(--color-neon-amber),
-      0 0 24px color-mix(in srgb, var(--color-neon-amber) 60%, transparent),
-      0 0 60px color-mix(in srgb, var(--color-neon-amber) 35%, transparent);
-  }
-  .glow-box-jade {
-    box-shadow:
-      0 0 8px var(--color-neon-jade),
-      0 0 24px color-mix(in srgb, var(--color-neon-jade) 60%, transparent),
-      0 0 60px color-mix(in srgb, var(--color-neon-jade) 35%, transparent);
-  }
-
-  .font-display {
-    font-family: var(--font-display);
-    letter-spacing: 0.04em;
-  }
-
-  /* Wet-street reflection: a flipped, blurred, fading mirror of whatever sits above it. */
-  .street-reflection {
-    transform: scaleY(-1);
-    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.35), transparent 70%);
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.35), transparent 70%);
-    filter: blur(1.5px);
-    opacity: 0.35;
-  }
-}
-
-/* Neon tube ignition: flicker a couple of times, then settle on solid glow. */
-@keyframes neon-ignite {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  4% {
-    opacity: 0.4;
-  }
-  8% {
-    opacity: 1;
-  }
-  12% {
-    opacity: 0.2;
-  }
-  16% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-/* Slow, occasional buzz for the one or two signs that should feel imperfect. */
-@keyframes neon-buzz {
-  0%,
-  89%,
-  100% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 0.6;
-  }
-  91% {
-    opacity: 1;
-  }
-  92% {
-    opacity: 0.5;
-  }
-  93% {
-    opacity: 1;
-  }
-}
-
-@keyframes twinkle {
-  0%,
-  100% {
-    opacity: var(--twinkle-min, 0.3);
-  }
-  50% {
-    opacity: var(--twinkle-max, 1);
-  }
-}
-
-.animate-ignite {
-  animation: neon-ignite 1.6s ease-out both;
-}
-
-.animate-buzz {
-  animation: neon-buzz 6s ease-in-out infinite;
-}
-
-.animate-twinkle {
-  animation: twinkle 3s ease-in-out infinite;
+/* Ken Burns — slow drift/zoom on hero photos */
+@keyframes ken-burns {
+  from { transform: scale(1.0); }
+  to   { transform: scale(1.09); }
 }
 
 /* Respect prefers-reduced-motion: dial every animation and smooth-scroll down to near-nothing. */
