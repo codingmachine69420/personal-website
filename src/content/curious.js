@@ -2,8 +2,8 @@
 export const page = {
   title: 'CURIOUS',
   label: '02 — CURIOUS',
-  photo: 'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=1920&auto=format&q=80',
-  photoAlt: 'Travel — maps, passports, and places explored',
+  photo: 'images/gallery/Landing Page  (6).jpeg',
+  photoAlt: 'Jumping off a sailboat into the Santorini caldera',
   blocks: [
     // TODO: Add your content here
   ],

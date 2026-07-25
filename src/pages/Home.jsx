@@ -2,14 +2,12 @@ import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 
-// ─────────────────────────────────────────────────────────────────
-// ParallaxPhoto — fills its positioned parent completely.
-// The inner image is 124% tall (12% bleed each side). Framer Motion
-// maps scroll progress to a small translateY, creating depth without
-// a manual event listener.  Ken Burns (slow zoom) runs on the img
-// via CSS @keyframes so the two transforms compose cleanly.
-// ─────────────────────────────────────────────────────────────────
-function ParallaxPhoto({ src, alt, loading = 'lazy', strength = 9 }) {
+const BASE = import.meta.env.BASE_URL
+
+// ParallaxPhoto — fills its positioned parent. Inner img is oversized for
+// Framer Motion translateY parallax. Ken Burns runs via CSS on the img.
+// pos controls objectPosition so key subjects align with frame elements.
+function ParallaxPhoto({ src, alt, loading = 'lazy', strength = 9, pos = 'center center' }) {
   const ref = useRef(null)
   const reduced = useReducedMotion()
   const s = reduced ? 0 : strength
@@ -27,6 +25,7 @@ function ParallaxPhoto({ src, alt, loading = 'lazy', strength = 9 }) {
             width: '100%',
             height: '100%',
             objectFit: 'cover',
+            objectPosition: pos,
             display: 'block',
             animation: reduced ? 'none' : 'ken-burns 22s ease-in-out infinite alternate',
           }}
@@ -36,10 +35,7 @@ function ParallaxPhoto({ src, alt, loading = 'lazy', strength = 9 }) {
   )
 }
 
-// Shared easing for all reveals
 const EASE = [0.16, 1, 0.3, 1]
-
-// Reusable reveal variants
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
   show:   { opacity: 1, y: 0,  transition: { duration: 0.75, ease: EASE } },
@@ -53,46 +49,78 @@ const scaleIn = {
   show:   { opacity: 1, scale: 1,  transition: { duration: 0.85, ease: EASE } },
 }
 
-// ─────────────────────────────────────────────────────────────────
-// Photos — swap these for your own once you have them.
-// ─────────────────────────────────────────────────────────────────
 const P = {
-  city:   'https://images.unsplash.com/photo-1517090504586-fde19ea6066f?w=1920&auto=format&q=80',
-  forest: 'https://images.unsplash.com/photo-1448375240586-882707db888b?w=1200&auto=format&q=80',
-  travel: 'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=1920&auto=format&q=80',
-  hk:     'https://images.unsplash.com/photo-1536599018102-9f803c140fc1?w=1920&auto=format&q=80',
-  night:  'https://images.unsplash.com/photo-1519923834699-ef0b7eeef0c1?w=1200&auto=format&q=80',
+  hike:      `${BASE}images/gallery/Landing Page  (1).jpeg`,
+  hkDusk:    `${BASE}images/gallery/Landing Page  (2).jpeg`,
+  toronto:   `${BASE}images/gallery/Landing Page  (3).jpeg`,
+  parthenon: `${BASE}images/gallery/Landing Page  (5).jpeg`,
+  jump:      `${BASE}images/gallery/Landing Page  (6).jpeg`,
+  sunset:    `${BASE}images/gallery/Landing Page  (7).jpeg`,
+  madrid:    `${BASE}images/gallery/Landing Page  (9).jpeg`,
+  hkNight:   `${BASE}images/gallery/Landing Page  (10).jpeg`,
+  palace:    `${BASE}images/gallery/Landing Page (11).jpeg`,
 }
 
-const G = 20 // black gutter between sections (px)
+const G = 20
 
 export function Home() {
   return (
     <div style={{ background: '#000' }}>
 
       {/* ══════════════════════════════════════════════════════
-          SECTION 1 — Two-photo hero  (desktop)
-          Left 46%  city photo,  inset 48px top+bottom
-          Right 55% forest photo, full height
-          14px outline frame straddles the column seam
-          Solid text panel lower-left, 60px offset from edges
+          SECTION 1 — Two-photo hero + "burst through" frame
+          Left 55%: Anson hiking HK. Small frame centered on his
+          figure — arms/body extend past all frame edges (NatGeo
+          illusion: frame is smaller than subject area).
+          Right 45%: Santorini sunset — large frame on right half.
           ══════════════════════════════════════════════════════ */}
       <section
         className="relative hidden md:block"
         style={{ height: '100vh', minHeight: 640, marginBottom: G }}
       >
-        {/* Left photo — inset so black shows above/below (museum wall) */}
-        <div style={{ position: 'absolute', top: 48, bottom: 48, left: 0, width: '46%' }}>
-          <ParallaxPhoto src={P.city} alt="Toronto skyline at dusk" loading="eager" strength={7} />
+        {/* Left: Anson hiking — objectPosition shifts view down so
+            his raised arms appear near the frame's top edge */}
+        <div style={{ position: 'absolute', top: 48, bottom: 48, left: 0, width: '55%' }}>
+          <ParallaxPhoto
+            src={P.hike}
+            alt="Hiking in Hong Kong — arms raised over a green coastal bay"
+            loading="eager"
+            strength={7}
+            pos="center 60%"
+          />
         </div>
 
-        {/* Right photo — full section height for contrast */}
-        <div style={{ position: 'absolute', inset: 0, left: '45%' }}>
-          <ParallaxPhoto src={P.forest} alt="Forest path through tall pines" loading="eager" strength={10} />
+        {/* Right: Santorini orange sunset */}
+        <div style={{ position: 'absolute', inset: 0, left: '54%' }}>
+          <ParallaxPhoto
+            src={P.sunset}
+            alt="Sunset over the Santorini caldera — sailboat silhouetted against an orange sky"
+            loading="eager"
+            strength={10}
+            pos="center center"
+          />
         </div>
 
-        {/* Outline frame — appears to straddle the seam.
-            Fades + scales in on load (section is above fold). */}
+        {/* Small burst-through frame — the frame is smaller than the
+            photo area, so Anson's figure breaks past the top, bottom,
+            and sides. Pure CSS optical illusion — no compositing. */}
+        <motion.div
+          aria-hidden="true"
+          className="pointer-events-none"
+          variants={scaleIn}
+          initial="hidden"
+          animate="show"
+          transition={{ delay: 0.2 }}
+          style={{
+            position: 'absolute',
+            top: '15%', left: '8%',
+            width: '28%', bottom: '32%',
+            border: '10px solid var(--color-accent)',
+            zIndex: 3,
+          }}
+        />
+
+        {/* Large frame on right half (sunset photo) */}
         <motion.div
           aria-hidden="true"
           className="pointer-events-none"
@@ -102,13 +130,13 @@ export function Home() {
           transition={{ delay: 0.35 }}
           style={{
             position: 'absolute',
-            top: '8%', left: '42%', right: '6%', bottom: '8%',
+            top: '8%', left: '52%', right: '4%', bottom: '8%',
             border: '14px solid var(--color-accent)',
             zIndex: 4,
           }}
         />
 
-        {/* Solid text panel — fades up on load */}
+        {/* Text panel — Driven */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
@@ -139,7 +167,7 @@ export function Home() {
 
       {/* Section 1 mobile */}
       <section className="md:hidden relative" style={{ height: '80vh', minHeight: 480, marginBottom: G }}>
-        <ParallaxPhoto src={P.city} alt="Toronto skyline at dusk" loading="eager" strength={6} />
+        <ParallaxPhoto src={P.hike} alt="Hiking in Hong Kong" loading="eager" strength={6} pos="center 60%" />
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, transparent 60%)' }} aria-hidden="true" />
         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '32px 24px 40px', zIndex: 4 }}>
           <div style={{ width: 36, height: 3, background: 'var(--color-accent)', marginBottom: 12 }} />
@@ -149,21 +177,25 @@ export function Home() {
       </section>
 
       {/* ══════════════════════════════════════════════════════
-          SECTION 2 — Reversed  (frame LEFT, two-tone panel RIGHT)
-          Single photo, inset 40px top+bottom.
-          Frame spans full section height — top/bottom bars dissolve
-          into the black space above/below the photo inset.
-          Two-tone panel slides in from the right as section enters view.
+          SECTION 2 — Parthenon background + overlapping jump inset
+          Full-bleed Parthenon. Left portrait frame. Two-tone panel.
+          Jump photo floats top-right as an editorial inset — overlaps
+          the section to break the grid.
           ══════════════════════════════════════════════════════ */}
       <section
         className="relative hidden md:block"
         style={{ height: '88vh', minHeight: 580, marginBottom: G }}
       >
         <div style={{ position: 'absolute', top: 40, bottom: 40, left: 0, right: 0 }}>
-          <ParallaxPhoto src={P.travel} alt="World travel — passport and maps" strength={8} />
+          <ParallaxPhoto
+            src={P.parthenon}
+            alt="Parthenon at the Acropolis, Athens — framed by olive tree branches above"
+            strength={8}
+            pos="center 40%"
+          />
         </div>
 
-        {/* Frame — portrait, full section height, whileInView scales in */}
+        {/* Left portrait frame */}
         <motion.div
           aria-hidden="true"
           className="pointer-events-none"
@@ -180,7 +212,7 @@ export function Home() {
           }}
         />
 
-        {/* Two-tone panel — slides up + fades as section enters */}
+        {/* Two-tone panel — Curious */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
@@ -209,11 +241,36 @@ export function Home() {
             <Link to="/curious" className="cta-link">Explore</Link>
           </div>
         </motion.div>
+
+        {/* Jump inset — overlaps top-right, breaks the layout grid.
+            Outlined in accent, fades/scales in slightly after the panel. */}
+        <motion.div
+          variants={scaleIn}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ delay: 0.38 }}
+          style={{
+            position: 'absolute',
+            top: 40, right: '5%',
+            width: '22%', height: '48%',
+            overflow: 'hidden',
+            zIndex: 9,
+            outline: '3px solid var(--color-accent)',
+          }}
+        >
+          <img
+            src={P.jump}
+            alt="Jumping off a sailboat into the Santorini caldera"
+            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 25%', display: 'block' }}
+            loading="lazy"
+          />
+        </motion.div>
       </section>
 
       {/* Section 2 mobile */}
       <section className="md:hidden relative" style={{ height: '75vh', minHeight: 420, marginBottom: G }}>
-        <ParallaxPhoto src={P.travel} alt="World travel" strength={7} />
+        <ParallaxPhoto src={P.parthenon} alt="Parthenon, Athens" strength={7} pos="center 40%" />
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, transparent 60%)' }} aria-hidden="true" />
         <div style={{ position: 'absolute', top: 0, bottom: 0, left: 20, width: 4, background: 'var(--color-accent)', zIndex: 4 }} aria-hidden="true" />
         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '32px 24px 40px', zIndex: 4 }}>
@@ -223,24 +280,35 @@ export function Home() {
       </section>
 
       {/* ══════════════════════════════════════════════════════
-          SECTION 3 — Split: photo column left (58%) + info card right (42%)
-          Left: two stacked photos. Text panel bridges the seam between them.
-          Right: paper info card — location, tag, 4 tabs, copy, map bar.
+          SECTION 3 — Split: stacked photos left + info card right
+          Top: HK Victoria Harbour at night
+          Bottom: Toronto Island bench, CN Tower
+          Bridging text panel sits exactly on the photo seam.
+          Right: Paper info card — the HK↔Toronto identity.
           ══════════════════════════════════════════════════════ */}
       <section
         className="relative hidden md:flex"
         style={{ minHeight: '85vh', height: '85vh' }}
       >
-        {/* Left: stacked photos */}
         <div style={{ flex: '0 0 58%', position: 'relative' }}>
           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '55%' }}>
-            <ParallaxPhoto src={P.hk} alt="Hong Kong harbour at night" strength={6} />
+            <ParallaxPhoto
+              src={P.hkNight}
+              alt="Hong Kong Victoria Harbour at night — city lights reflected in choppy water"
+              strength={6}
+              pos="center 40%"
+            />
           </div>
           <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '45%' }}>
-            <ParallaxPhoto src={P.night} alt="City lights at night" strength={8} />
+            <ParallaxPhoto
+              src={P.toronto}
+              alt="Looking out at the Toronto skyline from Toronto Island — CN Tower reflected in still water"
+              strength={8}
+              pos="center center"
+            />
           </div>
 
-          {/* Bridging text panel — centred on the seam, overlaps both photos */}
+          {/* Bridging panel — centred on the photo seam */}
           <motion.div
             variants={fadeIn}
             initial="hidden"
@@ -269,7 +337,7 @@ export function Home() {
           </motion.div>
         </div>
 
-        {/* Right: light info card */}
+        {/* Right: paper info card */}
         <motion.div
           variants={{ hidden: { opacity: 0, x: 32 }, show: { opacity: 1, x: 0, transition: { duration: 0.75, ease: EASE } } }}
           initial="hidden"
@@ -317,7 +385,7 @@ export function Home() {
       {/* Section 3 mobile */}
       <section className="md:hidden" style={{ background: 'var(--color-ink)' }}>
         <div style={{ position: 'relative', height: '65vh', overflow: 'hidden' }}>
-          <img src={P.hk} alt="Hong Kong harbour at night" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
+          <img src={P.hkNight} alt="Hong Kong harbour at night" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, transparent 55%)' }} aria-hidden="true" />
           <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '32px 24px 40px' }}>
             <div style={{ width: 36, height: 3, background: 'var(--color-accent)', marginBottom: 12 }} />
@@ -331,6 +399,33 @@ export function Home() {
           </p>
           <Link to="/attitude" className="cta-link">Discover</Link>
         </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════
+          SECTION 4 — Filmstrip: three equal-width photos
+          HK at dusk / Madrid cathedral / Royal Palace ceiling
+          Parallax + fade-in on scroll. Desktop only.
+          ══════════════════════════════════════════════════════ */}
+      <section
+        className="hidden md:flex"
+        style={{ height: '48vh', minHeight: 280, background: '#000', gap: G, marginTop: G }}
+      >
+        {[
+          { src: P.hkDusk,  alt: 'Hong Kong skyline at dusk — hazy golden light over the harbour' },
+          { src: P.madrid,  alt: 'Church in Madrid — warm golden hour light on the dome and bell tower' },
+          { src: P.palace,  alt: 'Royal Palace of Madrid — ornate ceiling fresco and crystal chandelier' },
+        ].map(({ src, alt }) => (
+          <motion.div
+            key={src}
+            style={{ flex: 1, position: 'relative', overflow: 'hidden' }}
+            variants={fadeIn}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            <ParallaxPhoto src={src} alt={alt} strength={5} />
+          </motion.div>
+        ))}
       </section>
 
     </div>

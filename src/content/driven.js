@@ -10,8 +10,8 @@
 export const page = {
   title: 'DRIVEN',
   label: '01 — DRIVEN',
-  photo: 'https://images.unsplash.com/photo-1517090504586-fde19ea6066f?w=1920&auto=format&q=80',
-  photoAlt: 'Toronto skyline at dusk — CN Tower against a darkening sky',
+  photo: 'images/gallery/Landing Page  (4).jpeg',
+  photoAlt: 'Mallard ducks on Toronto Island with the CN Tower in the background',
   blocks: [
     // TODO: Add your content here
   ],

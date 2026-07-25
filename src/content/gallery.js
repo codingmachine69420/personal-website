@@ -50,6 +50,7 @@ export const photosByYear = [
       { src: '/images/gallery/Prague during Christmas.jpeg', alt: 'Prague during Christmas', caption: 'Prague during Christmas', width: 1108, height: 1600 },
       { src: '/images/gallery/Quick Trip to Vancouver (UBC) in the Autumn.jpeg', alt: 'Quick Trip to Vancouver (UBC) in the Autumn', caption: 'Quick Trip to Vancouver (UBC) in the Autumn', width: 1200, height: 1600 },
       { src: '/images/gallery/Beautiful Toronto.jpeg', alt: 'Beautiful Toronto', caption: 'Beautiful Toronto', width: 1200, height: 1600 },
+      { src: '/images/gallery/Landing Page  (4).jpeg', alt: 'Mallard ducks on Toronto Island — CN Tower in the background', caption: 'Toronto Island', width: 3024, height: 4032 },
     ],
   },
   {
@@ -59,6 +60,7 @@ export const photosByYear = [
       { src: '/images/gallery/Parthenon in Athens.jpeg', alt: 'Parthenon in Athens', caption: 'Parthenon in Athens', width: 900, height: 1600 },
       { src: '/images/gallery/Santorini.jpeg', alt: 'Santorini', caption: 'Santorini', width: 1200, height: 1600 },
       { src: '/images/gallery/Spain 2026 Summer.jpeg', alt: 'Spain 2026 Summer', caption: 'Spain 2026 Summer', width: 1200, height: 1600 },
+      { src: '/images/gallery/Landing Page  (8).jpeg', alt: 'Streets of Santorini — golden hour with friends', caption: 'Santorini', width: 3024, height: 4032 },
     ],
   },
 ]

@@ -2,8 +2,8 @@
 export const page = {
   title: 'ATTITUDE',
   label: '03 — ATTITUDE',
-  photo: 'https://images.unsplash.com/photo-1536599018102-9f803c140fc1?w=1920&auto=format&q=80',
-  photoAlt: 'Hong Kong harbour skyline at night, lights reflecting on the water',
+  photo: 'images/gallery/Landing Page (11).jpeg',
+  photoAlt: 'Royal Palace of Madrid — ornate ceiling fresco and crystal chandelier looking up',
   blocks: [
     // TODO: Add your content here
   ],
