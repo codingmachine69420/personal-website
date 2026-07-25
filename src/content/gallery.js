@@ -61,6 +61,9 @@ export const photosByYear = [
       { src: '/images/gallery/Santorini.jpeg', alt: 'Santorini', caption: 'Santorini', width: 1200, height: 1600 },
       { src: '/images/gallery/Spain 2026 Summer.jpeg', alt: 'Spain 2026 Summer', caption: 'Spain 2026 Summer', width: 1200, height: 1600 },
       { src: '/images/gallery/Landing Page  (8).jpeg', alt: 'Streets of Santorini — golden hour with friends', caption: 'Santorini', width: 3024, height: 4032 },
+      { src: '/images/gallery/Landing Page  (2).jpeg', alt: 'Hong Kong skyline at dusk from Victoria Peak', caption: 'Hong Kong', width: 3024, height: 4032 },
+      { src: '/images/gallery/Landing Page  (9).jpeg', alt: 'Church in Madrid — golden hour light on the dome', caption: 'Madrid', width: 3024, height: 4032 },
+      { src: '/images/gallery/Landing Page (11).jpeg', alt: 'Royal Palace of Madrid — ceiling fresco and crystal chandelier', caption: 'Royal Palace, Madrid', width: 3024, height: 4032 },
     ],
   },
 ]

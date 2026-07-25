@@ -51,14 +51,11 @@ const scaleIn = {
 
 const P = {
   hike:      `${BASE}images/gallery/Landing Page  (1).jpeg`,
-  hkDusk:    `${BASE}images/gallery/Landing Page  (2).jpeg`,
   toronto:   `${BASE}images/gallery/Landing Page  (3).jpeg`,
   parthenon: `${BASE}images/gallery/Landing Page  (5).jpeg`,
   jump:      `${BASE}images/gallery/Landing Page  (6).jpeg`,
   sunset:    `${BASE}images/gallery/Landing Page  (7).jpeg`,
-  madrid:    `${BASE}images/gallery/Landing Page  (9).jpeg`,
   hkNight:   `${BASE}images/gallery/Landing Page  (10).jpeg`,
-  palace:    `${BASE}images/gallery/Landing Page (11).jpeg`,
 }
 
 const G = 20
@@ -401,32 +398,6 @@ export function Home() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════
-          SECTION 4 — Filmstrip: three equal-width photos
-          HK at dusk / Madrid cathedral / Royal Palace ceiling
-          Parallax + fade-in on scroll. Desktop only.
-          ══════════════════════════════════════════════════════ */}
-      <section
-        className="hidden md:flex"
-        style={{ height: '48vh', minHeight: 280, background: '#000', gap: G, marginTop: G }}
-      >
-        {[
-          { src: P.hkDusk,  alt: 'Hong Kong skyline at dusk — hazy golden light over the harbour' },
-          { src: P.madrid,  alt: 'Church in Madrid — warm golden hour light on the dome and bell tower' },
-          { src: P.palace,  alt: 'Royal Palace of Madrid — ornate ceiling fresco and crystal chandelier' },
-        ].map(({ src, alt }) => (
-          <motion.div
-            key={src}
-            style={{ flex: 1, position: 'relative', overflow: 'hidden' }}
-            variants={fadeIn}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.3 }}
-          >
-            <ParallaxPhoto src={src} alt={alt} strength={5} />
-          </motion.div>
-        ))}
-      </section>
 
     </div>
   )
