@@ -22,9 +22,9 @@ export function NavBar() {
         <NavLink
           to="/"
           style={{
-            fontFamily: 'var(--font-wordmark)',
+            fontFamily: 'var(--font-meta)',
             fontSize: 17,
-            fontWeight: 400,
+            fontWeight: 500,
             letterSpacing: '0.22em',
             textTransform: 'uppercase',
             color: '#fff',

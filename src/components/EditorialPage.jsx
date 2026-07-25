@@ -5,7 +5,7 @@
 function Block({ block }) {
   if (block.type === 'text') {
     return (
-      <p style={{ color: 'var(--color-body-light)', fontSize: 15, lineHeight: 1.65, marginBottom: 24, maxWidth: '65ch' }}>
+      <p style={{ color: 'var(--color-body-light)', fontSize: '1.125rem', lineHeight: 1.6, marginBottom: 24, maxWidth: '66ch' }}>
         {block.content}
       </p>
     )
@@ -15,7 +15,7 @@ function Block({ block }) {
     return (
       <h2
         className="font-editorial"
-        style={{ fontSize: 'clamp(1.75rem, 3vw, 2.5rem)', color: 'var(--color-ink)', marginBottom: 16, marginTop: 56 }}
+        style={{ fontSize: 'clamp(1.5rem, 3vw, 2.25rem)', color: 'var(--color-ink)', marginBottom: 16, marginTop: 56 }}
       >
         {block.content}
       </h2>
@@ -35,7 +35,7 @@ function Block({ block }) {
         {block.caption && (
           <figcaption
             className="label-caps"
-            style={{ color: 'var(--color-body-light)', marginTop: 12, fontSize: 11 }}
+            style={{ color: 'var(--color-body-light)', marginTop: 12, fontSize: '0.875rem' }}
           >
             {block.caption}
           </figcaption>
@@ -129,7 +129,7 @@ export function EditorialPage({ title, label, photo, photoAlt, blocks = [] }) {
           </p>
           <h1
             className="font-editorial"
-            style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', color: '#fff', margin: 0 }}
+            style={{ fontSize: 'clamp(2.75rem, 6vw, 5rem)', color: '#fff', margin: 0 }}
           >
             {title}
           </h1>

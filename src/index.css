@@ -15,10 +15,9 @@
   --color-body-light: #4A4A4A;   /* body copy on light backgrounds */
   --color-black:      #000;      /* nav background, gutters */
 
-  --font-editorial: "Big Shoulders Display", sans-serif;
-  --font-wordmark:  "Cormorant Garamond", Georgia, serif;
-  --font-mono:      "Space Mono", ui-monospace, monospace;
-  --font-body:      "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display:  "Barlow Condensed", sans-serif;
+  --font-reading:  "Source Serif 4", Georgia, serif;
+  --font-meta:     "Barlow", sans-serif;
 }
 
 @layer base {
@@ -29,7 +28,8 @@
   body {
     @apply text-slate-200 antialiased;
     background: #000;
-    font-family: var(--font-body);
+    font-family: var(--font-reading);
+    font-size: 1rem;
   }
 
   /* Hard corners everywhere — border-radius is off-brand for this design */
@@ -46,11 +46,11 @@
 /* ── Editorial utility classes ── */
 @layer utilities {
   .font-editorial {
-    font-family: var(--font-editorial);
-    font-weight: 900;
+    font-family: var(--font-display);
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.01em;
-    line-height: 0.92;
+    letter-spacing: -0.01em;
+    line-height: 0.95;
   }
 
   /* The accent rule that "breaks out" wider than its container's padding */
@@ -63,20 +63,20 @@
     margin-bottom: 20px;
   }
 
-  /* Section label — tiny caps above headings */
+  /* Section label — metadata tier: Barlow, uppercase, airy tracking */
   .label-caps {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    font-weight: 400;
+    font-family: var(--font-meta);
+    font-size: 0.75rem;
+    font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.15em;
   }
 
-  /* CTA link/button style */
+  /* CTA link/button — metadata tier, heavier weight */
   .cta-link {
-    font-family: var(--font-body);
-    font-size: 11px;
-    font-weight: 500;
+    font-family: var(--font-meta);
+    font-size: 0.75rem;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.14em;
     padding: 12px 22px;

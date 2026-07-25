@@ -150,11 +150,11 @@ export function Home() {
         >
           <div style={{ width: 44, height: 4, background: 'var(--color-accent)', marginBottom: 16 }} aria-hidden="true" />
           <p className="label-caps" style={{ color: 'var(--color-body-dark)', marginBottom: 10 }}>01 — Driven</p>
-          <h1 className="font-editorial" style={{ fontSize: 'clamp(2.25rem, 3.5vw, 3.5rem)', color: '#fff', marginBottom: 14, fontWeight: 900 }}>
+          <h1 className="font-editorial" style={{ fontSize: 'clamp(2.75rem, 6vw, 5rem)', color: '#fff', marginBottom: 14, fontWeight: 700 }}>
             {/* TODO: your headline */}
             Built to Win.
           </h1>
-          <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: 14, lineHeight: 1.8, maxWidth: '32ch', marginBottom: 24 }}>
+          <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: '1.0625rem', lineHeight: 1.55, maxWidth: '38ch', marginBottom: 24 }}>
             {/* TODO: 1–2 sentences */}
             Finance and markets by conviction. Two cities, one direction — always forward.
           </p>
@@ -168,7 +168,7 @@ export function Home() {
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, transparent 60%)' }} aria-hidden="true" />
         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '32px 24px 40px', zIndex: 4 }}>
           <div style={{ width: 36, height: 3, background: 'var(--color-accent)', marginBottom: 12 }} />
-          <h1 className="font-editorial" style={{ fontSize: '2.75rem', color: '#fff', marginBottom: 16, fontWeight: 900 }}>Built to Win.</h1>
+          <h1 className="font-editorial" style={{ fontSize: '2.75rem', color: '#fff', marginBottom: 16, fontWeight: 700 }}>Built to Win.</h1>
           <Link to="/driven" className="cta-link">Read More</Link>
         </div>
       </section>
@@ -225,13 +225,13 @@ export function Home() {
         >
           <div style={{ background: 'rgba(10,10,10,0.93)', padding: '24px 28px 18px' }}>
             <p className="label-caps" style={{ color: 'var(--color-accent)', marginBottom: 10 }}>02 — Curious</p>
-            <h2 className="font-editorial" style={{ fontSize: 'clamp(1.75rem, 3vw, 2.75rem)', color: '#fff', fontWeight: 900 }}>
+            <h2 className="font-editorial" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.25rem)', color: '#fff', fontWeight: 700 }}>
               {/* TODO: your headline */}
               Always Somewhere New.
             </h2>
           </div>
           <div style={{ background: 'rgba(32,32,32,0.9)', padding: '18px 28px 24px' }}>
-            <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: 13, lineHeight: 1.8, maxWidth: '28ch', marginBottom: 20 }}>
+            <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1.0625rem', lineHeight: 1.55, maxWidth: '38ch', marginBottom: 20 }}>
               {/* TODO: 1–2 sentences */}
               From Athens to Seoul — curiosity as a way of living, not just a personality trait.
             </p>
@@ -271,7 +271,7 @@ export function Home() {
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, transparent 60%)' }} aria-hidden="true" />
         <div style={{ position: 'absolute', top: 0, bottom: 0, left: 20, width: 4, background: 'var(--color-accent)', zIndex: 4 }} aria-hidden="true" />
         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '32px 24px 40px', zIndex: 4 }}>
-          <h2 className="font-editorial" style={{ fontSize: '2.75rem', color: '#fff', marginBottom: 16, fontWeight: 900 }}>Always Somewhere New.</h2>
+          <h2 className="font-editorial" style={{ fontSize: '2rem', color: '#fff', marginBottom: 16, fontWeight: 700 }}>Always Somewhere New.</h2>
           <Link to="/curious" className="cta-link">Explore</Link>
         </div>
       </section>
@@ -323,11 +323,11 @@ export function Home() {
           >
             <div style={{ width: 36, height: 3, background: 'var(--color-accent)', marginBottom: 14 }} aria-hidden="true" />
             <p className="label-caps" style={{ color: 'var(--color-accent)', marginBottom: 8 }}>03 — Attitude</p>
-            <h2 className="font-editorial" style={{ fontSize: 'clamp(1.6rem, 2.2vw, 2.25rem)', color: '#fff', marginBottom: 12, fontWeight: 900 }}>
+            <h2 className="font-editorial" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.25rem)', color: '#fff', marginBottom: 12, fontWeight: 700 }}>
               {/* TODO: your headline */}
               Perspective Is Everything.
             </h2>
-            <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: 13, lineHeight: 1.75, maxWidth: '28ch', marginBottom: 18 }}>
+            <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: '1.0625rem', lineHeight: 1.55, maxWidth: '38ch', marginBottom: 18 }}>
               How you see the room matters more than the room itself.
             </p>
             <Link to="/attitude" className="cta-link">Discover</Link>
@@ -350,29 +350,29 @@ export function Home() {
           }}
         >
           <p className="label-caps" style={{ color: 'var(--color-body-light)', marginBottom: 10 }}>Where I'm From</p>
-          <h2 className="font-editorial" style={{ fontSize: 'clamp(2rem, 3.2vw, 3.2rem)', color: 'var(--color-ink)', marginBottom: 10, fontWeight: 900 }}>
+          <h2 className="font-editorial" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.25rem)', color: 'var(--color-ink)', marginBottom: 10, fontWeight: 700 }}>
             HK · Toronto
           </h2>
           <div style={{ alignSelf: 'flex-start', background: 'var(--color-accent)', padding: '4px 12px', marginBottom: 24 }}>
-            <span className="label-caps" style={{ fontSize: 10, color: '#000' }}>Finance + Markets</span>
+            <span className="label-caps" style={{ fontSize: '0.75rem', color: '#000' }}>Finance + Markets</span>
           </div>
 
           <div style={{ display: 'flex', borderTop: '1px solid rgba(28,28,28,0.15)', borderBottom: '1px solid rgba(28,28,28,0.15)', marginBottom: 28 }}>
             {['Finance', 'Travel', 'Markets', 'Photos'].map((tab, i) => (
               <div key={tab} style={{ flex: 1, padding: '12px 0', textAlign: 'center', borderLeft: i > 0 ? '1px solid rgba(28,28,28,0.15)' : 'none' }}>
-                <span className="label-caps" style={{ fontSize: 10, color: 'var(--color-body-light)' }}>{tab}</span>
+                <span className="label-caps" style={{ fontSize: '0.75rem', color: 'var(--color-body-light)' }}>{tab}</span>
               </div>
             ))}
           </div>
 
           <p className="label-caps" style={{ color: 'var(--color-ink)', marginBottom: 8, fontSize: 10 }}>Background</p>
-          <p style={{ color: 'var(--color-body-light)', fontSize: 14, lineHeight: 1.8, marginBottom: 28 }}>
+          <p style={{ color: 'var(--color-body-light)', fontSize: '1.0625rem', lineHeight: 1.6, marginBottom: 28 }}>
             {/* TODO: your background copy */}
             UofT Finance. Raised in Hong Kong, building in Toronto. Two cities, one perspective on how capital moves through the world.
           </p>
 
           <div style={{ flex: 1, background: 'var(--color-ink)', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 120 }}>
-            <span className="label-caps" style={{ color: 'var(--color-body-dark)', fontSize: 10, letterSpacing: '0.2em' }}>
+            <span className="label-caps" style={{ color: 'var(--color-body-dark)', fontSize: '0.75rem', letterSpacing: '0.2em' }}>
               HK ←——————————→ YYZ
             </span>
           </div>
@@ -386,12 +386,12 @@ export function Home() {
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, transparent 55%)' }} aria-hidden="true" />
           <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '32px 24px 40px' }}>
             <div style={{ width: 36, height: 3, background: 'var(--color-accent)', marginBottom: 12 }} />
-            <h2 className="font-editorial" style={{ fontSize: '2.75rem', color: '#fff', marginBottom: 16, fontWeight: 900 }}>Perspective Is Everything.</h2>
+            <h2 className="font-editorial" style={{ fontSize: '2rem', color: '#fff', marginBottom: 16, fontWeight: 700 }}>Perspective Is Everything.</h2>
             <Link to="/attitude" className="cta-link">Discover</Link>
           </div>
         </div>
         <div style={{ padding: '36px 24px 48px' }}>
-          <p style={{ color: 'var(--color-body-dark)', fontSize: 14, lineHeight: 1.8, marginBottom: 28 }}>
+          <p style={{ color: 'var(--color-body-dark)', fontSize: '1.0625rem', lineHeight: 1.6, marginBottom: 28 }}>
             UofT Finance. Raised in Hong Kong, building in Toronto.
           </p>
           <Link to="/attitude" className="cta-link">Discover</Link>
