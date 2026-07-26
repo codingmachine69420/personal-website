@@ -50,7 +50,7 @@ export const photosByYear = [
       { src: '/images/gallery/Prague during Christmas.jpeg', alt: 'Prague during Christmas', caption: 'Prague during Christmas', width: 1108, height: 1600 },
       { src: '/images/gallery/Quick Trip to Vancouver (UBC) in the Autumn.jpeg', alt: 'Quick Trip to Vancouver (UBC) in the Autumn', caption: 'Quick Trip to Vancouver (UBC) in the Autumn', width: 1200, height: 1600 },
       { src: '/images/gallery/Beautiful Toronto.jpeg', alt: 'Beautiful Toronto', caption: 'Beautiful Toronto', width: 1200, height: 1600 },
-      { src: '/images/gallery/Landing Page  (4).jpeg', alt: 'Mallard ducks on Toronto Island — CN Tower in the background', caption: 'Toronto Island', width: 3024, height: 4032 },
+      { src: '/images/gallery/toronto-island-ducks.jpeg', alt: 'Mallard ducks on Toronto Island — CN Tower in the background', caption: 'Toronto Island', width: 1500, height: 2000 },
     ],
   },
   {
@@ -60,10 +60,10 @@ export const photosByYear = [
       { src: '/images/gallery/Parthenon in Athens.jpeg', alt: 'Parthenon in Athens', caption: 'Parthenon in Athens', width: 900, height: 1600 },
       { src: '/images/gallery/Santorini.jpeg', alt: 'Santorini', caption: 'Santorini', width: 1200, height: 1600 },
       { src: '/images/gallery/Spain 2026 Summer.jpeg', alt: 'Spain 2026 Summer', caption: 'Spain 2026 Summer', width: 1200, height: 1600 },
-      { src: '/images/gallery/Landing Page  (8).jpeg', alt: 'Streets of Santorini — golden hour with friends', caption: 'Santorini', width: 3024, height: 4032 },
-      { src: '/images/gallery/Landing Page  (2).jpeg', alt: 'Hong Kong skyline at dusk from Victoria Peak', caption: 'Hong Kong', width: 3024, height: 4032 },
-      { src: '/images/gallery/Landing Page  (9).jpeg', alt: 'Church in Madrid — golden hour light on the dome', caption: 'Madrid', width: 3024, height: 4032 },
-      { src: '/images/gallery/Landing Page (11).jpeg', alt: 'Royal Palace of Madrid — ceiling fresco and crystal chandelier', caption: 'Royal Palace, Madrid', width: 3024, height: 4032 },
+      { src: '/images/gallery/santorini-streets.jpeg', alt: 'Streets of Santorini — golden hour with friends', caption: 'Santorini', width: 1500, height: 2000 },
+      { src: '/images/gallery/hong-kong-skyline.jpeg', alt: 'Hong Kong skyline at dusk from Victoria Peak', caption: 'Hong Kong', width: 1500, height: 2000 },
+      { src: '/images/gallery/madrid-church.jpeg', alt: 'Church in Madrid — golden hour light on the dome', caption: 'Madrid', width: 1500, height: 2000 },
+      { src: '/images/gallery/madrid-royal-palace.jpeg', alt: 'Royal Palace of Madrid — ceiling fresco and crystal chandelier', caption: 'Royal Palace, Madrid', width: 1500, height: 2000 },
     ],
   },
 ]

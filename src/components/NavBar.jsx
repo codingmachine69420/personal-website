@@ -18,7 +18,7 @@ export function NavBar() {
         aria-label="Primary"
         className="mx-auto flex w-full max-w-7xl items-center justify-between px-6"
       >
-        {/* Wordmark — Cormorant Garamond, masthead style */}
+        {/* Wordmark — Barlow, masthead style */}
         <NavLink
           to="/"
           style={{

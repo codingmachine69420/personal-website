@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import { MotionConfig } from 'framer-motion'
 import { Layout } from './components/Layout'
 import { Home } from './pages/Home'
@@ -19,12 +19,13 @@ function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path="work" element={<Work />} />
-        <Route path="writing" element={<Writing />} />
+        {/* Old routes redirect to their new homes */}
+        <Route path="work" element={<Navigate to="/driven" replace />} />
+        <Route path="writing" element={<Navigate to="/curious" replace />} />
         <Route path="writing/:slug" element={<WritingPost />} />
-        <Route path="projects" element={<Projects />} />
+        <Route path="projects" element={<Navigate to="/attitude" replace />} />
         <Route path="gallery" element={<Gallery />} />
-        <Route path="interests" element={<Interests />} />
+        <Route path="interests" element={<Navigate to="/driven" replace />} />
         <Route path="driven" element={<Driven />} />
         <Route path="curious" element={<Curious />} />
         <Route path="attitude" element={<Attitude />} />

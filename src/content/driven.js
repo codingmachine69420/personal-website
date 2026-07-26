@@ -10,9 +10,14 @@
 export const page = {
   title: 'DRIVEN',
   label: '01 — DRIVEN',
-  photo: 'images/gallery/Landing Page  (4).jpeg',
-  photoAlt: 'Mallard ducks on Toronto Island with the CN Tower in the background',
+  photos: [
+    { src: 'images/gallery/hiking-hong-kong.jpeg',     alt: 'Hiking in Hong Kong — arms raised over a green coastal bay' },
+    { src: 'images/gallery/Graduation!.jpeg',           alt: 'Graduation day' },
+    { src: 'images/gallery/toronto-island-ducks.jpeg', alt: 'Mallard ducks on Toronto Island — CN Tower in the background' },
+  ],
   blocks: [
-    // TODO: Add your content here
+    { type: 'heading', content: 'What drives me in life?' },
+    { type: 'text', content: 'The will to improve. We all start life as a blank page.' },
+    { type: 'text', content: 'I have no regrets in life, because I am driven to use each failure and mold it into something greater.' },
   ],
 }

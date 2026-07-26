@@ -1,6 +1,13 @@
 // Shared template for the Driven, Curious, and Attitude pages.
 // Each page passes its own `page` data object from src/content/<page>.js.
 // Add content by editing those data files — no need to touch this component.
+//
+// photos: array of {src, alt} with at least 3 items.
+//   - Desktop: large left (3fr) + two stacked right (2fr) mosaic grid.
+//   - Mobile: first photo only, full-bleed.
+
+const resolveUrl = (src) =>
+  src.startsWith('http') ? src : `${import.meta.env.BASE_URL}${src.replace(/^\//, '')}`
 
 function Block({ block }) {
   if (block.type === 'text') {
@@ -26,7 +33,7 @@ function Block({ block }) {
     return (
       <figure style={{ marginBottom: 48, marginTop: 8 }}>
         <img
-          src={block.src.startsWith('http') ? block.src : `${import.meta.env.BASE_URL}${block.src.replace(/^\//, '')}`}
+          src={resolveUrl(block.src)}
           alt={block.alt}
           className="w-full object-cover"
           style={{ maxHeight: 560, display: 'block' }}
@@ -78,7 +85,9 @@ function Block({ block }) {
   return null
 }
 
-export function EditorialPage({ title, label, photo, photoAlt, blocks = [] }) {
+export function EditorialPage({ title, label, photos, blocks = [] }) {
+  const [p0, p1, p2] = photos
+
   return (
     <div>
       {/* ── Full-bleed photo header ── */}
@@ -86,20 +95,44 @@ export function EditorialPage({ title, label, photo, photoAlt, blocks = [] }) {
         className="relative overflow-hidden"
         style={{ minHeight: '70vh', background: 'var(--color-ink)' }}
       >
+        {/* Desktop: 3-photo mosaic — large left + two stacked right */}
+        <div
+          className="hidden md:grid absolute inset-0"
+          style={{ gridTemplateColumns: '3fr 2fr', gridTemplateRows: '1fr 1fr', gap: 2 }}
+        >
+          {/* Left: spans full height */}
+          <div style={{ gridRow: '1 / 3', overflow: 'hidden', position: 'relative' }}>
+            <img src={resolveUrl(p0.src)} alt={p0.alt}
+              className="absolute inset-0 w-full h-full object-cover" loading="eager" />
+          </div>
+          {/* Top right */}
+          <div style={{ overflow: 'hidden', position: 'relative' }}>
+            <img src={resolveUrl(p1.src)} alt={p1.alt}
+              className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+          </div>
+          {/* Bottom right */}
+          <div style={{ overflow: 'hidden', position: 'relative' }}>
+            <img src={resolveUrl(p2.src)} alt={p2.alt}
+              className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+          </div>
+        </div>
+
+        {/* Mobile: first photo only */}
         <img
-          src={photo.startsWith('http') ? photo : `${import.meta.env.BASE_URL}${photo.replace(/^\//, '')}`}
-          alt={photoAlt}
-          className="absolute inset-0 h-full w-full object-cover"
+          src={resolveUrl(p0.src)}
+          alt={p0.alt}
+          className="md:hidden absolute inset-0 h-full w-full object-cover"
           loading="eager"
         />
+
         {/* Scrim */}
         <div
           className="absolute inset-0"
-          style={{ background: 'rgba(0,0,0,0.55)' }}
+          style={{ background: 'rgba(0,0,0,0.50)' }}
           aria-hidden="true"
         />
 
-        {/* Accent frame — top-right, on top, desktop only */}
+        {/* Accent frame — top-right, desktop only */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute hidden md:block"
@@ -113,7 +146,7 @@ export function EditorialPage({ title, label, photo, photoAlt, blocks = [] }) {
           }}
         />
 
-        {/* Title panel — anchored to bottom-left, breaks out of the photo edge */}
+        {/* Title panel — anchored bottom-left */}
         <div
           className="absolute bottom-0 left-0"
           style={{
@@ -146,7 +179,6 @@ export function EditorialPage({ title, label, photo, photoAlt, blocks = [] }) {
           }}
         >
           {blocks.length === 0 ? (
-            // Empty state — shown until the user adds content to the data file
             <div style={{ padding: '40px 0' }}>
               <p className="label-caps" style={{ color: 'var(--color-accent)', marginBottom: 16 }}>
                 This page is empty

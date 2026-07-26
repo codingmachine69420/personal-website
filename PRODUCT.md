@@ -21,7 +21,7 @@ The differentiator is breadth and personhood, not a narrower professional claim:
 ## Operating Context
 
 - Multi-page React site (React Router) with sections: Home, Work, Writing (+ post pages), Projects, Gallery, Interests (with Driven/Curious/Attitude sub-pages).
-- Visual identity is a NatGeo-editorial magazine aesthetic: museum-wall photo layouts with black gutters, ochre accent frames (`--color-accent: #D9A21B`), Big Shoulders Display headlines, Cormorant Garamond wordmark, Space Mono labels, DM Sans body copy, Framer Motion parallax/Ken Burns on hero photos, and scroll-triggered reveals — already implemented in tokens, nav, landing sections, and a gallery masonry layout. This is incumbent visual authority, not something init overrides.
+- Visual identity is a NatGeo-editorial magazine aesthetic: museum-wall photo layouts with black gutters, ochre accent frames (`--color-accent: #D9A21B`), a three-tier type system (Barlow Condensed display headlines, Source Serif 4 body copy, Barlow metadata/labels), Framer Motion parallax/Ken Burns on hero photos, and scroll-triggered reveals — already implemented in tokens, nav, landing sections, and a gallery masonry layout. This is incumbent visual authority, not something init overrides.
 - Gallery is organized by year (2019–2026) with real personal travel/life photos already populated.
 - Resume is linked as a static PDF (`/resume.pdf`).
 
@@ -30,8 +30,8 @@ The differentiator is breadth and personhood, not a narrower professional claim:
 - Work & Experience content (roles, education, leadership, competitions) is real and populated from his actual resume.
 - Projects page is currently placeholder TODOs (no real project descriptions, stack, links, or images yet) — **future work must not invent projects**; leave placeholders or ask for real content rather than fabricating.
 - Writing section has no posts yet (`posts = []`) — an empty state, not missing evidence to fabricate.
-- Interests directory (Driven/Curious/Attitude) has empty blurbs and empty content blocks on all three sub-pages — **future work must not invent personal narrative, achievements, or anecdotes for these**; they are open until Anson supplies real text.
-- Interest page hero photos are currently Unsplash stock placeholders, not his own images.
+- Driven/Curious/Attitude sub-pages have real personal hero photos (his own hiking, travel, and city shots) but their body content blocks are still empty — **future work must not invent personal narrative, achievements, or anecdotes for these**; they are open until Anson supplies real text.
+- Home's hero section headlines/body copy are honest placeholders ("Your Headline Here" etc.), not real copy — same rule applies: do not fabricate confident-sounding first-person text to fill them.
 
 ## Brand Commitments
 
@@ -42,14 +42,14 @@ The differentiator is breadth and personhood, not a narrower professional claim:
 
 ## Evidence on Hand
 
-- Real, populated: work experience, education, leadership roles, competition results (`src/content/work.js`); gallery photos by year 2019–2026 (`src/content/gallery.js`).
-- Not yet populated (do not fabricate): Projects (`src/content/projects.js` — all TODO), Writing posts (`src/content/writing.js` — empty), Interests blurbs (`src/content/interests.js`), and Driven/Curious/Attitude page content blocks (`src/content/driven.js`, `curious.js`, `attitude.js` — all empty).
+- Real, populated: work experience, education, leadership roles, competition results (`src/content/work.js`); gallery photos by year 2019–2026 including his own travel/life photos (`src/content/gallery.js`); real personal hero photos on Home and the Driven/Curious/Attitude sub-pages.
+- Not yet populated (do not fabricate): Projects (`src/content/projects.js` — all TODO), Writing posts (`src/content/writing.js` — empty), Driven/Curious/Attitude page content blocks (`src/content/driven.js`, `curious.js`, `attitude.js` — all empty), and all of Home's hero headline/body copy (`src/pages/Home.jsx` — honest placeholders only).
 
 ## Product Principles
 
 1. Show the whole person — professional rigor and personal life belong on equal footing, not siloed into a narrow pitch.
 2. Never fabricate evidence — empty projects, writing, and interest content stay visibly open until Anson supplies the real thing.
-3. Preserve the existing NatGeo-editorial visual identity (museum-wall layouts, ochre frames, Big Shoulders Display/Cormorant Garamond/Space Mono typography, Framer Motion parallax) as incumbent authority; treat it as evidence, not something to casually override.
+3. Preserve the existing NatGeo-editorial visual identity (museum-wall layouts, ochre frames, Barlow Condensed/Source Serif 4/Barlow typography, Framer Motion parallax) as incumbent authority; treat it as evidence, not something to casually override.
 4. Toronto and Hong Kong are both real, load-bearing parts of his identity, not decorative flavor.
 
 ## Accessibility & Inclusion

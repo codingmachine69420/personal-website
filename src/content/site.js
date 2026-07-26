@@ -11,47 +11,39 @@ export const site = {
   ],
 }
 
-// The building-directory nav board on the landing page, and the top nav bar.
-// `color` must be one of: magenta | cyan | blue | amber | jade (see index.css).
+// Primary nav — three identity pages that absorb all content sections.
+// Driven = Work & Experience. Curious = Writing + Gallery. Attitude = Projects.
 export const directory = [
   {
-    id: 'work',
-    label: 'Work & Experience',
-    href: '/work',
+    id: 'driven',
+    label: 'Driven',
+    href: '/driven',
     color: 'magenta',
     floor: '01',
-    description: 'Finance & co-op background, resume.',
+    description: 'What pushes me forward — work, experience, and record.',
   },
   {
-    id: 'writing',
-    label: 'Writing & Ideas',
-    href: '/writing',
+    id: 'curious',
+    label: 'Curious',
+    href: '/curious',
     color: 'cyan',
     floor: '02',
-    description: 'Market writeups, notes, and thoughts.',
+    description: 'What I explore — thoughts and ideas.',
   },
   {
-    id: 'projects',
-    label: 'Projects',
-    href: '/projects',
-    color: 'blue',
+    id: 'attitude',
+    label: 'Attitude',
+    href: '/attitude',
+    color: 'amber',
     floor: '03',
-    description: 'Trading dashboards, bots, and tools.',
+    description: 'How I carry myself — philosophy and projects.',
   },
   {
     id: 'gallery',
-    label: 'Gallery',
+    label: 'Photo Gallery',
     href: '/gallery',
-    color: 'amber',
-    floor: '04',
-    description: 'Photos from travel and elsewhere.',
-  },
-  {
-    id: 'interests',
-    label: 'Interests',
-    href: '/interests',
     color: 'jade',
-    floor: '05',
-    description: 'Golf, PC gaming, film, markets.',
+    floor: '04',
+    description: 'Photos from travel and life.',
   },
 ]
