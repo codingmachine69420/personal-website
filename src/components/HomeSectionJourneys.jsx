@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -48,14 +47,40 @@ const JOURNEYS = [
   },
 ]
 
+const CARD_W = 320  // px — photo card width
+const GAP    = 20   // px — gap between cards
+
+function ArrowButton({ dir, disabled, onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      aria-label={dir === -1 ? 'Previous' : 'Next'}
+      style={{
+        width: 44, height: 44,
+        border: '1px solid var(--color-accent)',
+        background: 'none',
+        color: disabled ? 'rgba(217,162,27,0.3)' : 'var(--color-accent)',
+        cursor: disabled ? 'default' : 'pointer',
+        fontSize: '1.25rem',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        transition: 'background 0.2s, color 0.2s',
+        flexShrink: 0,
+      }}
+      onMouseEnter={e => { if (!disabled) e.currentTarget.style.background = 'var(--color-accent)'; if (!disabled) e.currentTarget.style.color = '#000' }}
+      onMouseLeave={e => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = disabled ? 'rgba(217,162,27,0.3)' : 'var(--color-accent)' }}
+    >
+      {dir === -1 ? '←' : '→'}
+    </button>
+  )
+}
+
 function Lightbox({ photo, onClose }) {
-  // Prevent body scroll while open
   useEffect(() => {
     document.body.style.overflow = 'hidden'
     return () => { document.body.style.overflow = '' }
   }, [])
 
-  // Close on Escape
   useEffect(() => {
     const h = (e) => { if (e.key === 'Escape') onClose() }
     window.addEventListener('keydown', h)
@@ -80,13 +105,11 @@ function Lightbox({ photo, onClose }) {
         onClick={e => e.stopPropagation()}
         style={{ maxWidth: 860, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
       >
-        {/* Close */}
         <button
           onClick={onClose}
           aria-label="Close"
           style={{
-            alignSelf: 'flex-end',
-            background: 'none', border: 'none',
+            alignSelf: 'flex-end', background: 'none', border: 'none',
             color: 'rgba(255,255,255,0.6)', cursor: 'pointer',
             fontSize: '1.25rem', lineHeight: 1, padding: 8, marginBottom: 12,
           }}
@@ -95,15 +118,11 @@ function Lightbox({ photo, onClose }) {
         >
           ✕
         </button>
-
-        {/* Photo */}
         <img
           src={`${BASE}images/gallery/${photo.src}`}
           alt={photo.alt}
           style={{ maxHeight: '65vh', maxWidth: '100%', objectFit: 'contain', display: 'block' }}
         />
-
-        {/* Caption */}
         <p style={{
           color: 'rgba(255,255,255,0.8)',
           fontSize: '1.0625rem', lineHeight: 1.65,
@@ -113,8 +132,6 @@ function Lightbox({ photo, onClose }) {
         }}>
           {photo.caption}
         </p>
-
-        {/* Link to gallery */}
         <Link to="/gallery" className="cta-link" style={{ textDecoration: 'none' }}>
           View Photo Gallery
         </Link>
@@ -124,44 +141,67 @@ function Lightbox({ photo, onClose }) {
 }
 
 export function HomeSectionJourneys() {
-  const [active, setActive] = useState(null)
+  const [active, setActive]       = useState(null)
+  const [atStart, setAtStart]     = useState(true)
+  const [atEnd, setAtEnd]         = useState(false)
+  const scrollRef                 = useRef(null)
+
+  const syncArrows = useCallback(() => {
+    const el = scrollRef.current
+    if (!el) return
+    setAtStart(el.scrollLeft <= 0)
+    setAtEnd(el.scrollLeft >= el.scrollWidth - el.clientWidth - 1)
+  }, [])
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    el.addEventListener('scroll', syncArrows, { passive: true })
+    syncArrows()
+    return () => el.removeEventListener('scroll', syncArrows)
+  }, [syncArrows])
+
+  const scroll = (dir) => {
+    scrollRef.current?.scrollBy({ left: dir * (CARD_W + GAP), behavior: 'smooth' })
+  }
 
   return (
     <>
-      <section style={{ background: '#000', padding: 'clamp(56px, 7vw, 96px) clamp(20px, 5vw, 48px) 80px' }}>
+      <section style={{ background: 'var(--color-ink)', padding: 'clamp(48px, 6vw, 80px) clamp(20px, 5vw, 48px) 72px' }}>
 
-        {/* Section header */}
-        <div style={{ marginBottom: 44 }}>
-          <div style={{ width: 44, height: 4, background: 'var(--color-accent)', marginBottom: 16 }} aria-hidden="true" />
-          <p className="label-caps" style={{ color: 'var(--color-body-dark)' }}>More From Journeys</p>
+        {/* Header row: label left, arrows right */}
+        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 36 }}>
+          <div>
+            <div style={{ width: 44, height: 4, background: 'var(--color-accent)', marginBottom: 14 }} aria-hidden="true" />
+            <p className="label-caps" style={{ color: 'var(--color-body-dark)' }}>More From Journeys</p>
+          </div>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <ArrowButton dir={-1} disabled={atStart} onClick={() => scroll(-1)} />
+            <ArrowButton dir={1}  disabled={atEnd}   onClick={() => scroll(1)} />
+          </div>
         </div>
 
-        {/* Photo grid — captions always visible */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
-          columnGap: 4,
-          rowGap: 36,
-        }}>
-          {JOURNEYS.map((photo, i) => (
-            <motion.div
+        {/* Horizontal carousel — scrollbar hidden, arrows drive navigation */}
+        <div
+          ref={scrollRef}
+          className="no-scrollbar"
+          style={{ overflowX: 'auto', display: 'flex', gap: GAP }}
+        >
+          {JOURNEYS.map((photo) => (
+            <div
               key={photo.src}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.1 }}
-              transition={{ duration: 0.55, delay: (i % 4) * 0.07 }}
+              style={{ flexShrink: 0, width: CARD_W, cursor: 'pointer' }}
               onClick={() => setActive(photo)}
-              style={{ cursor: 'pointer' }}
             >
               {/* Photo */}
-              <div style={{ position: 'relative', height: 300, overflow: 'hidden' }}>
+              <div style={{ height: 280, overflow: 'hidden' }}>
                 <img
                   src={`${BASE}images/gallery/${photo.src}`}
                   alt={photo.alt}
                   style={{
                     width: '100%', height: '100%',
                     objectFit: 'cover', display: 'block',
-                    transition: 'transform 0.45s ease',
+                    transition: 'transform 0.4s ease',
                   }}
                   loading="lazy"
                   onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.04)'}
@@ -173,12 +213,12 @@ export function HomeSectionJourneys() {
               <p style={{
                 color: 'rgba(255,255,255,0.65)',
                 fontSize: '0.9375rem', lineHeight: 1.6,
-                marginTop: 12,
+                marginTop: 14,
                 fontFamily: 'var(--font-reading)',
               }}>
                 {photo.caption}
               </p>
-            </motion.div>
+            </div>
           ))}
         </div>
       </section>

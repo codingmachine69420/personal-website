@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { HomeSectionDriven } from '../components/HomeSectionDriven'
 import { HomeSectionCurious } from '../components/HomeSectionCurious'
 import { HomeSectionAttitude } from '../components/HomeSectionAttitude'
-import { HomeSectionJourneys } from '../components/HomeSectionJourneys'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -39,7 +38,6 @@ export function Home() {
       <HomeSectionDriven P={P} isDesktop={isDesktop} G={G} />
       <HomeSectionCurious P={P} isDesktop={isDesktop} G={G} />
       <HomeSectionAttitude P={P} />
-      <HomeSectionJourneys />
     </div>
   )
 }

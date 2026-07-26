@@ -106,6 +106,15 @@
     }
   }
 
+  /* Hide scrollbars on the Journeys carousel strip (arrows control it) */
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
   /* Active nav link: 2px accent underline sitting 8px below the text */
   .nav-active::after {
     content: '';
