@@ -6,6 +6,7 @@ export const projects = [
     description:
       'A sentiment-driven trading intelligence dashboard built for mobile. Instead of charts and indicators, it tracks the signals that actually move stocks first — breaking news, government announcements, earnings calls, and SEC filings — scoring them in real time using AI. Covers 14+ semiconductor and AI stocks across the full supply chain (GPU, CPU, memory, equipment, energy/nuclear), with each stock getting a live sentiment score from 0–100. High-strength signals surface as ranked cards telling you exactly what moved, why it matters, and which stock it hits.',
     stack: ['React Native', 'AI', 'SEC EDGAR', 'Reuters', 'Reddit', 'Congress'],
+    layout: 'side',
     images: [
       '/images/projects/Sentiment Dashboard  (1).png',
       '/images/projects/Sentiment Dashboard  (2).png',
