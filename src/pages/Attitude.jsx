@@ -10,7 +10,10 @@ export function Attitude() {
       {/* ── Projects ── */}
       <div style={{ background: 'var(--color-paper)', borderTop: '3px solid var(--color-accent)' }}>
         <div style={{ maxWidth: 960, margin: '0 auto', padding: 'clamp(48px, 6vw, 80px) clamp(20px, 5vw, 48px) 96px' }}>
-          <p className="label-caps" style={{ color: 'var(--color-accent)', marginBottom: 32 }}>Projects</p>
+          <p className="label-caps" style={{ color: 'var(--color-accent)', marginBottom: 20 }}>Projects</p>
+          <p style={{ color: 'var(--color-body-light)', fontSize: '1.0625rem', lineHeight: 1.65, maxWidth: '60ch', marginBottom: 48 }}>
+            It is with this type of curiosity and attitude to grow and develop as a person that I have and continue to operate on the following projects.
+          </p>
 
           <div style={{ display: 'grid', gap: 24, gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))' }}>
             {projects.map((project) => (

@@ -28,7 +28,7 @@ The differentiator is breadth and personhood, not a narrower professional claim:
 ## Capabilities and Constraints
 
 - Work & Experience content (roles, education, leadership, competitions) is real and populated from his actual resume.
-- Projects page is currently placeholder TODOs (no real project descriptions, stack, links, or images yet) — **future work must not invent projects**; leave placeholders or ask for real content rather than fabricating.
+- Projects page has two real entries (SignalFeed — sentiment trading dashboard, Bobby — MNQ ORB trading bot) and one "Work in Progress" placeholder. No demo/repo URLs or real screenshots yet — `image` fields still use placeholder SVGs.
 - Writing section has no posts yet (`posts = []`) — an empty state, not missing evidence to fabricate.
 - Driven/Curious/Attitude sub-pages have real personal hero photos (his own hiking, travel, and city shots) but their body content blocks are still empty — **future work must not invent personal narrative, achievements, or anecdotes for these**; they are open until Anson supplies real text.
 - Home's hero section headlines/body copy are honest placeholders ("Your Headline Here" etc.), not real copy — same rule applies: do not fabricate confident-sounding first-person text to fill them.
