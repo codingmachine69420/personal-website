@@ -2,14 +2,7 @@
 
 export const cinema = {
   // Teaser shown on the /interests hub
-  teaser: 'Film is one of the few art forms that gets to deploy everything at once — light, score, silence, a held glance. The best ones don\'t leave when the credits roll. I\'ve been keeping a proper watchlist.',
-
-  // Full intro shown on the /interests/cinema page
-  intro: `Film is one of the few art forms where the artist gets to use everything at once. Cinematography, score, performance, the pacing of a cut, the weight of silence. A novel gives you the words. A painting gives you the moment. Film gives you both, plus the thirty seconds before something happens where you don't realise you've already stopped breathing.
-
-The best ones don't leave you when the credits roll — they stay in the room with you for days. Mine, in no particular order: La La Land, for everything it says about ambition and the cost of getting what you want. Interstellar, for making the universe feel personal in a way that still unsettles me. Top Gun: Maverick, for proving that craft and spectacle are not opposites — and that a sequel can be better than the original if someone actually cares about making it good.
-
-This is the year I'm being more deliberate about the canon.`,
+  teaser: `I believe movies are a way for modern day artists to express their artform — combining storytelling and visually stunning screens. I think more after a movie than I ever do normally. I gain a sense of motivation or a sudden urge to be great after a movie, a sense of sadness and regret, or a wave of reminiscence. Movies are a very important part of my life. My top 3 of all time, in no particular order: Top Gun, La La Land, Interstellar.`,
 
   // 2026 watchlist
   // poster: TMDB CDN — https://image.tmdb.org/t/p/w300/{path}
@@ -34,14 +27,15 @@ This is the year I'm being more deliberate about the canon.`,
     { title: 'Apocalypse Now',              watched: false, rating: null,  poster: null },
     { title: 'Dunkirk',                     watched: true,  rating: 3,     poster: 'https://image.tmdb.org/t/p/w300/ebSnOniPdj3BO7kLohNKCqGRaZS.jpg' },
     { title: 'Memento',                     watched: false, rating: null,  poster: null },
-    { title: 'The Prestige',               watched: false, rating: null,  poster: null },
+    { title: 'The Prestige',                watched: false, rating: null,  poster: null },
     { title: 'Lawrence of Arabia',          watched: false, rating: null,  poster: null },
     { title: 'Forrest Gump',               watched: false, rating: null,  poster: null },
     { title: 'The Sixth Sense',             watched: false, rating: null,  poster: null },
     { title: 'Se7en',                       watched: false, rating: null,  poster: null },
     { title: 'Casino',                      watched: true,  rating: 3.2,   poster: 'https://image.tmdb.org/t/p/w300/9l5TOFM7CFzL5TFuFsIqO9nMzlR.jpg' },
-    { title: 'The Odyssey',                 watched: true,  rating: 4.8,   poster: null },
+    { title: 'The Odyssey',                 watched: true,  rating: 4.8,   poster: 'https://image.tmdb.org/t/p/w300/t4EB8PgBWDFJxBJdEVh7tJtJXtW.jpg' },
     { title: 'Pulp Fiction',                watched: false, rating: null,  poster: null },
-    { title: 'Argo',                        watched: true,  rating: null,  poster: 'https://image.tmdb.org/t/p/w300/aTt56GsyClhANxTZR8uqXurVUg.jpg' },
+    { title: 'Argo',                        watched: true,  rating: 3.65,  poster: 'https://image.tmdb.org/t/p/w300/aTt56GsyClhANxTZR8uqXurVUg.jpg' },
+    { title: 'The Backrooms',               watched: true,  rating: 3,     poster: 'https://image.tmdb.org/t/p/w300/lryMcAT1aSBfCiMEZbr9h1YiGIh.jpg' },
   ],
 }

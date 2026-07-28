@@ -35,6 +35,23 @@ export function Home() {
   const isDesktop = useIsDesktop()
   return (
     <div style={{ background: '#000' }}>
+
+      {/* ── WIP notice ── */}
+      <div style={{ display: 'flex', justifyContent: 'center', padding: '28px 24px 0' }}>
+        <div style={{
+          display: 'inline-flex', alignItems: 'center', gap: 10,
+          background: '#c01400',
+          border: '1.5px solid rgba(255,255,255,0.2)',
+          padding: '9px 22px 11px',
+          transform: 'rotate(-1deg)',
+        }}>
+          <span style={{ color: '#fff', fontSize: '1rem' }}>⚠</span>
+          <span className="font-editorial" style={{ color: '#fff', fontSize: '1rem', letterSpacing: '0.08em' }}>
+            Work in Progress
+          </span>
+        </div>
+      </div>
+
       <HomeSectionDriven P={P} isDesktop={isDesktop} G={G} />
       <HomeSectionCurious P={P} isDesktop={isDesktop} G={G} />
       <HomeSectionAttitude P={P} />

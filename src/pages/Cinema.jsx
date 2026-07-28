@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { cinema } from '../content/interests'
 
-const watched  = cinema.watchlist.filter((f) => f.watched)
+const watched   = cinema.watchlist.filter((f) => f.watched)
 const unwatched = cinema.watchlist.filter((f) => !f.watched)
 
 function Stars({ rating }) {
@@ -133,21 +133,9 @@ export function Cinema() {
           <h1 className="font-editorial" style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', color: '#fff', marginBottom: 8 }}>
             Cinema
           </h1>
-          <p className="label-caps" style={{ color: 'var(--color-body-dark)', marginBottom: 40 }}>
+          <p className="label-caps" style={{ color: 'var(--color-body-dark)' }}>
             2026 Watchlist — {watched.length} watched · {unwatched.length} to go
           </p>
-          <div style={{ borderLeft: '2px solid var(--color-accent)', paddingLeft: 24, maxWidth: '62ch' }}>
-            {cinema.intro.split('\n\n').map((para, i) => (
-              <p key={i} style={{
-                color: 'var(--color-body-dark)',
-                fontSize: '1.0625rem', lineHeight: 1.75,
-                marginBottom: i < cinema.intro.split('\n\n').length - 1 ? 20 : 0,
-                fontFamily: 'var(--font-reading)',
-              }}>
-                {para}
-              </p>
-            ))}
-          </div>
         </div>
       </div>
 
@@ -166,7 +154,23 @@ export function Cinema() {
       {/* ── Full list ── */}
       <div style={{ padding: 'clamp(36px, 4vw, 56px) clamp(20px, 5vw, 48px) 96px' }}>
         <div style={{ maxWidth: 900, margin: '0 auto' }}>
-          <p className="label-caps" style={{ color: 'rgba(255,255,255,0.3)', marginBottom: 8 }}>Full list</p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 8 }}>
+            <p className="label-caps" style={{ color: 'rgba(255,255,255,0.3)' }}>Full list</p>
+            <span style={{
+              background: '#c01400',
+              color: '#fff',
+              fontFamily: 'var(--font-meta)',
+              fontSize: '0.6875rem',
+              fontWeight: 700,
+              textTransform: 'uppercase',
+              letterSpacing: '0.12em',
+              padding: '3px 10px 4px',
+              display: 'inline-block',
+              transform: 'rotate(-1.5deg)',
+            }}>
+              Classics Only
+            </span>
+          </div>
           {cinema.watchlist.map((film) => (
             <FilmRow key={film.title} film={film} />
           ))}
