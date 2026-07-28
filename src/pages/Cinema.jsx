@@ -1,16 +1,21 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { cinema } from '../content/interests'
 
-const watched   = cinema.watchlist.filter((f) => f.watched)
-const unwatched = cinema.watchlist.filter((f) => !f.watched)
+// Poster images fetched live from TMDB for films where poster: null.
+// Add VITE_TMDB_TOKEN=<your read-access-token> to .env.local to enable.
+// Free token at: https://www.themoviedb.org/settings/api
+const TMDB_TOKEN = import.meta.env.VITE_TMDB_TOKEN
+
+const watchedFilms  = cinema.watchlist.filter((f) => f.watched)
+const unwatchedFilms = cinema.watchlist.filter((f) => !f.watched)
 
 function Stars({ rating }) {
   if (rating == null) return (
     <span className="label-caps" style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.75rem' }}>Pending</span>
   )
-  const full = Math.floor(rating)
-  const half = rating % 1 >= 0.5 ? 1 : 0
+  const full  = Math.floor(rating)
+  const half  = rating % 1 >= 0.5 ? 1 : 0
   const empty = 5 - full - half
   return (
     <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
@@ -26,25 +31,23 @@ function Stars({ rating }) {
   )
 }
 
-function PosterCard({ film }) {
-  const [loaded, setLoaded] = useState(true)
-
-  if (!film.poster || !loaded) return null
-
+function PosterCard({ film, posterUrl }) {
+  const [visible, setVisible] = useState(true)
+  const url = posterUrl || film.poster
+  if (!url || !visible) return null
   return (
-    <div style={{ flexShrink: 0, width: 120 }}>
+    <div style={{ flexShrink: 0, width: 110 }}>
       <img
-        src={film.poster}
+        src={url}
         alt={`${film.title} poster`}
-        onError={() => setLoaded(false)}
-        style={{ width: '100%', display: 'block', objectFit: 'cover' }}
+        onError={() => setVisible(false)}
         loading="lazy"
+        style={{ width: '100%', display: 'block', objectFit: 'cover' }}
       />
       <p style={{
-        color: 'rgba(255,255,255,0.5)',
-        fontSize: '0.75rem', lineHeight: 1.4,
-        marginTop: 8, fontFamily: 'var(--font-meta)',
-        textTransform: 'uppercase', letterSpacing: '0.1em',
+        color: 'rgba(255,255,255,0.45)',
+        fontSize: '0.75rem', lineHeight: 1.4, marginTop: 8,
+        fontFamily: 'var(--font-meta)', textTransform: 'uppercase', letterSpacing: '0.1em',
       }}>
         {film.title}
       </p>
@@ -52,54 +55,44 @@ function PosterCard({ film }) {
   )
 }
 
-function FilmRow({ film }) {
-  const [posterLoaded, setPosterLoaded] = useState(true)
-  const showPoster = film.watched && film.poster && posterLoaded
+function FilmRow({ film, posterUrl }) {
+  const [imgVisible, setImgVisible] = useState(true)
+  const url = posterUrl || film.poster
+  const showThumb = film.watched && url && imgVisible
 
   return (
     <div style={{
-      display: 'flex',
-      alignItems: 'center',
-      gap: 16,
-      padding: '18px 0',
-      borderBottom: '1px solid rgba(255,255,255,0.06)',
+      display: 'flex', alignItems: 'center', gap: 16,
+      padding: '18px 0', borderBottom: '1px solid rgba(255,255,255,0.06)',
     }}>
-      {/* Status dot */}
       <span style={{
         width: 8, height: 8, flexShrink: 0,
         background: film.watched ? 'var(--color-accent)' : 'rgba(255,255,255,0.2)',
         display: 'block',
-        marginTop: 1,
       }} aria-hidden="true" />
 
-      {/* Small poster thumbnail */}
-      {showPoster && (
-        <img
-          src={film.poster}
-          alt=""
-          aria-hidden="true"
-          onError={() => setPosterLoaded(false)}
-          loading="lazy"
-          style={{ width: 36, height: 54, objectFit: 'cover', flexShrink: 0, opacity: 0.85 }}
-        />
-      )}
-      {/* Spacer when no poster so titles stay aligned */}
-      {film.watched && (!film.poster || !posterLoaded) && (
-        <div style={{ width: 36, flexShrink: 0 }} />
+      {film.watched && (
+        showThumb
+          ? <img
+              src={url}
+              alt=""
+              aria-hidden="true"
+              onError={() => setImgVisible(false)}
+              loading="lazy"
+              style={{ width: 36, height: 54, objectFit: 'cover', flexShrink: 0, opacity: 0.85 }}
+            />
+          : <div style={{ width: 36, height: 54, flexShrink: 0, background: 'rgba(255,255,255,0.04)' }} />
       )}
 
-      {/* Title */}
       <span style={{
         flex: 1,
-        color: film.watched ? '#fff' : 'rgba(255,255,255,0.45)',
+        color: film.watched ? '#fff' : 'rgba(255,255,255,0.38)',
         fontSize: '1rem', lineHeight: 1.4,
         fontFamily: 'var(--font-reading)',
-        textDecoration: film.watched ? 'none' : 'none',
       }}>
         {film.title}
       </span>
 
-      {/* Rating */}
       <div style={{ flexShrink: 0 }}>
         {film.watched
           ? <Stars rating={film.rating} />
@@ -111,8 +104,37 @@ function FilmRow({ film }) {
 }
 
 export function Cinema() {
-  const topRated = watched
-    .filter((f) => f.poster && f.rating != null)
+  const [posterMap, setPosterMap] = useState({})
+
+  // Fetch TMDB posters for any film where poster: null
+  useEffect(() => {
+    if (!TMDB_TOKEN) return
+    const toFetch = cinema.watchlist.filter((f) => f.watched && !f.poster)
+    if (!toFetch.length) return
+
+    Promise.allSettled(
+      toFetch.map((film) =>
+        fetch(
+          `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(film.title)}&language=en-US&page=1`,
+          { headers: { Authorization: `Bearer ${TMDB_TOKEN}` } }
+        )
+          .then((r) => r.json())
+          .then((d) => {
+            const path = d.results?.[0]?.poster_path
+            return { title: film.title, url: path ? `https://image.tmdb.org/t/p/w300${path}` : null }
+          })
+      )
+    ).then((results) => {
+      const map = {}
+      results.forEach((r) => {
+        if (r.status === 'fulfilled' && r.value?.url) map[r.value.title] = r.value.url
+      })
+      setPosterMap(map)
+    })
+  }, [])
+
+  const topRated = watchedFilms
+    .filter((f) => (f.poster || posterMap[f.title]) && f.rating != null)
     .sort((a, b) => b.rating - a.rating)
     .slice(0, 5)
 
@@ -134,18 +156,20 @@ export function Cinema() {
             Cinema
           </h1>
           <p className="label-caps" style={{ color: 'var(--color-body-dark)' }}>
-            2026 Watchlist — {watched.length} watched · {unwatched.length} to go
+            2026 Watchlist — {watchedFilms.length} watched · {unwatchedFilms.length} to go
           </p>
         </div>
       </div>
 
-      {/* ── Featured posters — top-rated watched films ── */}
+      {/* ── Featured posters ── */}
       {topRated.length > 0 && (
         <div style={{ padding: 'clamp(36px, 4vw, 56px) clamp(20px, 5vw, 48px)', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
           <div style={{ maxWidth: 900, margin: '0 auto' }}>
             <p className="label-caps" style={{ color: 'rgba(255,255,255,0.3)', marginBottom: 24 }}>Highest rated</p>
             <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
-              {topRated.map((film) => <PosterCard key={film.title} film={film} />)}
+              {topRated.map((film) => (
+                <PosterCard key={film.title} film={film} posterUrl={posterMap[film.title]} />
+              ))}
             </div>
           </div>
         </div>
@@ -157,22 +181,17 @@ export function Cinema() {
           <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 8 }}>
             <p className="label-caps" style={{ color: 'rgba(255,255,255,0.3)' }}>Full list</p>
             <span style={{
-              background: '#c01400',
-              color: '#fff',
-              fontFamily: 'var(--font-meta)',
-              fontSize: '0.6875rem',
-              fontWeight: 700,
-              textTransform: 'uppercase',
-              letterSpacing: '0.12em',
-              padding: '3px 10px 4px',
-              display: 'inline-block',
+              background: '#c01400', color: '#fff',
+              fontFamily: 'var(--font-meta)', fontSize: '0.6875rem',
+              fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em',
+              padding: '3px 10px 4px', display: 'inline-block',
               transform: 'rotate(-1.5deg)',
             }}>
               Classics Only
             </span>
           </div>
           {cinema.watchlist.map((film) => (
-            <FilmRow key={film.title} film={film} />
+            <FilmRow key={film.title} film={film} posterUrl={posterMap[film.title]} />
           ))}
         </div>
       </div>
