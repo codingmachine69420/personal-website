@@ -8,6 +8,7 @@ import { WritingPost } from './pages/WritingPost'
 import { Projects } from './pages/Projects'
 import { Gallery } from './pages/Gallery'
 import { Interests } from './pages/Interests'
+import { Cinema } from './pages/Cinema'
 import { NotFound } from './pages/NotFound'
 import { Driven } from './pages/Driven'
 import { Curious } from './pages/Curious'
@@ -25,7 +26,8 @@ function App() {
         <Route path="writing/:slug" element={<WritingPost />} />
         <Route path="projects" element={<Navigate to="/attitude" replace />} />
         <Route path="gallery" element={<Gallery />} />
-        <Route path="interests" element={<Navigate to="/driven" replace />} />
+        <Route path="interests" element={<Interests />} />
+        <Route path="interests/cinema" element={<Cinema />} />
         <Route path="driven" element={<Driven />} />
         <Route path="curious" element={<Curious />} />
         <Route path="attitude" element={<Attitude />} />

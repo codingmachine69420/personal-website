@@ -39,11 +39,19 @@ export const directory = [
     description: 'How I carry myself — philosophy and projects.',
   },
   {
+    id: 'interests',
+    label: 'Interests',
+    href: '/interests',
+    color: 'rose',
+    floor: '04',
+    description: 'Things I keep coming back to.',
+  },
+  {
     id: 'gallery',
     label: 'Photo Gallery',
     href: '/gallery',
     color: 'jade',
-    floor: '04',
+    floor: '05',
     description: 'Photos from travel and life.',
   },
 ]

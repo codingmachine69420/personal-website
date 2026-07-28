@@ -1,44 +1,59 @@
 import { Link } from 'react-router-dom'
-import { PageHeader } from '../components/PageHeader'
-
-const pages = [
-  { label: '01 — Driven', href: '/driven', description: 'What pushes me forward.' },
-  { label: '02 — Curious', href: '/curious', description: 'What I explore and why.' },
-  { label: '03 — Attitude', href: '/attitude', description: 'How I carry myself.' },
-]
+import { cinema } from '../content/interests'
 
 export function Interests() {
+  const watched  = cinema.watchlist.filter((f) => f.watched).length
+  const total    = cinema.watchlist.length
+
   return (
     <div>
-      <PageHeader eyebrow="05 — Interests" title="Interests" />
+      {/* ── Header ── */}
+      <div style={{ background: 'var(--color-ink)', padding: 'clamp(64px, 10vw, 120px) clamp(20px, 5vw, 48px) clamp(48px, 6vw, 80px)' }}>
+        <div style={{ maxWidth: 900, margin: '0 auto' }}>
+          <div style={{ width: 44, height: 4, background: 'var(--color-accent)', marginBottom: 24 }} aria-hidden="true" />
+          <h1 className="font-editorial" style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', color: '#fff', marginBottom: 24 }}>
+            Hobbies &amp; Interests
+          </h1>
+          <p style={{ color: 'var(--color-body-dark)', fontSize: '1.125rem', lineHeight: 1.7, maxWidth: '52ch' }}>
+            Things I keep coming back to outside of work. The obsessions, the lists, the ongoing projects of living a full life.
+          </p>
+        </div>
+      </div>
 
-      <div style={{ background: 'var(--color-paper)', padding: 'clamp(32px, 5vw, 64px) clamp(20px, 5vw, 48px) 96px' }}>
-        <div style={{ maxWidth: 860, margin: '0 auto' }}>
-          {pages.map((page) => (
-            <Link
-              key={page.href}
-              to={page.href}
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                padding: '28px 0',
-                borderBottom: '1px solid rgba(28,28,28,0.12)',
-                textDecoration: 'none',
-                gap: 16,
-              }}
-              onMouseEnter={e => e.currentTarget.style.opacity = '0.6'}
-              onMouseLeave={e => e.currentTarget.style.opacity = '1'}
-            >
-              <div>
-                <p className="label-caps" style={{ color: 'var(--color-accent)', marginBottom: 6 }}>
-                  {page.label}
-                </p>
-                <p style={{ color: 'var(--color-body-light)', fontSize: 15 }}>{page.description}</p>
-              </div>
-              <span style={{ color: 'var(--color-accent)', fontSize: 20, flexShrink: 0 }}>→</span>
-            </Link>
-          ))}
+      {/* ── Articles ── */}
+      <div style={{ background: 'var(--color-paper)', borderTop: '3px solid var(--color-accent)' }}>
+        <div style={{ maxWidth: 900, margin: '0 auto', padding: 'clamp(48px, 6vw, 80px) clamp(20px, 5vw, 48px) 96px' }}>
+
+          {/* Cinema article */}
+          <article style={{ borderBottom: '1px solid rgba(28,28,28,0.1)', paddingBottom: 64 }}>
+            <p className="label-caps" style={{ color: 'var(--color-accent)', marginBottom: 16 }}>Cinema</p>
+
+            <h2 className="font-editorial" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: 'var(--color-ink)', marginBottom: 24, lineHeight: 0.95 }}>
+              Film as Art Form
+            </h2>
+
+            <p style={{ color: 'var(--color-body-light)', fontSize: '1.0625rem', lineHeight: 1.75, maxWidth: '60ch', marginBottom: 32 }}>
+              {cinema.teaser}
+            </p>
+
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', maxWidth: '60ch' }}>
+              <Link
+                to="/interests/cinema"
+                className="cta-link"
+                style={{ textDecoration: 'none' }}
+              >
+                Current Watchlist
+              </Link>
+              <p className="label-caps" style={{ color: 'var(--color-body-light)' }}>
+                {watched} of {total} watched
+              </p>
+            </div>
+          </article>
+
+          {/* Placeholder — more interests to come */}
+          <p className="label-caps" style={{ color: 'rgba(28,28,28,0.3)', marginTop: 48 }}>
+            More to follow
+          </p>
         </div>
       </div>
     </div>
