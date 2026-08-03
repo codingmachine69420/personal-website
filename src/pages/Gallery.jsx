@@ -13,13 +13,13 @@ export function Gallery() {
         description="Photos — travel and elsewhere."
       />
 
-      <div style={{ background: '#000', padding: 4 }}>
-        <div className="columns-1 sm:columns-3 md:columns-4" style={{ columnGap: 4 }}>
+      <div style={{ background: '#000', padding: 'clamp(16px, 3vw, 32px)' }}>
+        <div className="columns-1 sm:columns-3 md:columns-4" style={{ columnGap: 'clamp(16px, 2vw, 24px)' }}>
           {allPhotos.map((photo) => (
             <figure
               key={photo.src}
               tabIndex={0}
-              style={{ breakInside: 'avoid', marginBottom: 4, position: 'relative', overflow: 'hidden' }}
+              style={{ breakInside: 'avoid', marginBottom: 'clamp(16px, 2vw, 24px)', position: 'relative', overflow: 'hidden' }}
               className="gallery-item"
             >
               <img

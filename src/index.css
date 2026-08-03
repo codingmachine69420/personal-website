@@ -89,21 +89,9 @@
     opacity: 0.85;
   }
 
-  /* Gallery captions: always visible on touch screens (≤768px),
-     hover + focus-within reveal on desktop */
+  /* Gallery captions: always visible */
   .gallery-caption {
-    opacity: 0;
-  }
-
-  .gallery-item:hover .gallery-caption,
-  .gallery-item:focus-within .gallery-caption {
     opacity: 1;
-  }
-
-  @media (max-width: 768px) {
-    .gallery-caption {
-      opacity: 1;
-    }
   }
 
   /* Hide scrollbars on the Journeys carousel strip (arrows control it) */
