@@ -183,7 +183,7 @@ export function ProjectsExperiences() {
               Work history, education &amp; skills
             </p>
             <p style={{ color: 'var(--color-body-dark)', fontSize: '0.9rem', fontFamily: 'var(--font-reading)', maxWidth: '44ch' }}>
-              Two pages covering internships, projects, and everything in between.
+              One page covering internships, projects, and everything in between.
             </p>
           </div>
           <a
