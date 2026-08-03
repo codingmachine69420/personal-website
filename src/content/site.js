@@ -18,7 +18,7 @@ export const directory = [
     href: '/mindset',
     color: 'cyan',
     floor: '01',
-    description: 'How I think — values, philosophy, and the ideas I keep returning to.',
+    description: 'How I think\n\nThe values and philosophy that shape who I am.',
   },
   {
     id: 'projects',
@@ -26,7 +26,7 @@ export const directory = [
     href: '/projects',
     color: 'amber',
     floor: '02',
-    description: 'What I build and what I\'ve done.',
+    description: 'Always Building.',
   },
   {
     id: 'interests',
@@ -34,7 +34,7 @@ export const directory = [
     href: '/interests',
     color: 'rose',
     floor: '03',
-    description: 'Things I keep coming back to.',
+    description: 'Is he fun?',
   },
   {
     id: 'gallery',

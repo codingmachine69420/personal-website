@@ -41,10 +41,10 @@ export function Home() {
           color: 'var(--color-body-dark)',
           fontSize: '1.125rem',
           lineHeight: 1.7,
-          maxWidth: '48ch',
+          maxWidth: '52ch',
           fontFamily: 'var(--font-reading)',
         }}>
-          Finance & markets by day, builder by night. Based between Toronto and Hong Kong.
+          Hi, I'm Anson and I am 21. I will be great. This website represents who I am and the things I do — it also is the start of a journey into something bigger than I could imagine right now.
         </p>
       </div>
 
@@ -81,7 +81,7 @@ export function Home() {
               >
                 {item.label}
               </h2>
-              <p style={{ color: 'var(--color-body-dark)', fontSize: '0.9375rem', lineHeight: 1.65, maxWidth: '36ch' }}>
+              <p style={{ color: 'var(--color-body-dark)', fontSize: '0.9375rem', lineHeight: 1.65, maxWidth: '36ch', whiteSpace: 'pre-line' }}>
                 {item.description}
               </p>
               <p className="label-caps" style={{ color: 'var(--color-accent)', marginTop: 32, fontSize: '0.75rem' }}>
