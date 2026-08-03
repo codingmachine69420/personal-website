@@ -32,7 +32,7 @@ export function NavBar() {
             lineHeight: 1,
           }}
         >
-          Anson Chan
+          Discovering Anson
         </NavLink>
 
         {/* Desktop links */}
