@@ -149,6 +149,18 @@
     background-position: 8px 0;
   }
 
+  /* Rebate strip — frame numbering printed on the film edge, as on real
+     35mm stock. This is where the accent belongs: a marking, not a bar. */
+  .film-edge {
+    padding: 8px 12px 0;
+    font-family: var(--font-meta);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
   /* Typed archival caption label */
   .film-label {
     background: var(--color-paper);
@@ -159,8 +171,7 @@
     line-height: 1.45;
     letter-spacing: 0.04em;
     padding: 10px 12px 11px;
-    margin: 10px 10px 0;
-    border-left: 3px solid var(--color-accent);
+    margin: 8px 10px 0;
   }
 
   /* Hide scrollbars on the Journeys carousel strip (arrows control it) */

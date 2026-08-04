@@ -56,6 +56,11 @@ export function Gallery() {
               {/* Bottom sprocket row */}
               <div className="film-sprockets" aria-hidden="true" />
 
+              {/* Frame number printed on the rebate, as on real film stock */}
+              <div className="film-edge" aria-hidden="true">
+                Frame {String(i + 1).padStart(2, '0')}
+              </div>
+
               {/* Typed label — always visible */}
               <figcaption className="film-label">
                 {photo.caption}
