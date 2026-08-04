@@ -130,7 +130,8 @@ function SectionCard({ section, isActive, dimmed, onClick }) {
   return (
     <button
       onClick={section.isPlaceholder ? undefined : onClick}
-      aria-expanded={isActive}
+      disabled={section.isPlaceholder}
+      aria-expanded={section.isPlaceholder ? undefined : isActive}
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -272,20 +273,23 @@ function ExpandedPanel({ section, onClose }) {
           <button
             onClick={onClose}
             aria-label="Close"
+            className="panel-close"
             style={{
               background: 'none',
               border: '1px solid rgba(255,255,255,0.2)',
               color: 'rgba(255,255,255,0.8)',
               cursor: 'pointer',
-              padding: '8px 16px',
+              padding: '10px 20px',
+              minHeight: 44,
+              minWidth: 88,
               fontFamily: 'var(--font-meta)',
               fontSize: '0.8rem',
               letterSpacing: '0.05em',
               flexShrink: 0,
-              transition: 'border-color 0.15s, color 0.15s',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
-            onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--color-accent)'; e.currentTarget.style.color = 'var(--color-accent)' }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'; e.currentTarget.style.color = 'rgba(255,255,255,0.8)' }}
           >
             ✕ Close
           </button>

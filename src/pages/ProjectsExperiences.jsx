@@ -65,7 +65,7 @@ function SideCarousel({ project }) {
   const multi = images.length > 1
 
   return (
-    <div style={{ position: 'relative', flex: '0 0 320px', height: 560, background: '#0d0d0d' }}>
+    <div style={{ position: 'relative', flex: '0 0 320px', height: 'clamp(360px, 70vw, 560px)', background: '#0d0d0d' }}>
       <img
         src={`${BASE}${images[idx].replace(/^\//, '')}`}
         alt={`${project.name} screenshot ${idx + 1}`}
@@ -190,6 +190,7 @@ export function ProjectsExperiences() {
             href={`${BASE}resume.pdf`}
             target="_blank"
             rel="noreferrer"
+            className="resume-cta"
             style={{
               display: 'inline-block',
               background: 'var(--color-accent)',
@@ -202,11 +203,8 @@ export function ProjectsExperiences() {
               textTransform: 'uppercase',
               padding: '18px 40px',
               border: '2px solid var(--color-accent)',
-              transition: 'background 0.18s, color 0.18s',
               whiteSpace: 'nowrap',
             }}
-            onMouseEnter={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--color-accent)' }}
-            onMouseLeave={e => { e.currentTarget.style.background = 'var(--color-accent)'; e.currentTarget.style.color = '#000' }}
           >
             Open Resume →
           </a>

@@ -2,29 +2,30 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { cinema } from '../content/interests'
 
-// Poster images fetched live from TMDB for films where poster: null.
-// Add VITE_TMDB_TOKEN=<your read-access-token> to .env.local to enable.
-// Free token at: https://www.themoviedb.org/settings/api
-const TMDB_TOKEN = import.meta.env.VITE_TMDB_TOKEN
+const TMDB_TOKEN     = import.meta.env.VITE_TMDB_TOKEN
+const POSTER_CACHE_KEY = 'tmdb_poster_cache_v1'
 
-const watchedFilms  = cinema.watchlist.filter((f) => f.watched)
+const watchedFilms   = cinema.watchlist.filter((f) => f.watched)
 const unwatchedFilms = cinema.watchlist.filter((f) => !f.watched)
 
 function Stars({ rating }) {
   if (rating == null) return (
-    <span className="label-caps" style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.75rem' }}>Pending</span>
+    <span className="label-caps" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem' }}>Pending</span>
   )
   const full  = Math.floor(rating)
   const half  = rating % 1 >= 0.5 ? 1 : 0
   const empty = 5 - full - half
   return (
     <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-      <span style={{ color: 'var(--color-accent)', fontSize: '0.8rem', letterSpacing: 2 }}>
+      {/* Visual star display — hidden from screen readers */}
+      <span aria-hidden="true" style={{ color: 'var(--color-accent)', fontSize: '0.8rem', letterSpacing: 2 }}>
         {'★'.repeat(full)}
         {half ? '½' : ''}
-        <span style={{ color: 'rgba(255,255,255,0.2)' }}>{'★'.repeat(empty)}</span>
+        <span style={{ color: 'rgba(255,255,255,0.25)' }}>{'★'.repeat(empty)}</span>
       </span>
-      <span className="label-caps" style={{ color: 'var(--color-body-dark)', fontSize: '0.75rem', marginLeft: 4 }}>
+      {/* Accessible text label */}
+      <span className="sr-only">Rating: {rating} out of 5</span>
+      <span aria-hidden="true" className="label-caps" style={{ color: 'var(--color-body-dark)', fontSize: '0.75rem', marginLeft: 4 }}>
         {rating} / 5
       </span>
     </span>
@@ -45,7 +46,7 @@ function PosterCard({ film, posterUrl }) {
         style={{ width: '100%', display: 'block', objectFit: 'cover' }}
       />
       <p style={{
-        color: 'rgba(255,255,255,0.45)',
+        color: 'rgba(255,255,255,0.55)',
         fontSize: '0.75rem', lineHeight: 1.4, marginTop: 8,
         fontFamily: 'var(--font-meta)', textTransform: 'uppercase', letterSpacing: '0.1em',
       }}>
@@ -67,7 +68,7 @@ function FilmRow({ film, posterUrl }) {
     }}>
       <span style={{
         width: 8, height: 8, flexShrink: 0,
-        background: film.watched ? 'var(--color-accent)' : 'rgba(255,255,255,0.2)',
+        background: film.watched ? 'var(--color-accent)' : 'rgba(255,255,255,0.25)',
         display: 'block',
       }} aria-hidden="true" />
 
@@ -81,12 +82,12 @@ function FilmRow({ film, posterUrl }) {
               loading="lazy"
               style={{ width: 36, height: 54, objectFit: 'cover', flexShrink: 0, opacity: 0.85 }}
             />
-          : <div style={{ width: 36, height: 54, flexShrink: 0, background: 'rgba(255,255,255,0.04)' }} />
+          : <div style={{ width: 36, height: 54, flexShrink: 0, background: 'rgba(255,255,255,0.06)' }} />
       )}
 
       <span style={{
         flex: 1,
-        color: film.watched ? '#fff' : 'rgba(255,255,255,0.38)',
+        color: film.watched ? '#fff' : 'rgba(255,255,255,0.5)',
         fontSize: '1rem', lineHeight: 1.4,
         fontFamily: 'var(--font-reading)',
       }}>
@@ -96,7 +97,7 @@ function FilmRow({ film, posterUrl }) {
       <div style={{ flexShrink: 0 }}>
         {film.watched
           ? <Stars rating={film.rating} />
-          : <span className="label-caps" style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.75rem' }}>Up next</span>
+          : <span className="label-caps" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem' }}>Up next</span>
         }
       </div>
     </div>
@@ -106,12 +107,18 @@ function FilmRow({ film, posterUrl }) {
 export function Cinema() {
   const [posterMap, setPosterMap] = useState({})
 
-  // Fetch TMDB posters for any film where poster: null
   useEffect(() => {
     if (!TMDB_TOKEN) return
     const toFetch = cinema.watchlist.filter((f) => f.watched && !f.poster)
     if (!toFetch.length) return
 
+    // Return cached data for this session if available
+    try {
+      const cached = sessionStorage.getItem(POSTER_CACHE_KEY)
+      if (cached) { setPosterMap(JSON.parse(cached)); return }
+    } catch (_) {}
+
+    // Batch-fetch all posters in parallel
     Promise.allSettled(
       toFetch.map((film) =>
         fetch(
@@ -130,6 +137,7 @@ export function Cinema() {
         if (r.status === 'fulfilled' && r.value?.url) map[r.value.title] = r.value.url
       })
       setPosterMap(map)
+      try { sessionStorage.setItem(POSTER_CACHE_KEY, JSON.stringify(map)) } catch (_) {}
     })
   }, [])
 
@@ -165,7 +173,7 @@ export function Cinema() {
       {topRated.length > 0 && (
         <div style={{ padding: 'clamp(36px, 4vw, 56px) clamp(20px, 5vw, 48px)', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
           <div style={{ maxWidth: 900, margin: '0 auto' }}>
-            <p className="label-caps" style={{ color: 'rgba(255,255,255,0.3)', marginBottom: 24 }}>Highest rated</p>
+            <p className="label-caps" style={{ color: 'rgba(255,255,255,0.5)', marginBottom: 24 }}>Highest rated</p>
             <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
               {topRated.map((film) => (
                 <PosterCard key={film.title} film={film} posterUrl={posterMap[film.title]} />
@@ -179,7 +187,7 @@ export function Cinema() {
       <div style={{ padding: 'clamp(36px, 4vw, 56px) clamp(20px, 5vw, 48px) 96px' }}>
         <div style={{ maxWidth: 900, margin: '0 auto' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 8 }}>
-            <p className="label-caps" style={{ color: 'rgba(255,255,255,0.3)' }}>Full list</p>
+            <p className="label-caps" style={{ color: 'rgba(255,255,255,0.5)' }}>Full list</p>
             <span style={{
               background: '#c01400', color: '#fff',
               fontFamily: 'var(--font-meta)', fontSize: '0.6875rem',

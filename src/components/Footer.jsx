@@ -28,12 +28,10 @@ export function Footer() {
             <a
               key={link.label}
               href={link.href}
-              className="label-caps"
-              style={{ color: 'var(--color-body-dark)', textDecoration: 'none', transition: 'color 0.15s' }}
+              className="label-caps link-hover"
+              style={{ color: 'var(--color-body-dark)', textDecoration: 'none' }}
               target={link.href.startsWith('http') ? '_blank' : undefined}
               rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
-              onMouseEnter={e => e.currentTarget.style.color = 'var(--color-accent)'}
-              onMouseLeave={e => e.currentTarget.style.color = 'var(--color-body-dark)'}
             >
               {link.label}
             </a>

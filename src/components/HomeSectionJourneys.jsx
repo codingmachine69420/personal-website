@@ -3,12 +3,11 @@ import { Link } from 'react-router-dom'
 
 const BASE = import.meta.env.BASE_URL
 
-// Curated photos with editorial captions — separate from the short gallery.js labels.
 const JOURNEYS = [
   {
     src: 'Parthenon in Athens.jpeg',
     alt: 'The Parthenon at the Acropolis, Athens',
-    caption: 'Athens — after the Acropolis. The Parthenon has been standing for 2,500 years. Whatever you\'re worried about is fine.',
+    caption: "Athens — after the Acropolis. The Parthenon has been standing for 2,500 years. Whatever you're worried about is fine.",
   },
   {
     src: 'santorini-streets.jpeg',
@@ -18,7 +17,7 @@ const JOURNEYS = [
   {
     src: 'hong-kong-skyline.jpeg',
     alt: 'Hong Kong skyline at dusk from Victoria Peak',
-    caption: 'Victoria Peak, dusk. No matter how long I\'m away from Hong Kong, this view resets something.',
+    caption: "Victoria Peak, dusk. No matter how long I'm away from Hong Kong, this view resets something.",
   },
   {
     src: 'madrid-royal-palace.jpeg',
@@ -28,7 +27,7 @@ const JOURNEYS = [
   {
     src: 'Vietnam with a friend we met.jpeg',
     alt: 'Vietnam — with a friend met along the way',
-    caption: 'Vietnam. The guy across the table we\'d met two days earlier. By the end of the week he felt like someone we\'d always known.',
+    caption: "Vietnam. The guy across the table we'd met two days earlier. By the end of the week he felt like someone we'd always known.",
   },
   {
     src: 'Korea.jpeg',
@@ -47,15 +46,16 @@ const JOURNEYS = [
   },
 ]
 
-const CARD_W = 320  // px — photo card width
-const GAP    = 20   // px — gap between cards
+const CARD_W = 320
+const GAP    = 20
 
 function ArrowButton({ dir, disabled, onClick }) {
   return (
     <button
       onClick={onClick}
       disabled={disabled}
-      aria-label={dir === -1 ? 'Previous' : 'Next'}
+      aria-label={dir === -1 ? 'Previous photo' : 'Next photo'}
+      className="journey-arrow"
       style={{
         width: 44, height: 44,
         border: '1px solid var(--color-accent)',
@@ -64,11 +64,8 @@ function ArrowButton({ dir, disabled, onClick }) {
         cursor: disabled ? 'default' : 'pointer',
         fontSize: '1.25rem',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        transition: 'background 0.2s, color 0.2s',
         flexShrink: 0,
       }}
-      onMouseEnter={e => { if (!disabled) e.currentTarget.style.background = 'var(--color-accent)'; if (!disabled) e.currentTarget.style.color = '#000' }}
-      onMouseLeave={e => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = disabled ? 'rgba(217,162,27,0.3)' : 'var(--color-accent)' }}
     >
       {dir === -1 ? '←' : '→'}
     </button>
@@ -76,15 +73,35 @@ function ArrowButton({ dir, disabled, onClick }) {
 }
 
 function Lightbox({ photo, onClose }) {
+  const closeBtnRef   = useRef(null)
+  const galleryLinkRef = useRef(null)
+
+  // Move focus to close button on open
+  useEffect(() => { closeBtnRef.current?.focus() }, [])
+
+  // Body scroll lock
   useEffect(() => {
     document.body.style.overflow = 'hidden'
     return () => { document.body.style.overflow = '' }
   }, [])
 
+  // ESC to close + focus trap between close button and gallery link
   useEffect(() => {
-    const h = (e) => { if (e.key === 'Escape') onClose() }
-    window.addEventListener('keydown', h)
-    return () => window.removeEventListener('keydown', h)
+    const handleKey = (e) => {
+      if (e.key === 'Escape') { onClose(); return }
+      if (e.key !== 'Tab') return
+      const nodes = [closeBtnRef.current, galleryLinkRef.current].filter(Boolean)
+      if (!nodes.length) return
+      const first = nodes[0]
+      const last  = nodes[nodes.length - 1]
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last.focus() }
+      } else {
+        if (document.activeElement === last)  { e.preventDefault(); first.focus() }
+      }
+    }
+    window.addEventListener('keydown', handleKey)
+    return () => window.removeEventListener('keydown', handleKey)
   }, [onClose])
 
   return (
@@ -106,15 +123,19 @@ function Lightbox({ photo, onClose }) {
         style={{ maxWidth: 860, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
       >
         <button
+          ref={closeBtnRef}
           onClick={onClose}
-          aria-label="Close"
+          aria-label="Close lightbox"
           style={{
-            alignSelf: 'flex-end', background: 'none', border: 'none',
-            color: 'rgba(255,255,255,0.6)', cursor: 'pointer',
-            fontSize: '1.25rem', lineHeight: 1, padding: 8, marginBottom: 12,
+            alignSelf: 'flex-end',
+            background: 'none', border: 'none',
+            color: 'rgba(255,255,255,0.7)',
+            cursor: 'pointer',
+            fontSize: '1.25rem', lineHeight: 1,
+            minWidth: 44, minHeight: 44,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            marginBottom: 12,
           }}
-          onMouseEnter={e => e.currentTarget.style.color = '#fff'}
-          onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.6)'}
         >
           ✕
         </button>
@@ -124,7 +145,7 @@ function Lightbox({ photo, onClose }) {
           style={{ maxHeight: '65vh', maxWidth: '100%', objectFit: 'contain', display: 'block' }}
         />
         <p style={{
-          color: 'rgba(255,255,255,0.8)',
+          color: 'rgba(255,255,255,0.85)',
           fontSize: '1.0625rem', lineHeight: 1.65,
           marginTop: 22, marginBottom: 22,
           textAlign: 'center', maxWidth: '52ch',
@@ -132,7 +153,7 @@ function Lightbox({ photo, onClose }) {
         }}>
           {photo.caption}
         </p>
-        <Link to="/gallery" className="cta-link" style={{ textDecoration: 'none' }}>
+        <Link ref={galleryLinkRef} to="/gallery" className="cta-link" style={{ textDecoration: 'none' }}>
           View Photo Gallery
         </Link>
       </div>
@@ -141,10 +162,11 @@ function Lightbox({ photo, onClose }) {
 }
 
 export function HomeSectionJourneys() {
-  const [active, setActive]       = useState(null)
-  const [atStart, setAtStart]     = useState(true)
-  const [atEnd, setAtEnd]         = useState(false)
-  const scrollRef                 = useRef(null)
+  const [active, setActive] = useState(null)
+  const [atStart, setAtStart] = useState(true)
+  const [atEnd, setAtEnd]     = useState(false)
+  const scrollRef  = useRef(null)
+  const triggerRef = useRef(null) // element that opened the lightbox — restore focus on close
 
   const syncArrows = useCallback(() => {
     const el = scrollRef.current
@@ -165,11 +187,16 @@ export function HomeSectionJourneys() {
     scrollRef.current?.scrollBy({ left: dir * (CARD_W + GAP), behavior: 'smooth' })
   }
 
+  const handleClose = useCallback(() => {
+    setActive(null)
+    requestAnimationFrame(() => triggerRef.current?.focus())
+  }, [])
+
   return (
     <>
       <section style={{ background: 'var(--color-ink)', padding: 'clamp(48px, 6vw, 80px) clamp(20px, 5vw, 48px) 72px' }}>
 
-        {/* Header row: label left, arrows right */}
+        {/* Header row */}
         <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 36 }}>
           <div>
             <div style={{ width: 44, height: 4, background: 'var(--color-accent)', marginBottom: 14 }} aria-hidden="true" />
@@ -181,49 +208,49 @@ export function HomeSectionJourneys() {
           </div>
         </div>
 
-        {/* Horizontal carousel — scrollbar hidden, arrows drive navigation */}
+        {/* Carousel — keyboard navigable via individual card buttons */}
         <div
           ref={scrollRef}
+          role="region"
+          aria-label="Journey photos"
           className="no-scrollbar"
           style={{ overflowX: 'auto', display: 'flex', gap: GAP }}
         >
           {JOURNEYS.map((photo) => (
-            <div
+            <button
               key={photo.src}
-              style={{ flexShrink: 0, width: CARD_W, cursor: 'pointer' }}
-              onClick={() => setActive(photo)}
+              className="journey-card"
+              aria-label={`Open photo: ${photo.alt}`}
+              onClick={(e) => { triggerRef.current = e.currentTarget; setActive(photo) }}
+              style={{
+                flexShrink: 0, width: CARD_W,
+                background: 'none', border: 'none', padding: 0,
+                cursor: 'pointer', textAlign: 'left',
+              }}
             >
-              {/* Photo */}
               <div style={{ height: 280, overflow: 'hidden' }}>
                 <img
                   src={`${BASE}images/gallery/${photo.src}`}
-                  alt={photo.alt}
-                  style={{
-                    width: '100%', height: '100%',
-                    objectFit: 'cover', display: 'block',
-                    transition: 'transform 0.4s ease',
-                  }}
+                  alt=""
+                  aria-hidden="true"
                   loading="lazy"
-                  onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.04)'}
-                  onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                 />
               </div>
-
-              {/* Caption — always visible */}
               <p style={{
-                color: 'rgba(255,255,255,0.65)',
+                color: 'rgba(255,255,255,0.7)',
                 fontSize: '0.9375rem', lineHeight: 1.6,
                 marginTop: 14,
                 fontFamily: 'var(--font-reading)',
               }}>
                 {photo.caption}
               </p>
-            </div>
+            </button>
           ))}
         </div>
       </section>
 
-      {active && <Lightbox photo={active} onClose={() => setActive(null)} />}
+      {active && <Lightbox photo={active} onClose={handleClose} />}
     </>
   )
 }

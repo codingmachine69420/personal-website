@@ -94,6 +94,35 @@
     opacity: 1;
   }
 
+  /* ── Hover utilities — CSS replaces per-component onMouseEnter/Leave ── */
+
+  /* Footer / generic link hover */
+  .link-hover { transition: color 0.15s; }
+  .link-hover:hover { color: var(--color-accent); }
+
+  /* Primary nav card bottom-border reveal */
+  .nav-card {
+    border-bottom: 3px solid transparent;
+    transition: border-bottom-color 0.2s;
+    height: 100%;
+  }
+  .nav-card:hover { border-bottom-color: var(--color-accent); }
+
+  /* Journey carousel: image zoom + arrow fill */
+  .journey-arrow { transition: background 0.2s, color 0.2s; }
+  .journey-arrow:not([disabled]):hover { background: var(--color-accent); color: #000; }
+  .journey-card img { transition: transform 0.4s ease; }
+  .journey-card:hover img,
+  .journey-card:focus-visible img { transform: scale(1.04); }
+
+  /* Resume strip CTA button hover */
+  .resume-cta { transition: background 0.18s, color 0.18s; }
+  .resume-cta:hover { background: transparent !important; color: var(--color-accent) !important; }
+
+  /* Mindset close button hover */
+  .panel-close { transition: border-color 0.15s, color 0.15s; }
+  .panel-close:hover { border-color: var(--color-accent) !important; color: var(--color-accent) !important; }
+
   /* Hide scrollbars on the Journeys carousel strip (arrows control it) */
   .no-scrollbar {
     scrollbar-width: none;

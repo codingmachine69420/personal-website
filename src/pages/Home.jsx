@@ -62,15 +62,11 @@ export function Home() {
             style={{ textDecoration: 'none', display: 'block' }}
           >
             <div
+              className="nav-card"
               style={{
                 background: 'var(--color-ink)',
                 padding: 'clamp(40px, 6vw, 72px) clamp(24px, 4vw, 48px)',
-                borderBottom: '3px solid transparent',
-                transition: 'border-color 0.2s',
-                height: '100%',
               }}
-              onMouseEnter={e => e.currentTarget.style.borderBottomColor = 'var(--color-accent)'}
-              onMouseLeave={e => e.currentTarget.style.borderBottomColor = 'transparent'}
             >
               <p className="label-caps" style={{ color: 'var(--color-accent)', marginBottom: 20 }}>
                 0{item.floor}
@@ -113,13 +109,13 @@ export function Home() {
               onMouseEnter={e => e.currentTarget.style.opacity = '0.6'}
               onMouseLeave={e => e.currentTarget.style.opacity = '1'}
             >
-              <p className="label-caps" style={{ color: 'rgba(255,255,255,0.3)', marginBottom: 10, fontSize: '0.75rem' }}>
+              <p className="label-caps" style={{ color: 'rgba(255,255,255,0.5)', marginBottom: 10, fontSize: '0.75rem' }}>
                 0{item.floor}
               </p>
               <p className="label-caps" style={{ color: '#fff', marginBottom: 8 }}>
                 {item.label}
               </p>
-              <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: '0.875rem', fontFamily: 'var(--font-reading)' }}>
+              <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: '0.875rem', fontFamily: 'var(--font-reading)' }}>
                 {item.description}
               </p>
             </div>
