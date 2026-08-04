@@ -12,46 +12,50 @@ Primarily the site owner, Anson Chan — a self-directed space he controls to do
 
 ## Product Purpose
 
-A personal site for Anson Chan, a BBA Co-Op Specialist in Finance student at the University of Toronto (2023–2027), based between Toronto and Hong Kong. It presents a fuller person than a resume or LinkedIn profile can: professional record (Work & Experience) alongside writing, personal projects, a photo gallery, and personality-driven interest pages (Driven / Curious / Attitude). Success is a visitor coming away with a rounded impression of who he is, not just what he's done.
+A personal site for Anson Chan, a 21-year-old BBA Co-Op Specialist in Finance student at the University of Toronto (2023–2027), based between Toronto and Hong Kong. It presents a fuller person than a resume or LinkedIn profile can: mindset essays, professional projects, a photo gallery, and interest pages. Success is a visitor coming away with a rounded impression of who he is, not just what he's done.
 
 ## Positioning
 
-The differentiator is breadth and personhood, not a narrower professional claim: the site pairs a legitimate finance/markets track record with builder projects, travel/photography, and personal reflection (Driven/Curious/Attitude), presented as one coherent person rather than a segmented resume.
+The differentiator is breadth and personhood: the site pairs a legitimate finance/markets track record with builder projects, travel/photography, and personal reflection, presented as one coherent person rather than a segmented resume. Site name: "Discovering Anson."
 
 ## Operating Context
 
-- Multi-page React site (React Router) with sections: Home, Work, Writing (+ post pages), Projects, Gallery, Interests (with Driven/Curious/Attitude sub-pages).
-- Visual identity is a NatGeo-editorial magazine aesthetic: museum-wall photo layouts with black gutters, ochre accent frames (`--color-accent: #D9A21B`), a three-tier type system (Barlow Condensed display headlines, Source Serif 4 body copy, Barlow metadata/labels), Framer Motion parallax/Ken Burns on hero photos, and scroll-triggered reveals — already implemented in tokens, nav, landing sections, and a gallery masonry layout. This is incumbent visual authority, not something init overrides.
-- Gallery is organized by year (2019–2026) with real personal travel/life photos already populated.
-- Resume is linked as a static PDF (`/resume.pdf`).
+- Multi-page React site (React Router v7) with route-level code splitting (React.lazy + Suspense).
+- Nav: **Mindset** · **Projects & Experiences** · **Interests** · **Photo Gallery** — four sections; wordmark is "Discovering Anson."
+- Old routes (/driven, /curious, /attitude, /work, /writing) redirect to their nearest equivalents.
+- Visual identity: NatGeo-editorial magazine aesthetic — black gutters, ochre accent frames (`--color-accent: #D9A21B`), three-tier type system (Barlow Condensed display, Source Serif 4 body, Barlow metadata/labels), no border-radius anywhere. This is incumbent authority, not something to casually override.
+- Gallery: masonry grid (`columns-2 sm:columns-3 md:columns-4`), real personal travel/life photos, always-visible captions.
+- Resume linked as static PDF (`/resume.pdf`) — prominent strip on Projects & Experiences page.
+- TMDB API (env var `VITE_TMDB_TOKEN`, baked at build via GitHub Actions secret) fetches Cinema posters; results cached in sessionStorage per session.
 
 ## Capabilities and Constraints
 
-- Work & Experience content (roles, education, leadership, competitions) is real and populated from his actual resume.
-- Projects page has two real entries (SignalFeed — sentiment trading dashboard, Bobby — MNQ ORB trading bot) and one "Work in Progress" placeholder. No demo/repo URLs or real screenshots yet — `image` fields still use placeholder SVGs.
-- Writing section has no posts yet (`posts = []`) — an empty state, not missing evidence to fabricate.
-- Driven/Curious/Attitude sub-pages have real personal hero photos (his own hiking, travel, and city shots) but their body content blocks are still empty — **future work must not invent personal narrative, achievements, or anecdotes for these**; they are open until Anson supplies real text.
-- Home's hero section headlines/body copy are honest placeholders ("Your Headline Here" etc.), not real copy — same rule applies: do not fabricate confident-sounding first-person text to fill them.
+- **Mindset** (`/mindset`): 4-column card grid expanding inline below each row. Real essay content for High Agency, Value Driven, Delusional Optimism, Curiosity. Four placeholder cards in row 2. Do not invent new essay text.
+- **Projects & Experiences** (`/projects`): SignalFeed (sentiment AI agent, portrait side carousel), Bobby (MNQ trading bot, stacked layout), Work in Progress. Real screenshots for SignalFeed only. Do not fabricate project descriptions beyond what exists.
+- **Interests** (`/interests`): Hub page → Cinema (`/interests/cinema`) watchlist with TMDB posters, star ratings, CLASSICS ONLY badge. More interest categories to follow.
+- **Photo Gallery** (`/gallery`): Real personal travel photos already populated.
+- **Writing posts**: `src/content/writing.js` — `posts = []`, empty. Do not fabricate posts.
+- Home (`/`): Editorial hub with hero ("Discovering Anson"), two primary nav cards (Mindset / Projects & Experiences), two secondary links (Interests / Photo Gallery). WIP banner present.
 
 ## Brand Commitments
 
-- Site title: "Anson's World."
-- Tagline: "Finance & markets by day, builder by night."
-- Location line: "Toronto, Canada / Hong Kong."
-- Contact: ansonpy.chan@mail.utoronto.ca; LinkedIn (linkedin.com/in/anson-chan-67b155291).
+- Site title / wordmark: "Discovering Anson"
+- Hero intro: "Hi, I'm Anson and I am 21. I will be great…" (Anson's own words — do not alter)
+- Location: Toronto, Canada / Hong Kong
+- Contact: ansonpy.chan@mail.utoronto.ca; LinkedIn (linkedin.com/in/anson-chan-67b155291)
 
 ## Evidence on Hand
 
-- Real, populated: work experience, education, leadership roles, competition results (`src/content/work.js`); gallery photos by year 2019–2026 including his own travel/life photos (`src/content/gallery.js`); real personal hero photos on Home and the Driven/Curious/Attitude sub-pages.
-- Not yet populated (do not fabricate): Projects (`src/content/projects.js` — all TODO), Writing posts (`src/content/writing.js` — empty), Driven/Curious/Attitude page content blocks (`src/content/driven.js`, `curious.js`, `attitude.js` — all empty), and all of Home's hero headline/body copy (`src/pages/Home.jsx` — honest placeholders only).
+- Real, populated: gallery photos, Mindset essays (all four sections), SignalFeed + Bobby project descriptions, Cinema watchlist with ratings, resume PDF.
+- Not yet populated (do not fabricate): Bobby screenshots (placeholder-2.svg), WIP project, writing posts, project demo/repo URLs.
 
 ## Product Principles
 
-1. Show the whole person — professional rigor and personal life belong on equal footing, not siloed into a narrow pitch.
-2. Never fabricate evidence — empty projects, writing, and interest content stay visibly open until Anson supplies the real thing.
-3. Preserve the existing NatGeo-editorial visual identity (museum-wall layouts, ochre frames, Barlow Condensed/Source Serif 4/Barlow typography, Framer Motion parallax) as incumbent authority; treat it as evidence, not something to casually override.
-4. Toronto and Hong Kong are both real, load-bearing parts of his identity, not decorative flavor.
+1. Show the whole person — professional rigor and personal life belong on equal footing.
+2. Never fabricate evidence — empty content stays visibly open until Anson supplies the real thing.
+3. Preserve the NatGeo-editorial visual identity as incumbent authority.
+4. Toronto and Hong Kong are both real, load-bearing parts of his identity.
 
 ## Accessibility & Inclusion
 
-No product-specific accessibility requirement has been established beyond standard web accessibility practice.
+WCAG AA target. Skip link present. `MotionConfig reducedMotion="user"` + CSS `prefers-reduced-motion` fallback. Journey carousel and Mindset cards are fully keyboard navigable. Lightbox has focus trap and focus restoration.
