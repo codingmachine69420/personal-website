@@ -348,24 +348,24 @@ export function Mindset() {
           return (
             <div key={rowIndex}>
               {/* Row of 4 cards */}
-              <div
-                className="grid grid-cols-2 md:grid-cols-4"
-                style={{
-                  gap: 2,
-                  borderTop: rowIndex === 0
-                    ? '3px solid var(--color-accent)'
-                    : '2px solid rgba(255,255,255,0.05)',
-                }}
-              >
-                {row.map((section) => (
-                  <SectionCard
-                    key={section.id}
-                    section={section}
-                    isActive={section.id === activeId}
-                    dimmed={!!activeSection && section.id !== activeId}
-                    onClick={() => toggle(section.id)}
-                  />
-                ))}
+              <div style={{
+                borderTop: rowIndex === 0 ? '3px solid var(--color-accent)' : 'none',
+                padding: 'clamp(20px, 3vw, 36px) clamp(16px, 3vw, 36px)',
+              }}>
+                <div
+                  className="grid grid-cols-2 md:grid-cols-4"
+                  style={{ gap: 'clamp(14px, 2vw, 26px)' }}
+                >
+                  {row.map((section) => (
+                    <SectionCard
+                      key={section.id}
+                      section={section}
+                      isActive={section.id === activeId}
+                      dimmed={!!activeSection && section.id !== activeId}
+                      onClick={() => toggle(section.id)}
+                    />
+                  ))}
+                </div>
               </div>
 
               {/* Expanded panel — only for the row that contains the active card */}

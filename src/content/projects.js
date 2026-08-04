@@ -16,11 +16,16 @@ export const projects = [
     repoUrl: '',
   },
   {
-    name: 'Bobby',
+    name: 'Algo Trading Bot',
     description:
-      'An intraday MNQ (Micro Nasdaq-100 futures) trading bot running on an Interactive Brokers paper account. Built around an Opening Range Breakout framework — each morning it defines the 9:30–10:00 AM range, then waits for a confirmed breakout with VWAP and EMA20 trend alignment. Entries use retest confirmation to filter fakeouts. Stops are ATR-adaptive, targets are set at 1× and 2× the range extension, and all positions flatten by 3:50 PM ET. Risk fixed at $100 per trade on a $10,000 account, with a $1,000 weekly loss limit as a circuit breaker.',
-    stack: ['Python', 'IB TWS API', 'MNQ Futures', 'ORB Strategy', 'ATR', 'VWAP'],
-    images: ['/images/projects/placeholder-2.svg'],
+      'A late-day momentum strategy on Nasdaq-100 futures (NQ/MNQ), backtested over ten years on QuantConnect LEAN. At 2:45 PM ET it measures the day\'s move from the session open in ATR units — taking only moves between 0.25× and 1.20× daily ATR, ignoring days too quiet to signal anything and days already too extended to chase. Direction must be confirmed by the price sitting on the correct side of VWAP, and a distance filter rejects entries hugging VWAP too closely, since forensics on an earlier version showed those trades were coin flips. Positions are held to 3:58 PM with only a catastrophic 0.50 ATR backstop; an earlier VWAP-recross exit was tested and falsified. FOMC days are skipped outright and contract-roll days are guarded against. Built as a research instrument rather than a black box: every skipped day is counted by reason and reconciled against total decision days, and the short side was put on a pre-registered accept/reject test — t-stat above 1.5, positive P&L in 60% of calendar years, no more than 5 points of added drawdown — written down before the backtest was run.',
+    stack: ['Python', 'QuantConnect LEAN', 'NQ / MNQ Futures', 'VWAP', 'ATR', 'Backtesting'],
+    images: [
+      '/images/projects/Trading Bot  (1).png',
+      '/images/projects/Trading Bot  (2).png',
+      '/images/projects/Trading Bot  (3).png',
+      '/images/projects/Trading Bot  (4).png',
+    ],
     demoUrl: '',
     repoUrl: '',
   },
