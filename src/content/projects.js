@@ -5,7 +5,7 @@ export const projects = [
     name: 'SignalFeed',
     description:
       'A sentiment-driven Agent that feeds me information through a dashboard for mobile. Instead of charts and indicators, it tracks the signals that actually move stocks first — breaking news, government announcements, earnings calls, and SEC filings — scoring them in real time using AI. Covers 14+ semiconductor and AI stocks across the full supply chain (GPU, CPU, memory, equipment, energy/nuclear), with each stock getting a live sentiment score from 0–100. High-strength signals surface as ranked cards telling you exactly what moved, why it matters, and which stock it hits.',
-    stack: ['React Native', 'AI', 'SEC EDGAR', 'Reuters', 'Reddit', 'Congress'],
+    stack: ['Python', 'React Native', 'AI', 'SEC EDGAR', 'Reuters', 'Reddit', 'Congress'],
     layout: 'side',
     images: [
       '/images/projects/Sentiment Dashboard  (1).png',
@@ -30,8 +30,9 @@ export const projects = [
     repoUrl: '',
   },
   {
-    name: 'Work in Progress',
-    description: 'Something in the pipeline — details to follow.',
+    name: 'Earnings Signal Agent — In Progress',
+    description:
+      'An LLM agent, currently in development, that reads through earnings reports and call transcripts to surface what usually gets buried in the wall of text — new customer wins, margin inflections, and forward-looking catalysts management flags but a quick skim would miss. The goal is a fast first pass that tells you what\'s worth a closer read, not a replacement for reading the filing.',
     stack: [],
     images: ['/images/projects/placeholder-3.svg'],
     demoUrl: '',

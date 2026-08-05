@@ -1,3 +1,9 @@
+// Backing data for the resume/work history. Kept in sync with
+// PakYinAnsonChan_August4th_Resume.pdf. Not rendered as a listed timeline
+// anywhere on the site by design — the PDF is the single source for detailed
+// role bullets; the site only surfaces employer names next to the resume CTA
+// (see ProjectsExperiences.jsx). Don't reintroduce a bullet-point experience
+// listing on-page without checking with Anson first.
 export const resumeUrl = '/resume.pdf'
 
 export const bio =
@@ -30,17 +36,6 @@ export const experience = [
     ],
   },
   {
-    role: 'Private Wealth Management Intern',
-    org: 'AIA',
-    period: 'Jul 2025',
-    location: 'Hong Kong',
-    summary: 'Short-form rotation focused on HNW client strategy and wealth planning.',
-    bullets: [
-      'Completed a private wealth management certification and ran pitch simulations with client-facing scenarios',
-      'Built foundational knowledge in HNW insurance structuring and portfolio strategy',
-    ],
-  },
-  {
     role: 'Accounting Practice Intern',
     org: 'Allay LLP',
     period: 'Jan 2025 – May 2025',
@@ -63,17 +58,6 @@ export const experience = [
       'Collaborated with senior staff on due diligence processes',
     ],
   },
-  {
-    role: 'Tax Associate',
-    org: 'University of Toronto – Tax Clinic',
-    period: 'Mar 2024 – Apr 2024',
-    location: 'Toronto',
-    summary: 'Volunteer-run CRA-certified tax clinic for students.',
-    bullets: [
-      'Completed 20+ tax return filings under the CVITP program',
-      'CRA-trained; handled T2, T4, T4A, and T5 forms',
-    ],
-  },
 ]
 
 export const education = [
@@ -89,7 +73,7 @@ export const leadership = [
   {
     role: 'VP of Finance',
     org: 'The Management Consulting Group (MCG)',
-    period: 'Jun 2025 – Present',
+    period: 'Jun 2025 – Apr 2026',
     bullets: [
       'Oversee budgeting, financial planning, and internal tracking across all club initiatives',
       'Coordinating event planning and cross-functional execution with the broader team',

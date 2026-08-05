@@ -14,8 +14,8 @@ export function WritingPost() {
           Post not found
         </h1>
         <p style={{ color: 'var(--color-body-light)', marginBottom: 32 }}>That one doesn't exist yet.</p>
-        <Link to="/writing" className="cta-link" style={{ background: 'var(--color-ink)', color: '#fff' }}>
-          &larr; Back to Writing
+        <Link to="/mindset" className="cta-link" style={{ background: 'var(--color-ink)', color: '#fff' }}>
+          &larr; Back to Mindset
         </Link>
       </div>
     )
@@ -27,11 +27,11 @@ export function WritingPost() {
       <div style={{ background: 'var(--color-ink)', padding: 'clamp(40px, 6vw, 80px) clamp(20px, 5vw, 48px) 0' }}>
         <div style={{ maxWidth: 860, margin: '0 auto', paddingBottom: 'clamp(32px, 4vw, 56px)' }}>
           <Link
-            to="/writing"
+            to="/mindset"
             className="label-caps"
             style={{ color: 'var(--color-accent)', textDecoration: 'none', display: 'inline-block', marginBottom: 24 }}
           >
-            &larr; Writing & Ideas
+            &larr; Back to Mindset
           </Link>
           <span
             style={{ display: 'block', height: 8, background: 'var(--color-accent)', width: 64, marginBottom: 20 }}

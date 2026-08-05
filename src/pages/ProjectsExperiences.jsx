@@ -3,6 +3,12 @@ import { projects } from '../content/projects'
 
 const BASE = import.meta.env.BASE_URL
 
+// Employers named on the resume — shown here as text wordmarks, not downloaded
+// brand-mark graphics. See CLAUDE.md: no fabricated/unsourced assets. Drop real
+// logo files under public/images/logos/ and swap this array for real image
+// elements once you have them.
+const employers = ['RBC', 'Odysseus Capital Asia', 'PwC']
+
 function ImageCarousel({ project }) {
   const [idx, setIdx] = useState(0)
   const images = project.images ?? []
@@ -175,16 +181,36 @@ export function ProjectsExperiences() {
           gap: 24,
           padding: 'clamp(24px, 4vw, 40px) clamp(20px, 5vw, 48px)',
         }}>
-          <div>
-            <p className="label-caps" style={{ color: 'var(--color-accent)', marginBottom: 10 }}>
-              My Resume
-            </p>
-            <p style={{ color: '#fff', fontFamily: 'var(--font-meta)', fontSize: 'clamp(1.125rem, 2.5vw, 1.5rem)', fontWeight: 600, marginBottom: 6 }}>
-              Work history, education &amp; skills
-            </p>
-            <p style={{ color: 'var(--color-body-dark)', fontSize: '0.9rem', fontFamily: 'var(--font-reading)', maxWidth: '44ch' }}>
-              One page covering internships, projects, and everything in between.
-            </p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 24, flexWrap: 'wrap' }}>
+            {/* Headshot — placeholder until a real photo is dropped in */}
+            <div style={{
+              width: 76, height: 76, flexShrink: 0,
+              background: 'repeating-linear-gradient(45deg, #1a1a1a 0px, #1a1a1a 8px, #1c1c1c 8px, #1c1c1c 16px)',
+              border: '2px solid var(--color-accent)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}>
+              <span className="label-caps" style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.5625rem', textAlign: 'center', lineHeight: 1.3 }}>
+                Photo<br />coming
+              </span>
+            </div>
+            <div>
+              <p className="label-caps" style={{ color: 'var(--color-accent)', marginBottom: 10 }}>
+                My Resume
+              </p>
+              <p style={{ color: '#fff', fontFamily: 'var(--font-meta)', fontSize: 'clamp(1.125rem, 2.5vw, 1.5rem)', fontWeight: 600, marginBottom: 6 }}>
+                Work history, education &amp; skills
+              </p>
+              <p style={{ color: 'var(--color-body-dark)', fontSize: '0.9rem', fontFamily: 'var(--font-reading)', maxWidth: '44ch', marginBottom: 12 }}>
+                One page covering internships, projects, and everything in between.
+              </p>
+              <div style={{ display: 'flex', gap: 18, flexWrap: 'wrap' }}>
+                {employers.map((name) => (
+                  <span key={name} className="label-caps" style={{ color: 'var(--color-body-dark)', fontSize: '0.6875rem', letterSpacing: '0.08em' }}>
+                    {name}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
           <a
             href={`${BASE}resume.pdf`}
@@ -216,7 +242,7 @@ export function ProjectsExperiences() {
             Projects &amp; Experiences
           </h1>
           <p style={{ color: 'var(--color-body-dark)', fontSize: '1.0625rem', lineHeight: 1.7, maxWidth: '52ch' }}>
-            Two live builds and one in the pipeline.
+            Two live builds and one in progress.
           </p>
         </div>
       </div>
