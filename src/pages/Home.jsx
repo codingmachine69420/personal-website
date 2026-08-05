@@ -63,7 +63,7 @@ export function Home() {
             alt="Anson mid-air, jumping off a sailboat into the Santorini caldera"
             loading="eager"
             strength={8}
-            pos="center 62%"
+            pos="center 72%"
           />
           {/* Fade the photo's inner edge to black so it bleeds out of the text panel rather than sitting in a hard tile */}
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, #000 0%, rgba(0,0,0,0.55) 22%, transparent 55%)' }} aria-hidden="true" />
@@ -79,7 +79,7 @@ export function Home() {
             alt="Anson mid-air, jumping off a sailboat into the Santorini caldera"
             loading="eager"
             strength={5}
-            pos="center 62%"
+            pos="center 72%"
           />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, #000 0%, rgba(0,0,0,0.35) 45%, transparent 75%)' }} aria-hidden="true" />
         </div>
