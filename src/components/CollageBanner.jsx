@@ -31,17 +31,17 @@ export function CollageBanner({ title, topPhotos, bottomPhotos }) {
         {topPhotos.map((p) => <CollageTile key={p.src} {...p} />)}
       </div>
 
-      {/* Title band — decorative, not a heading; the real <h1> for the page
-          follows below this banner, so this stays a <p> to avoid a second
-          top-level heading landing in the accessibility tree. */}
+      {/* Title band — this is the page's only title now (the page-level
+          <h1> that used to repeat it below the banner was removed), so
+          it's the real heading, not decorative. */}
       <div style={{
         background: '#000',
         padding: 'clamp(14px, 2.5vw, 26px) clamp(16px, 3vw, 32px)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}>
-        <p className="font-editorial" style={{ color: '#fff', fontSize: 'clamp(1.375rem, 4.5vw, 2.75rem)', letterSpacing: '0.12em', textAlign: 'center', margin: 0 }}>
+        <h1 className="font-editorial" style={{ color: '#fff', fontSize: 'clamp(1.375rem, 4.5vw, 2.75rem)', letterSpacing: '0.12em', textAlign: 'center', margin: 0 }}>
           {title}
-        </p>
+        </h1>
       </div>
 
       <div style={{ flex: 1, display: 'flex', minHeight: 0 }}>

@@ -9,11 +9,11 @@ const BASE = import.meta.env.BASE_URL
 // biggest top-row slot — the milestone photo, thematically on point for a
 // page about how I think and what shapes me.
 const collageTop = [
-  { src: '/images/gallery/The boys.jpeg', alt: 'The boys, on a hike lookout', pos: 'center 35%', grow: 1.2 },
+  { src: '/images/gallery/Hike in BC.jpeg', alt: 'Balancing on the rocks, Hike in BC', pos: 'center 72%', grow: 1.2 },
   { src: '/images/gallery/Beautiful hike in Victoria, BC.jpeg', alt: 'Hiking above Victoria, BC', pos: 'center 35%', grow: 1 },
 ]
 const collageBottom = [
-  { src: '/images/gallery/Graduation!.jpeg', alt: 'Graduation', pos: 'center 38%', grow: 0.9 },
+  { src: '/images/gallery/hong-kong-skyline.jpeg', alt: 'Hong Kong skyline at dusk from Victoria Peak', pos: 'center 55%', grow: 0.9 },
   { src: '/images/gallery/Prague during Christmas.jpeg', alt: 'Prague at Christmas', pos: 'center 32%', grow: 1 },
   { src: '/images/gallery/Athens.jpeg', alt: 'Athens at dusk', pos: 'center 45%', grow: 0.9 },
 ]
@@ -338,9 +338,6 @@ export function Mindset() {
 
         <div style={{ maxWidth: 900, margin: '0 auto', padding: 'clamp(36px, 5vw, 64px) clamp(20px, 5vw, 48px)' }}>
           <div style={{ width: 44, height: 4, background: 'var(--color-accent)', marginBottom: 20 }} />
-          <h1 className="font-editorial" style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', color: '#fff', marginBottom: 16 }}>
-            Mindset
-          </h1>
           <p style={{ color: 'var(--color-body-dark)', fontSize: '1.125rem', fontFamily: 'var(--font-meta)', fontWeight: 500 }}>
             How I think
           </p>

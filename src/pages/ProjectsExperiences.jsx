@@ -16,12 +16,12 @@ const revealHero = { initial: { opacity: 0, y: 28 }, animate: { opacity: 1, y: 0
 // a case competition).
 const collageTop = [
   { src: '/images/gallery/On stage pic.JPEG', alt: 'Winning first place at the STRIVE Junior Tier case competition', pos: 'center 40%', grow: 1.4 },
-  { src: '/images/gallery/Best Team in the World.jpeg', alt: 'Outside Emirates Stadium', pos: 'center 55%', grow: 1 },
+  { src: '/images/gallery/Graduation!.jpeg', alt: 'Graduation', pos: 'center 38%', grow: 1 },
 ]
 const collageBottom = [
   { src: '/images/gallery/Korea.jpeg', alt: 'Seoul with my mom', pos: 'center 55%', grow: 0.9 },
   { src: '/images/gallery/Formal Dinner in High School.jpeg', alt: 'Formal dinner in high school', pos: 'center 45%', grow: 1.1 },
-  { src: '/images/gallery/toronto-island-ducks.jpeg', alt: 'Toronto Island, CN Tower in the background', pos: 'center 62%', grow: 0.8 },
+  { src: '/images/gallery/The boys.jpeg', alt: 'The boys, school days', pos: 'center 60%', grow: 0.8 },
 ]
 
 // Employers named on the resume, logo files supplied by Anson under
@@ -263,9 +263,6 @@ export function ProjectsExperiences() {
 
         <motion.div {...revealHero} style={{ maxWidth: 1000, margin: '0 auto', padding: 'clamp(24px, 4vw, 48px) clamp(20px, 5vw, 48px) clamp(36px, 5vw, 56px)' }}>
           <div style={{ width: 44, height: 4, background: 'var(--color-accent)', marginBottom: 20 }} />
-          <h1 className="font-editorial" style={{ fontSize: 'clamp(2.5rem, 7vw, 5rem)', color: '#fff', marginBottom: 16 }}>
-            Projects &amp; Experiences
-          </h1>
           <p style={{ color: 'var(--color-body-dark)', fontSize: '1.0625rem', lineHeight: 1.7, maxWidth: '52ch' }}>
             Two live builds, two in progress.
           </p>
