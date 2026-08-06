@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { cinema } from '../content/interests'
+import { TattooScatter } from '../components/TattooScatter'
 
 export function Interests() {
   const watched  = cinema.watchlist.filter((f) => f.watched).length
@@ -21,8 +22,9 @@ export function Interests() {
       </div>
 
       {/* ── Articles ── */}
-      <div style={{ background: 'var(--color-paper)', borderTop: '3px solid var(--color-accent)' }}>
-        <div style={{ maxWidth: 900, margin: '0 auto', padding: 'clamp(48px, 6vw, 80px) clamp(20px, 5vw, 48px) 96px' }}>
+      <div style={{ background: 'var(--color-paper)', borderTop: '3px solid var(--color-accent)', position: 'relative', overflow: 'hidden' }}>
+        <TattooScatter />
+        <div style={{ maxWidth: 900, margin: '0 auto', padding: 'clamp(48px, 6vw, 80px) clamp(20px, 5vw, 48px) 96px', position: 'relative', zIndex: 1 }}>
 
           {/* Cinema article */}
           <article style={{ borderBottom: '1px solid rgba(28,28,28,0.1)', paddingBottom: 64 }}>

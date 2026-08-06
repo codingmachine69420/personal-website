@@ -1,8 +1,15 @@
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import { site, directory } from '../content/site'
 import { ParallaxPhoto } from '../components/ParallaxPhoto'
 
 const jumpPhoto = `${import.meta.env.BASE_URL}images/gallery/santorini-jump.jpeg`
+
+// Slow, one-shot reveal for the hero on page load. MotionConfig's
+// reducedMotion="user" (set in App.jsx) already disables this for anyone
+// with prefers-reduced-motion — no extra handling needed here.
+const revealText  = { initial: { opacity: 0, y: 28 }, animate: { opacity: 1, y: 0 }, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }
+const revealPhoto = { initial: { opacity: 0, scale: 1.06 }, animate: { opacity: 1, scale: 1 }, transition: { duration: 1.5, ease: [0.16, 1, 0.3, 1] } }
 
 // All four sections render as identical nav cards — no primary/secondary split.
 const sections = directory
@@ -29,13 +36,15 @@ export function Home() {
 
       {/* ── Hero (desktop): text left, jump photo bleeding in on the right ── */}
       <div className="hidden md:flex" style={{ minHeight: 560 }}>
-        <div style={{
-          flex: '1 1 480px',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          padding: 'clamp(48px, 8vw, 96px) clamp(20px, 5vw, 48px) clamp(48px, 6vw, 72px) clamp(32px, 6vw, 64px)',
-        }}>
+        <motion.div
+          {...revealText}
+          style={{
+            flex: '1 1 480px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            padding: 'clamp(48px, 8vw, 96px) clamp(20px, 5vw, 48px) clamp(48px, 6vw, 72px) clamp(32px, 6vw, 64px)',
+          }}>
           <div style={{ width: 56, height: 4, background: 'var(--color-accent)', marginBottom: 28 }} aria-hidden="true" />
           <h1
             className="font-editorial"
@@ -55,9 +64,9 @@ export function Home() {
           <p className="label-caps" style={{ color: 'var(--color-accent)', marginTop: 20, fontSize: '0.8125rem' }}>
             {site.tagline}
           </p>
-        </div>
+        </motion.div>
 
-        <div style={{ flex: '1 1 480px', position: 'relative', overflow: 'hidden' }}>
+        <motion.div {...revealPhoto} style={{ flex: '1 1 480px', position: 'relative', overflow: 'hidden' }}>
           <ParallaxPhoto
             src={jumpPhoto}
             alt="Anson mid-air, jumping off a sailboat into the Santorini caldera"
@@ -68,12 +77,12 @@ export function Home() {
           {/* Fade the photo's inner edge to black so it bleeds out of the text panel rather than sitting in a hard tile */}
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, #000 0%, rgba(0,0,0,0.55) 22%, transparent 55%)' }} aria-hidden="true" />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 26%, transparent 74%, rgba(0,0,0,0.55) 100%)' }} aria-hidden="true" />
-        </div>
+        </motion.div>
       </div>
 
       {/* ── Hero (mobile): photo strip fading down into the text ── */}
       <div className="md:hidden" style={{ position: 'relative' }}>
-        <div style={{ position: 'relative', height: '46vh', minHeight: 320, overflow: 'hidden' }}>
+        <motion.div {...revealPhoto} style={{ position: 'relative', height: '46vh', minHeight: 320, overflow: 'hidden' }}>
           <ParallaxPhoto
             src={jumpPhoto}
             alt="Anson mid-air, jumping off a sailboat into the Santorini caldera"
@@ -82,8 +91,8 @@ export function Home() {
             pos="center 72%"
           />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, #000 0%, rgba(0,0,0,0.35) 45%, transparent 75%)' }} aria-hidden="true" />
-        </div>
-        <div style={{
+        </motion.div>
+        <motion.div {...revealText} style={{
           padding: '0 clamp(20px, 5vw, 48px) clamp(48px, 6vw, 72px)',
           marginTop: -8,
         }}>
@@ -106,7 +115,7 @@ export function Home() {
           <p className="label-caps" style={{ color: 'var(--color-accent)', marginTop: 20, fontSize: '0.8125rem' }}>
             {site.tagline}
           </p>
-        </div>
+        </motion.div>
       </div>
 
       {/* ── Nav cards (all four sections, same size and treatment) ── */}
