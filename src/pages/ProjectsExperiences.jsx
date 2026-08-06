@@ -3,11 +3,14 @@ import { projects } from '../content/projects'
 
 const BASE = import.meta.env.BASE_URL
 
-// Employers named on the resume — shown here as text wordmarks, not downloaded
-// brand-mark graphics. See CLAUDE.md: no fabricated/unsourced assets. Drop real
-// logo files under public/images/logos/ and swap this array for real image
-// elements once you have them.
-const employers = ['RBC', 'Odysseus Capital Asia', 'PwC']
+// Employers named on the resume, logo files supplied by Anson under
+// public/images/logos/. Allay LLP has no logo on hand yet — add an entry
+// here once one exists.
+const employers = [
+  { name: 'RBC', src: 'images/logos/RBC.webp' },
+  { name: 'Odysseus Capital Asia', src: 'images/logos/ody.jpg' },
+  { name: 'PwC', src: 'images/logos/PwC.webp' },
+]
 
 function ImageCarousel({ project }) {
   const [idx, setIdx] = useState(0)
@@ -119,6 +122,11 @@ function ProjectCard({ project, index }) {
             <h2 className="font-editorial" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#fff', marginBottom: 16 }}>
               {project.name}
             </h2>
+            {project.status && (
+              <p className="label-caps" style={{ color: 'var(--color-accent)', fontSize: '0.6875rem', border: '1px solid var(--color-accent)', display: 'inline-block', padding: '4px 10px', marginBottom: 16 }}>
+                {project.status}
+              </p>
+            )}
             <p style={{ color: 'var(--color-body-dark)', fontSize: '0.9375rem', lineHeight: 1.7, marginBottom: 24 }}>
               {project.description}
             </p>
@@ -139,6 +147,11 @@ function ProjectCard({ project, index }) {
             <h2 className="font-editorial" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#fff', marginBottom: 16 }}>
               {project.name}
             </h2>
+            {project.status && (
+              <p className="label-caps" style={{ color: 'var(--color-accent)', fontSize: '0.6875rem', border: '1px solid var(--color-accent)', display: 'inline-block', padding: '4px 10px', marginBottom: 16 }}>
+                {project.status}
+              </p>
+            )}
             <p style={{ color: 'var(--color-body-dark)', fontSize: '0.9375rem', lineHeight: 1.7, maxWidth: '68ch', marginBottom: 24 }}>
               {project.description}
             </p>
@@ -182,16 +195,13 @@ export function ProjectsExperiences() {
           padding: 'clamp(24px, 4vw, 40px) clamp(20px, 5vw, 48px)',
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 24, flexWrap: 'wrap' }}>
-            {/* Headshot — placeholder until a real photo is dropped in */}
-            <div style={{
-              width: 76, height: 76, flexShrink: 0,
-              background: 'repeating-linear-gradient(45deg, #1a1a1a 0px, #1a1a1a 8px, #1c1c1c 8px, #1c1c1c 16px)',
-              border: '2px solid var(--color-accent)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-            }}>
-              <span className="label-caps" style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.5625rem', textAlign: 'center', lineHeight: 1.3 }}>
-                Photo<br />coming
-              </span>
+            {/* Headshot */}
+            <div style={{ width: 76, height: 76, flexShrink: 0, border: '2px solid var(--color-accent)', overflow: 'hidden' }}>
+              <img
+                src={`${BASE}images/profile/headshot.jpg`}
+                alt="Anson Chan"
+                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+              />
             </div>
             <div>
               <p className="label-caps" style={{ color: 'var(--color-accent)', marginBottom: 10 }}>
@@ -203,11 +213,11 @@ export function ProjectsExperiences() {
               <p style={{ color: 'var(--color-body-dark)', fontSize: '0.9rem', fontFamily: 'var(--font-reading)', maxWidth: '44ch', marginBottom: 12 }}>
                 One page covering internships, projects, and everything in between.
               </p>
-              <div style={{ display: 'flex', gap: 18, flexWrap: 'wrap' }}>
-                {employers.map((name) => (
-                  <span key={name} className="label-caps" style={{ color: 'var(--color-body-dark)', fontSize: '0.6875rem', letterSpacing: '0.08em' }}>
-                    {name}
-                  </span>
+              <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
+                {employers.map((e) => (
+                  <div key={e.name} style={{ background: '#fff', height: 40, padding: '0 12px', display: 'flex', alignItems: 'center' }}>
+                    <img src={`${BASE}${e.src}`} alt={e.name} style={{ height: 24, width: 'auto', objectFit: 'contain', display: 'block' }} />
+                  </div>
                 ))}
               </div>
             </div>
@@ -242,7 +252,7 @@ export function ProjectsExperiences() {
             Projects &amp; Experiences
           </h1>
           <p style={{ color: 'var(--color-body-dark)', fontSize: '1.0625rem', lineHeight: 1.7, maxWidth: '52ch' }}>
-            Two live builds and one in progress.
+            Two live builds, two in progress.
           </p>
         </div>
       </div>

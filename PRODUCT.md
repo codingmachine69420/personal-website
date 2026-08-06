@@ -25,29 +25,30 @@ The differentiator is breadth and personhood: the site pairs a legitimate financ
 - Old routes (/driven, /curious, /attitude, /work, /writing) redirect to their nearest equivalents.
 - Visual identity: NatGeo-editorial magazine aesthetic — black gutters, ochre accent frames (`--color-accent: #D9A21B`), three-tier type system (Barlow Condensed display, Source Serif 4 body, Barlow metadata/labels), no border-radius anywhere. This is incumbent authority, not something to casually override.
 - Gallery: masonry grid (`columns-2 sm:columns-3 md:columns-4`), real personal travel/life photos, always-visible captions.
-- Resume linked as static PDF (`/resume.pdf`) — prominent strip on Projects & Experiences page.
+- Resume linked as static PDF (`/resume.pdf`) — prominent strip on Projects & Experiences page, with a real headshot and employer logo plates (RBC, Odysseus Capital Asia, PwC) alongside it.
 - TMDB API (env var `VITE_TMDB_TOKEN`, baked at build via GitHub Actions secret) fetches Cinema posters; results cached in sessionStorage per session.
 
 ## Capabilities and Constraints
 
 - **Mindset** (`/mindset`): 4-column card grid expanding inline below each row. Real essay content for High Agency, Value Driven, Delusional Optimism, Curiosity. Four placeholder cards in row 2. Do not invent new essay text.
-- **Projects & Experiences** (`/projects`): SignalFeed (sentiment AI agent, portrait side carousel), Bobby (MNQ trading bot, stacked layout), Work in Progress. Real screenshots for SignalFeed only. Do not fabricate project descriptions beyond what exists.
+- **Projects & Experiences** (`/projects`): four entries — SignalFeed (sentiment AI agent, portrait side carousel), Algo Trading Bot (MNQ trading bot, stacked layout, flagged as still in development/not traded live), Earnings Signal Agent (in progress, no real screenshot yet), P&L Tracker for Rideshare Drivers (in progress — idea-stage description Claude drafted for Anson to rewrite, not sourced from anything he wrote). Real screenshots for SignalFeed and Algo Trading Bot. Do not fabricate project descriptions beyond what exists; the P&L Tracker's prose is an explicit exception flagged as a draft, not evidence of a built thing.
 - **Interests** (`/interests`): Hub page → Cinema (`/interests/cinema`) watchlist with TMDB posters, star ratings, CLASSICS ONLY badge. More interest categories to follow.
-- **Photo Gallery** (`/gallery`): Real personal travel photos already populated.
+- **Photo Gallery** (`/gallery`): Real personal travel photos already populated, organized by year.
 - **Writing posts**: `src/content/writing.js` — `posts = []`, empty. Do not fabricate posts.
-- Home (`/`): Editorial hub with hero ("Discovering Anson"), two primary nav cards (Mindset / Projects & Experiences), two secondary links (Interests / Photo Gallery). WIP banner present.
+- Home (`/`): Editorial hub with hero ("Discovering Anson"), four nav cards of identical size/treatment (Mindset / Projects & Experiences / Interests / Photo Gallery) — no primary/secondary split. WIP banner present.
 
 ## Brand Commitments
 
 - Site title / wordmark: "Discovering Anson"
 - Hero intro: "Hi, I'm Anson and I am 21. I will be great…" (Anson's own words — do not alter)
+- Tagline: "Building the best version of myself." (Anson's own words — do not alter)
 - Location: Toronto, Canada / Hong Kong
 - Contact: ansonpy.chan@mail.utoronto.ca; LinkedIn (linkedin.com/in/anson-chan-67b155291)
 
 ## Evidence on Hand
 
-- Real, populated: gallery photos, Mindset essays (all four sections), SignalFeed + Bobby project descriptions, Cinema watchlist with ratings, resume PDF.
-- Not yet populated (do not fabricate): Bobby screenshots (placeholder-2.svg), WIP project, writing posts, project demo/repo URLs.
+- Real, populated: gallery photos (including a 2024 case-competition photo — his first case comp, a 1st-place finish), Mindset essays (all four sections), SignalFeed + Algo Trading Bot descriptions and screenshots, Cinema watchlist with ratings, resume PDF, real headshot photo, real employer logos (RBC, Odysseus Capital Asia, PwC).
+- Not yet populated (do not fabricate): writing posts, project demo/repo URLs, an Allay LLP logo (no file on hand — ask before adding a fourth logo). The P&L Tracker for Rideshare Drivers project is a Claude-authored draft description Anson intends to rewrite — don't treat its prose as confirmed fact elsewhere in the site.
 
 ## Product Principles
 

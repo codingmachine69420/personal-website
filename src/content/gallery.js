@@ -51,6 +51,7 @@ export const photosByYear = [
       { src: '/images/gallery/Quick Trip to Vancouver (UBC) in the Autumn.jpeg', alt: 'Quick Trip to Vancouver (UBC) in the Autumn', caption: 'Quick Trip to Vancouver (UBC) in the Autumn', width: 1200, height: 1600 },
       { src: '/images/gallery/Beautiful Toronto.jpeg', alt: 'Beautiful Toronto', caption: 'Beautiful Toronto', width: 1200, height: 1600 },
       { src: '/images/gallery/toronto-island-ducks.jpeg', alt: 'Mallard ducks on Toronto Island — CN Tower in the background', caption: 'Toronto Island', width: 1500, height: 2000 },
+      { src: '/images/gallery/On stage pic.JPEG', alt: 'On stage after winning the STRIVE Junior Tier Case Competition', caption: 'My first ever case competition — and we took first place.', width: 2320, height: 1537 },
     ],
   },
   {

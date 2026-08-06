@@ -4,8 +4,8 @@ import { ParallaxPhoto } from '../components/ParallaxPhoto'
 
 const jumpPhoto = `${import.meta.env.BASE_URL}images/gallery/santorini-jump.jpeg`
 
-const primary   = directory.slice(0, 2) // Mindset, Projects & Experiences
-const secondary = directory.slice(2)    // Interests, Photo Gallery
+// All four sections render as identical nav cards — no primary/secondary split.
+const sections = directory
 
 export function Home() {
   return (
@@ -109,14 +109,14 @@ export function Home() {
         </div>
       </div>
 
-      {/* ── Primary nav cards ── */}
+      {/* ── Nav cards (all four sections, same size and treatment) ── */}
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
         gap: 2,
         borderTop: '2px solid rgba(255,255,255,0.06)',
       }}>
-        {primary.map((item) => (
+        {sections.map((item) => (
           <Link
             key={item.id}
             to={item.href}
@@ -143,41 +143,6 @@ export function Home() {
               </p>
               <p className="label-caps" style={{ color: 'var(--color-accent)', marginTop: 32, fontSize: '0.75rem' }}>
                 Explore →
-              </p>
-            </div>
-          </Link>
-        ))}
-      </div>
-
-      {/* ── Secondary links ── */}
-      <div style={{
-        borderTop: '1px solid rgba(255,255,255,0.06)',
-        display: 'flex',
-        flexWrap: 'wrap',
-      }}>
-        {secondary.map((item) => (
-          <Link
-            key={item.id}
-            to={item.href}
-            style={{ textDecoration: 'none', flex: '1 1 200px' }}
-          >
-            <div
-              style={{
-                padding: 'clamp(24px, 4vw, 40px) clamp(24px, 4vw, 48px)',
-                borderRight: '1px solid rgba(255,255,255,0.06)',
-                transition: 'opacity 0.2s',
-              }}
-              onMouseEnter={e => e.currentTarget.style.opacity = '0.6'}
-              onMouseLeave={e => e.currentTarget.style.opacity = '1'}
-            >
-              <p className="label-caps" style={{ color: 'rgba(255,255,255,0.5)', marginBottom: 10, fontSize: '0.75rem' }}>
-                0{item.floor}
-              </p>
-              <p className="label-caps" style={{ color: '#fff', marginBottom: 8 }}>
-                {item.label}
-              </p>
-              <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: '0.875rem', fontFamily: 'var(--font-reading)' }}>
-                {item.description}
               </p>
             </div>
           </Link>

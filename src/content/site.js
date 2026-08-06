@@ -2,7 +2,7 @@
 // TODO: replace every placeholder value below with your real info.
 export const site = {
   name: 'Discovering Anson',
-  tagline: 'Finance & markets by day, builder by night.',
+  tagline: 'Building the best version of myself.',
   location: 'Toronto, Canada / Hong Kong',
   email: 'ansonpy.chan@mail.utoronto.ca',
   social: [
