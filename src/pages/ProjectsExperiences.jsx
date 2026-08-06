@@ -10,7 +10,7 @@ const BASE = import.meta.env.BASE_URL
 // a case competition).
 const collageTop = [
   { src: '/images/gallery/On stage pic.JPEG', alt: 'Winning first place at the STRIVE Junior Tier case competition', pos: 'center 40%', grow: 1.4 },
-  { src: '/images/gallery/Graduation!.jpeg', alt: 'Graduation', pos: 'center 52%', grow: 1 },
+  { src: '/images/gallery/Graduation!.jpeg', alt: 'Graduation', pos: 'center 43%', grow: 1 },
 ]
 const collageBottom = [
   { src: '/images/gallery/Korea.jpeg', alt: 'Seoul with my mom', pos: 'center 55%', grow: 0.9 },
