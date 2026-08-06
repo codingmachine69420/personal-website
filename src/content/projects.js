@@ -42,7 +42,6 @@ export const projects = [
   },
   {
     name: 'P&L Tracker for Rideshare Drivers — In Progress',
-    status: 'In progress — idea stage, description is a draft for Anson to refine.',
     description:
       'A profit-and-loss tracker built for taxi and rideshare (Uber/Lyft-style) drivers. Most driver-facing apps only show gross fares — this would pull trip income together with the real costs of driving (fuel, maintenance, insurance, platform commissions) to show actual per-hour and per-mile profitability, plus a running mileage log for tax purposes. Still in early planning; nothing built yet.',
     stack: [],
