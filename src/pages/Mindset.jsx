@@ -13,9 +13,9 @@ const collageTop = [
   { src: '/images/gallery/Beautiful hike in Victoria, BC.jpeg', alt: 'Hiking above Victoria, BC', pos: 'center 35%', grow: 1 },
 ]
 const collageBottom = [
-  { src: '/images/gallery/hong-kong-skyline.jpeg', alt: 'Hong Kong skyline at dusk from Victoria Peak', pos: 'center 55%', grow: 0.9 },
-  { src: '/images/gallery/Prague during Christmas.jpeg', alt: 'Prague at Christmas', pos: 'center 32%', grow: 1 },
-  { src: '/images/gallery/Athens.jpeg', alt: 'Athens at dusk', pos: 'center 45%', grow: 0.9 },
+  { src: '/images/gallery/Middle School In Hong Kong (~2019).jpeg', alt: 'Middle school in Hong Kong', pos: 'center 48%', grow: 0.9 },
+  { src: '/images/gallery/Prague during Christmas.jpeg', alt: 'Prague at Christmas', pos: 'center 48%', grow: 1 },
+  { src: '/images/gallery/Athens.jpeg', alt: 'Athens at dusk', pos: 'center 62%', grow: 0.9 },
 ]
 
 const SECTIONS = [

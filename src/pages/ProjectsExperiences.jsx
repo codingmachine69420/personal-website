@@ -1,14 +1,8 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
 import { projects } from '../content/projects'
 import { CollageBanner } from '../components/CollageBanner'
 
 const BASE = import.meta.env.BASE_URL
-
-// Same slow, one-shot hero reveal used on Home.jsx previously — kept here
-// since Anson only asked to remove the movement on the landing page, not
-// this one. Respected by MotionConfig's reducedMotion="user" in App.jsx.
-const revealHero = { initial: { opacity: 0, y: 28 }, animate: { opacity: 1, y: 0 }, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }
 
 // Real gallery photos, picked and hand-positioned (not cropped blind) so the
 // actual subject stays visible in a mosaic tile. "On stage pic" gets the
@@ -260,13 +254,6 @@ export function ProjectsExperiences() {
             Open Resume →
           </a>
         </div>
-
-        <motion.div {...revealHero} style={{ maxWidth: 1000, margin: '0 auto', padding: 'clamp(24px, 4vw, 48px) clamp(20px, 5vw, 48px) clamp(36px, 5vw, 56px)' }}>
-          <div style={{ width: 44, height: 4, background: 'var(--color-accent)', marginBottom: 20 }} />
-          <p style={{ color: 'var(--color-body-dark)', fontSize: '1.0625rem', lineHeight: 1.7, maxWidth: '52ch' }}>
-            Two live builds, two in progress.
-          </p>
-        </motion.div>
       </div>
 
       {/* ── Projects ── */}
