@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import { site, directory } from '../content/site'
 import { ParallaxPhoto } from '../components/ParallaxPhoto'
+import { TextEffect } from '../components/TextEffect'
 
 const jumpPhoto = `${import.meta.env.BASE_URL}images/gallery/santorini-jump.jpeg`
 
@@ -36,12 +38,18 @@ export function Home() {
           justifyContent: 'center',
           padding: 'clamp(48px, 8vw, 96px) clamp(20px, 5vw, 48px) clamp(48px, 6vw, 72px) clamp(32px, 6vw, 64px)',
         }}>
-          <div style={{ width: 56, height: 4, background: 'var(--color-accent)', marginBottom: 28 }} aria-hidden="true" />
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            style={{ width: 56, height: 4, background: 'var(--color-accent)', marginBottom: 28, transformOrigin: 'left' }}
+            aria-hidden="true"
+          />
           <h1
             className="font-editorial"
             style={{ fontSize: 'clamp(3.5rem, 7vw, 7rem)', color: '#fff', marginBottom: 24, lineHeight: 0.92 }}
           >
-            Discovering<br />Anson
+            <TextEffect>Discovering</TextEffect><br /><TextEffect delay={0.35}>Anson</TextEffect>
           </h1>
           <p style={{
             color: 'var(--color-body-dark)',
@@ -87,12 +95,18 @@ export function Home() {
           padding: '0 clamp(20px, 5vw, 48px) clamp(48px, 6vw, 72px)',
           marginTop: -8,
         }}>
-          <div style={{ width: 56, height: 4, background: 'var(--color-accent)', marginBottom: 28 }} aria-hidden="true" />
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            style={{ width: 56, height: 4, background: 'var(--color-accent)', marginBottom: 28, transformOrigin: 'left' }}
+            aria-hidden="true"
+          />
           <h1
             className="font-editorial"
             style={{ fontSize: 'clamp(3.5rem, 10vw, 8rem)', color: '#fff', marginBottom: 24, lineHeight: 0.92 }}
           >
-            Discovering<br />Anson
+            <TextEffect>Discovering</TextEffect><br /><TextEffect delay={0.35}>Anson</TextEffect>
           </h1>
           <p style={{
             color: 'var(--color-body-dark)',
@@ -116,14 +130,18 @@ export function Home() {
         gap: 2,
         borderTop: '2px solid rgba(255,255,255,0.06)',
       }}>
-        {sections.map((item) => (
+        {sections.map((item, i) => (
           <Link
             key={item.id}
             to={item.href}
             style={{ textDecoration: 'none', display: 'block' }}
           >
-            <div
+            <motion.div
               className="nav-card"
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.55, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
               style={{
                 background: 'var(--color-ink)',
                 padding: 'clamp(40px, 6vw, 72px) clamp(24px, 4vw, 48px)',
@@ -144,7 +162,7 @@ export function Home() {
               <p className="label-caps" style={{ color: 'var(--color-accent)', marginTop: 32, fontSize: '0.75rem' }}>
                 Explore →
               </p>
-            </div>
+            </motion.div>
           </Link>
         ))}
       </div>
