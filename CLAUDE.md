@@ -5,6 +5,13 @@ Vite + React 19 + Tailwind CSS v4 (CSS-first `@theme {}`) + React Router v7 + Fr
 GitHub Pages deploy: `base: '/personal-website/'` → all local assets prefixed with `import.meta.env.BASE_URL`.
 `MotionConfig reducedMotion="user"` wraps all routes in `App.jsx` — Framer Motion respects OS motion preference automatically.
 
+## Component registries (Motion Primitives / Watermelon UI)
+`components.json` wires up the shadcn CLI against two copy-in registries, so any single component from either can be pulled with one command instead of hand-copying:
+- `npx shadcn@latest add @motion-primitives/<name>` — [motion-primitives.com](https://motion-primitives.com), animated components built on Framer Motion + Tailwind.
+- `npx shadcn@latest add @watermelon/<name>` — [ui.watermelon.sh](https://ui.watermelon.sh), Radix-based components (buttons, inputs, dashboards) built on Tailwind + Radix UI.
+Supporting plumbing: `@/*` path alias → `src/*` (`vite.config.js`, `jsconfig.json`), `src/lib/utils.js` exports `cn()` (clsx + tailwind-merge) that pulled components expect at `@/lib/utils`.
+`components.json` sets `cssVariables: false` deliberately — do NOT let a component-add inject shadcn's own `--primary`/`--radius`-style tokens into `src/index.css`; this site's five tokens (accent/ink/paper/body-dark/body-light) are the only palette. **Every pulled component still needs a manual pass before it's used on a page**: re-skin its classes to the site's three-tier type system and color tokens, and don't worry about border-radius specifically — `*, *::before, *::after { border-radius: 0 !important }` in `index.css` already forces hard corners globally, including on anything pulled in. Nothing has been pulled into an actual page yet — the registries are wired up and dry-run verified (Watermelon resolved end-to-end; Motion Primitives' registry 429'd under repeated test hits but resolved the correct URL), not yet used for real UI.
+
 ## Design tokens
 - `--color-accent: #D9A21B` — ochre; frames, rules, CTA buttons
 - `--color-ink: #1C1C1C` — near-black for dark panels
