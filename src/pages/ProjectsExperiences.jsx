@@ -11,56 +11,17 @@ const BASE = import.meta.env.BASE_URL
 const revealHero = { initial: { opacity: 0, y: 28 }, animate: { opacity: 1, y: 0 }, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }
 
 // Real gallery photos, picked and hand-positioned (not cropped blind) so the
-// actual subject stays visible in a short banner tile. "On stage pic" gets
-// the accent border + biggest slot — it's the one that's thematically on-
-// topic for this page (winning a case competition).
-const collagePhotos = [
-  {
-    src: '/images/gallery/Best Team in the World.jpeg',
-    alt: 'Outside Emirates Stadium',
-    pos: 'center 55%',
-    width: 'clamp(110px, 14vw, 175px)',
-    height: 'clamp(85px, 10vw, 135px)',
-    rotate: 5, lift: 10,
-    shadow: '0 8px 16px rgba(0,0,0,0.35)',
-  },
-  {
-    src: '/images/gallery/Korea.jpeg',
-    alt: 'Seoul with my mom',
-    pos: 'center 55%',
-    width: 'clamp(90px, 11vw, 140px)',
-    height: 'clamp(120px, 15vw, 190px)',
-    rotate: -4, lift: -10,
-    shadow: '0 22px 40px rgba(0,0,0,0.48)',
-  },
-  {
-    src: '/images/gallery/On stage pic.JPEG',
-    alt: 'Winning first place at the STRIVE Junior Tier case competition',
-    pos: 'center 40%',
-    width: 'clamp(140px, 17vw, 220px)',
-    height: 'clamp(95px, 12vw, 150px)',
-    rotate: -2, lift: 0,
-    shadow: '0 20px 38px rgba(0,0,0,0.48)',
-    accent: true,
-  },
-  {
-    src: '/images/gallery/Formal Dinner in High School.jpeg',
-    alt: 'Formal dinner in high school',
-    pos: 'center 45%',
-    width: 'clamp(115px, 14vw, 180px)',
-    height: 'clamp(88px, 11vw, 140px)',
-    rotate: 5, lift: -14,
-    shadow: '0 24px 42px rgba(0,0,0,0.48)',
-  },
-  {
-    src: '/images/gallery/toronto-island-ducks.jpeg',
-    alt: 'Toronto Island, CN Tower in the background',
-    pos: 'center 62%',
-    width: 'clamp(85px, 10vw, 130px)',
-    height: 'clamp(115px, 14vw, 180px)',
-    rotate: -6, lift: 8,
-    shadow: '0 8px 14px rgba(0,0,0,0.32)',
-  },
+// actual subject stays visible in a mosaic tile. "On stage pic" gets the
+// biggest top-row slot — it's thematically on-topic for this page (winning
+// a case competition).
+const collageTop = [
+  { src: '/images/gallery/On stage pic.JPEG', alt: 'Winning first place at the STRIVE Junior Tier case competition', pos: 'center 40%', grow: 1.4 },
+  { src: '/images/gallery/Best Team in the World.jpeg', alt: 'Outside Emirates Stadium', pos: 'center 55%', grow: 1 },
+]
+const collageBottom = [
+  { src: '/images/gallery/Korea.jpeg', alt: 'Seoul with my mom', pos: 'center 55%', grow: 0.9 },
+  { src: '/images/gallery/Formal Dinner in High School.jpeg', alt: 'Formal dinner in high school', pos: 'center 45%', grow: 1.1 },
+  { src: '/images/gallery/toronto-island-ducks.jpeg', alt: 'Toronto Island, CN Tower in the background', pos: 'center 62%', grow: 0.8 },
 ]
 
 // Employers named on the resume, logo files supplied by Anson under
@@ -235,7 +196,7 @@ export function ProjectsExperiences() {
     <div>
       {/* ── Photo collage banner ── */}
       <div style={{ background: 'var(--color-ink)' }}>
-        <CollageBanner photos={collagePhotos} />
+        <CollageBanner title="Projects & Experiences" topPhotos={collageTop} bottomPhotos={collageBottom} />
 
         {/* Resume strip */}
         <div style={{

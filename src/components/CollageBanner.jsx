@@ -1,26 +1,19 @@
-// A loose photo collage used in place of the "Photo banner — coming"
-// placeholder on Mindset and Projects & Experiences. Deliberately not a grid:
-// each photo has its own size, rotation, vertical offset, and shadow depth
-// ("elevation") so it reads as a scattered stack of real prints rather than
-// a blocky tile row. `pos` is a hand-picked objectPosition per photo so
-// cropping never hides the actual subject — pick it by looking at the photo,
-// not by guessing "center center".
+// Photo-mosaic banner with a bold title band across the middle — matches
+// the "CINEMA RETROSPECTIVE" reference Anson supplied: real photos edge-to-
+// edge (no gaps, no rotation), a solid black stripe cutting across with the
+// page title in large tracked uppercase, more photos above and below.
+// Replaces the old "Photo banner — coming" placeholder on Mindset and
+// Projects & Experiences.
+//
+// `pos` is a hand-picked objectPosition per photo (look at the photo, don't
+// default to 'center center') so cropping never hides the actual subject.
+// `grow` varies tile width for a mosaic feel instead of a uniform grid.
 
 const BASE = import.meta.env.BASE_URL
 
-function CollagePhoto({ src, alt, pos, width, height, rotate, lift, shadow, accent }) {
+function CollageTile({ src, alt, pos, grow = 1 }) {
   return (
-    <div
-      style={{
-        position: 'relative',
-        flexShrink: 0,
-        width,
-        height,
-        transform: `translateY(${lift}px) rotate(${rotate}deg)`,
-        border: `4px solid ${accent ? 'var(--color-accent)' : 'var(--color-paper)'}`,
-        boxShadow: shadow,
-      }}
-    >
+    <div style={{ flex: grow, minWidth: 0, overflow: 'hidden' }}>
       <img
         src={`${BASE}${src.replace(/^\//, '')}`}
         alt={alt}
@@ -31,23 +24,29 @@ function CollagePhoto({ src, alt, pos, width, height, rotate, lift, shadow, acce
   )
 }
 
-export function CollageBanner({ photos }) {
+export function CollageBanner({ title, topPhotos, bottomPhotos }) {
   return (
-    <div
-      style={{
-        height: 'clamp(200px, 28vw, 340px)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: 'clamp(10px, 2vw, 26px)',
-        padding: '0 clamp(20px, 4vw, 48px)',
-        overflow: 'hidden',
-        background: '#1a1a1a',
-      }}
-    >
-      {photos.map((photo) => (
-        <CollagePhoto key={photo.src} {...photo} />
-      ))}
+    <div style={{ display: 'flex', flexDirection: 'column', height: 'clamp(240px, 32vw, 380px)', overflow: 'hidden' }}>
+      <div style={{ flex: 1, display: 'flex', minHeight: 0 }}>
+        {topPhotos.map((p) => <CollageTile key={p.src} {...p} />)}
+      </div>
+
+      {/* Title band — decorative, not a heading; the real <h1> for the page
+          follows below this banner, so this stays a <p> to avoid a second
+          top-level heading landing in the accessibility tree. */}
+      <div style={{
+        background: '#000',
+        padding: 'clamp(14px, 2.5vw, 26px) clamp(16px, 3vw, 32px)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+      }}>
+        <p className="font-editorial" style={{ color: '#fff', fontSize: 'clamp(1.375rem, 4.5vw, 2.75rem)', letterSpacing: '0.12em', textAlign: 'center', margin: 0 }}>
+          {title}
+        </p>
+      </div>
+
+      <div style={{ flex: 1, display: 'flex', minHeight: 0 }}>
+        {bottomPhotos.map((p) => <CollageTile key={p.src} {...p} />)}
+      </div>
     </div>
   )
 }

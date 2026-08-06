@@ -5,56 +5,17 @@ import { CollageBanner } from '../components/CollageBanner'
 const BASE = import.meta.env.BASE_URL
 
 // Real gallery photos, picked and hand-positioned (not cropped blind) so the
-// actual subject stays visible in a short banner tile. "Graduation!" gets
-// the accent border + biggest slot — the milestone photo, thematically on
-// point for a page about how I think and what shapes me.
-const collagePhotos = [
-  {
-    src: '/images/gallery/The boys.jpeg',
-    alt: 'The boys, on a hike lookout',
-    pos: 'center 35%',
-    width: 'clamp(120px, 15vw, 190px)',
-    height: 'clamp(90px, 11vw, 145px)',
-    rotate: -5, lift: 10,
-    shadow: '0 8px 16px rgba(0,0,0,0.35)',
-  },
-  {
-    src: '/images/gallery/Beautiful hike in Victoria, BC.jpeg',
-    alt: 'Hiking above Victoria, BC',
-    pos: 'center 35%',
-    width: 'clamp(130px, 16vw, 205px)',
-    height: 'clamp(100px, 12vw, 155px)',
-    rotate: 4, lift: -12,
-    shadow: '0 26px 46px rgba(0,0,0,0.5)',
-  },
-  {
-    src: '/images/gallery/Graduation!.jpeg',
-    alt: 'Graduation',
-    pos: 'center 38%',
-    width: 'clamp(95px, 12vw, 150px)',
-    height: 'clamp(125px, 16vw, 200px)',
-    rotate: -3, lift: 2,
-    shadow: '0 18px 34px rgba(0,0,0,0.45)',
-    accent: true,
-  },
-  {
-    src: '/images/gallery/Prague during Christmas.jpeg',
-    alt: 'Prague at Christmas',
-    pos: 'center 32%',
-    width: 'clamp(90px, 11vw, 140px)',
-    height: 'clamp(120px, 15vw, 190px)',
-    rotate: 6, lift: -8,
-    shadow: '0 20px 36px rgba(0,0,0,0.45)',
-  },
-  {
-    src: '/images/gallery/Athens.jpeg',
-    alt: 'Athens at dusk',
-    pos: 'center 45%',
-    width: 'clamp(85px, 10vw, 130px)',
-    height: 'clamp(115px, 14vw, 180px)',
-    rotate: -6, lift: 12,
-    shadow: '0 8px 14px rgba(0,0,0,0.32)',
-  },
+// actual subject stays visible in a mosaic tile. "Graduation!" gets the
+// biggest top-row slot — the milestone photo, thematically on point for a
+// page about how I think and what shapes me.
+const collageTop = [
+  { src: '/images/gallery/The boys.jpeg', alt: 'The boys, on a hike lookout', pos: 'center 35%', grow: 1.2 },
+  { src: '/images/gallery/Beautiful hike in Victoria, BC.jpeg', alt: 'Hiking above Victoria, BC', pos: 'center 35%', grow: 1 },
+]
+const collageBottom = [
+  { src: '/images/gallery/Graduation!.jpeg', alt: 'Graduation', pos: 'center 38%', grow: 0.9 },
+  { src: '/images/gallery/Prague during Christmas.jpeg', alt: 'Prague at Christmas', pos: 'center 32%', grow: 1 },
+  { src: '/images/gallery/Athens.jpeg', alt: 'Athens at dusk', pos: 'center 45%', grow: 0.9 },
 ]
 
 const SECTIONS = [
@@ -373,7 +334,7 @@ export function Mindset() {
     <div>
       {/* ── Photo collage banner ── */}
       <div style={{ background: 'var(--color-ink)' }}>
-        <CollageBanner photos={collagePhotos} />
+        <CollageBanner title="Mindset" topPhotos={collageTop} bottomPhotos={collageBottom} />
 
         <div style={{ maxWidth: 900, margin: '0 auto', padding: 'clamp(36px, 5vw, 64px) clamp(20px, 5vw, 48px)' }}>
           <div style={{ width: 44, height: 4, background: 'var(--color-accent)', marginBottom: 20 }} />
