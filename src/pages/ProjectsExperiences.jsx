@@ -1,12 +1,67 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { projects } from '../content/projects'
+import { CollageBanner } from '../components/CollageBanner'
 
 const BASE = import.meta.env.BASE_URL
 
-// Same slow, one-shot hero reveal used on Home.jsx — respected by
-// MotionConfig's reducedMotion="user" in App.jsx.
+// Same slow, one-shot hero reveal used on Home.jsx previously — kept here
+// since Anson only asked to remove the movement on the landing page, not
+// this one. Respected by MotionConfig's reducedMotion="user" in App.jsx.
 const revealHero = { initial: { opacity: 0, y: 28 }, animate: { opacity: 1, y: 0 }, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }
+
+// Real gallery photos, picked and hand-positioned (not cropped blind) so the
+// actual subject stays visible in a short banner tile. "On stage pic" gets
+// the accent border + biggest slot — it's the one that's thematically on-
+// topic for this page (winning a case competition).
+const collagePhotos = [
+  {
+    src: '/images/gallery/Best Team in the World.jpeg',
+    alt: 'Outside Emirates Stadium',
+    pos: 'center 55%',
+    width: 'clamp(110px, 14vw, 175px)',
+    height: 'clamp(85px, 10vw, 135px)',
+    rotate: 5, lift: 10,
+    shadow: '0 8px 16px rgba(0,0,0,0.35)',
+  },
+  {
+    src: '/images/gallery/Korea.jpeg',
+    alt: 'Seoul with my mom',
+    pos: 'center 55%',
+    width: 'clamp(90px, 11vw, 140px)',
+    height: 'clamp(120px, 15vw, 190px)',
+    rotate: -4, lift: -10,
+    shadow: '0 22px 40px rgba(0,0,0,0.48)',
+  },
+  {
+    src: '/images/gallery/On stage pic.JPEG',
+    alt: 'Winning first place at the STRIVE Junior Tier case competition',
+    pos: 'center 40%',
+    width: 'clamp(140px, 17vw, 220px)',
+    height: 'clamp(95px, 12vw, 150px)',
+    rotate: -2, lift: 0,
+    shadow: '0 20px 38px rgba(0,0,0,0.48)',
+    accent: true,
+  },
+  {
+    src: '/images/gallery/Formal Dinner in High School.jpeg',
+    alt: 'Formal dinner in high school',
+    pos: 'center 45%',
+    width: 'clamp(115px, 14vw, 180px)',
+    height: 'clamp(88px, 11vw, 140px)',
+    rotate: 5, lift: -14,
+    shadow: '0 24px 42px rgba(0,0,0,0.48)',
+  },
+  {
+    src: '/images/gallery/toronto-island-ducks.jpeg',
+    alt: 'Toronto Island, CN Tower in the background',
+    pos: 'center 62%',
+    width: 'clamp(85px, 10vw, 130px)',
+    height: 'clamp(115px, 14vw, 180px)',
+    rotate: -6, lift: 8,
+    shadow: '0 8px 14px rgba(0,0,0,0.32)',
+  },
+]
 
 // Employers named on the resume, logo files supplied by Anson under
 // public/images/logos/. Allay LLP has no logo on hand yet — add an entry
@@ -178,15 +233,9 @@ function ProjectCard({ project, index }) {
 export function ProjectsExperiences() {
   return (
     <div>
-      {/* ── Placeholder banner ── */}
+      {/* ── Photo collage banner ── */}
       <div style={{ background: 'var(--color-ink)' }}>
-        <div style={{
-          height: 'clamp(200px, 28vw, 340px)',
-          background: 'repeating-linear-gradient(45deg, #1a1a1a 0px, #1a1a1a 10px, #1c1c1c 10px, #1c1c1c 20px)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-        }}>
-          <p className="label-caps" style={{ color: 'rgba(255,255,255,0.15)' }}>Photo banner — coming</p>
-        </div>
+        <CollageBanner photos={collagePhotos} />
 
         {/* Resume strip */}
         <div style={{
