@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { cinema } from '../content/interests'
 import { TattooScatter } from '../components/TattooScatter'
+import { LabeledProgressIndicator } from '../components/LabeledProgressIndicator'
 
 export function Interests() {
   const watched  = cinema.watchlist.filter((f) => f.watched).length
@@ -38,7 +39,7 @@ export function Interests() {
               {cinema.teaser}
             </p>
 
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', maxWidth: '60ch' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 32, flexWrap: 'wrap', maxWidth: '60ch' }}>
               <Link
                 to="/interests/cinema"
                 className="cta-link"
@@ -46,9 +47,10 @@ export function Interests() {
               >
                 Current Watchlist
               </Link>
-              <p className="label-caps" style={{ color: 'var(--color-body-light)' }}>
-                {watched} of {total} watched
-              </p>
+              <LabeledProgressIndicator
+                labels={[`${watched} of ${total} watched`, `${total - watched} left on the list`]}
+                percent={total ? (watched / total) * 100 : 0}
+              />
             </div>
           </article>
 

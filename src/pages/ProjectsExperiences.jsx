@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { projects } from '../content/projects'
 import { CollageBanner } from '../components/CollageBanner'
+import { ExpandableProfileCard } from '../components/ExpandableProfileCard'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -204,14 +205,50 @@ export function ProjectsExperiences() {
           padding: 'clamp(24px, 4vw, 40px) clamp(20px, 5vw, 48px)',
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 24, flexWrap: 'wrap' }}>
-            {/* Headshot */}
-            <div style={{ width: 76, height: 76, flexShrink: 0, border: '2px solid var(--color-accent)', overflow: 'hidden' }}>
-              <img
-                src={`${BASE}images/profile/headshot.jpg`}
-                alt="Anson Chan"
-                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-              />
-            </div>
+            {/* Headshot — click to expand into a full profile card with the resume + logos (see PRODUCT.md) */}
+            <ExpandableProfileCard
+              imageSrc={`${BASE}images/profile/headshot.jpg`}
+              imageAlt="Anson Chan"
+              title="Anson Chan"
+              subtitle="My Resume"
+              triggerSize={96}
+              content={
+                <>
+                  <p style={{ color: 'var(--color-body-dark)', fontSize: '0.9375rem', lineHeight: 1.7, fontFamily: 'var(--font-reading)', marginBottom: 28 }}>
+                    Work history, education &amp; skills — one page covering internships, projects, and everything in between.
+                  </p>
+                  <p className="label-caps" style={{ color: 'rgba(255,255,255,0.5)', marginBottom: 14 }}>Where I've worked</p>
+                  <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center', marginBottom: 32 }}>
+                    {employers.map((e) => (
+                      <div key={e.name} style={{ background: '#fff', height: 40, padding: '0 12px', display: 'flex', alignItems: 'center' }}>
+                        <img src={`${BASE}${e.src}`} alt={e.name} style={{ height: 24, width: 'auto', objectFit: 'contain', display: 'block' }} />
+                      </div>
+                    ))}
+                  </div>
+                  <a
+                    href={`${BASE}resume.pdf`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="resume-cta"
+                    style={{
+                      display: 'inline-block',
+                      background: 'var(--color-accent)',
+                      color: '#000',
+                      textDecoration: 'none',
+                      fontFamily: 'var(--font-meta)',
+                      fontWeight: 600,
+                      fontSize: '0.9375rem',
+                      letterSpacing: '0.06em',
+                      textTransform: 'uppercase',
+                      padding: '16px 36px',
+                      border: '2px solid var(--color-accent)',
+                    }}
+                  >
+                    Open Resume →
+                  </a>
+                </>
+              }
+            />
             <div>
               <p className="label-caps" style={{ color: 'var(--color-accent)', marginBottom: 10 }}>
                 My Resume

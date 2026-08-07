@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { CollageBanner } from '../components/CollageBanner'
 
@@ -139,81 +139,100 @@ function chunk(arr, size) {
   return rows
 }
 
-function SectionCard({ section, isActive, dimmed, onClick }) {
+// Adapted from Watermelon UI's "expandable-event-card" registry component
+// (registry.watermelon.sh/r/expandable-event-card.json): the card itself is
+// the shared layoutId anchor, so clicking it morphs the actual card — not a
+// copy of it — into the full-screen reader (see ExpandedModal below).
+function SectionCard({ section, onOpen }) {
   const coverPhoto = section.essays[0]?.photo
+  const layoutId = `mindset-card-${section.id}`
+
+  if (section.isPlaceholder) {
+    return (
+      <div
+        aria-hidden="true"
+        style={{
+          display: 'flex', flexDirection: 'column', background: 'var(--color-ink)',
+          width: '100%', opacity: 0.35,
+        }}
+      >
+        <div style={{
+          height: 200, overflow: 'hidden',
+          background: 'repeating-linear-gradient(45deg, #1a1a1a 0, #1a1a1a 10px, #1c1c1c 10px, #1c1c1c 20px)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+        }}>
+          <span className="label-caps" style={{ color: 'rgba(255,255,255,0.12)', fontSize: '0.7rem' }}>Coming Soon</span>
+        </div>
+        <div style={{ padding: '20px 20px 26px', flex: 1 }}>
+          <h2 className="font-editorial" style={{ fontSize: 'clamp(1.125rem, 2vw, 1.5rem)', color: '#fff', marginBottom: 10 }}>{section.subtitle}</h2>
+          <p style={{ color: 'var(--color-body-dark)', fontSize: '0.875rem', lineHeight: 1.6, fontFamily: 'var(--font-reading)' }}>{section.description}</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
-    <button
-      onClick={section.isPlaceholder ? undefined : onClick}
-      disabled={section.isPlaceholder}
-      aria-expanded={section.isPlaceholder ? undefined : isActive}
+    <motion.button
+      layoutId={layoutId}
+      onClick={onOpen}
       style={{
-        display: 'flex',
-        flexDirection: 'column',
-        background: 'var(--color-ink)',
-        border: 'none',
-        cursor: section.isPlaceholder ? 'default' : 'pointer',
-        textAlign: 'left',
-        padding: 0,
-        width: '100%',
-        opacity: dimmed ? 0.35 : 1,
-        outline: isActive ? '3px solid var(--color-accent)' : '3px solid transparent',
-        outlineOffset: -3,
-        transition: 'opacity 0.3s, outline 0.15s',
-        position: 'relative',
+        display: 'flex', flexDirection: 'column', background: 'var(--color-ink)',
+        border: 'none', cursor: 'pointer', textAlign: 'left', padding: 0, width: '100%',
       }}
     >
-      {/* Cover photo */}
-      <div style={{ height: 200, overflow: 'hidden', background: '#111', flexShrink: 0 }}>
-        {coverPhoto ? (
-          <img
-            src={coverPhoto}
-            alt=""
-            aria-hidden="true"
-            style={{
-              width: '100%', height: '100%', objectFit: 'cover', display: 'block',
-              filter: isActive ? 'brightness(1)' : 'brightness(0.75)',
-              transition: 'filter 0.25s',
-            }}
-          />
-        ) : (
-          <div style={{
-            width: '100%', height: '100%',
-            background: 'repeating-linear-gradient(45deg, #1a1a1a 0, #1a1a1a 10px, #1c1c1c 10px, #1c1c1c 20px)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-          }}>
-            <span className="label-caps" style={{ color: 'rgba(255,255,255,0.12)', fontSize: '0.7rem' }}>
-              Coming Soon
-            </span>
-          </div>
-        )}
-      </div>
+      <motion.div layoutId={`mindset-image-${layoutId}`} style={{ height: 200, overflow: 'hidden', background: '#111', flexShrink: 0 }}>
+        <img src={coverPhoto} alt="" aria-hidden="true" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+      </motion.div>
 
-      {/* Text */}
       <div style={{ padding: '20px 20px 26px', flex: 1 }}>
-        <h2
-          className="font-editorial"
-          style={{ fontSize: 'clamp(1.125rem, 2vw, 1.5rem)', color: '#fff', marginBottom: 10 }}
-        >
+        <motion.h2 layoutId={`mindset-title-${layoutId}`} className="font-editorial" style={{ fontSize: 'clamp(1.125rem, 2vw, 1.5rem)', color: '#fff', marginBottom: 10 }}>
           {section.subtitle}
-        </h2>
-        <p style={{
-          color: 'var(--color-body-dark)', fontSize: '0.875rem',
-          lineHeight: 1.6, fontFamily: 'var(--font-reading)',
-        }}>
+        </motion.h2>
+        <motion.p layoutId={`mindset-desc-${layoutId}`} style={{ color: 'var(--color-body-dark)', fontSize: '0.875rem', lineHeight: 1.6, fontFamily: 'var(--font-reading)' }}>
           {section.description}
+        </motion.p>
+        <p className="label-caps" style={{ color: 'rgba(217,162,27,0.5)', fontSize: '0.7rem', marginTop: 18 }}>
+          Read →
         </p>
-        {!section.isPlaceholder && (
-          <p className="label-caps" style={{
-            color: isActive ? 'var(--color-accent)' : 'rgba(217,162,27,0.5)',
-            fontSize: '0.7rem', marginTop: 18,
-            transition: 'color 0.2s',
-          }}>
-            {isActive ? 'Collapse ↑' : 'Read →'}
-          </p>
-        )}
       </div>
-    </button>
+    </motion.button>
+  )
+}
+
+// Adapted from Watermelon UI's "minimal-carousel" registry component
+// (registry.watermelon.sh/r/minimal-carousel.json): the original swaps a big
+// "active" tile with a shrinking grid of secondary tiles. Content here is
+// essays, not wallet cards, so the shrink-grid was dropped for a plain
+// scroll strip — but the underlying idea carries over: a minimal row of
+// other entries you tap to switch without leaving the reader.
+function EssayStrip({ current, others, onSelect }) {
+  if (others.length === 0) return null
+  return (
+    <div style={{ marginTop: 56, paddingTop: 32, borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+      <p className="label-caps" style={{ color: 'rgba(255,255,255,0.4)', marginBottom: 16 }}>
+        Keep reading
+      </p>
+      <div style={{ display: 'flex', gap: 16, overflowX: 'auto', paddingBottom: 4 }}>
+        {others.map((s) => (
+          <motion.button
+            key={s.id}
+            onClick={() => onSelect(s.id)}
+            whileTap={{ scale: 0.96 }}
+            style={{
+              flex: '0 0 clamp(150px, 22vw, 200px)', background: 'rgba(255,255,255,0.04)',
+              border: '1px solid rgba(255,255,255,0.1)', cursor: 'pointer', textAlign: 'left', padding: 0,
+            }}
+          >
+            <div style={{ height: 90, overflow: 'hidden' }}>
+              <img src={s.essays[0]?.photo} alt="" aria-hidden="true" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+            </div>
+            <p className="label-caps" style={{ color: '#fff', fontSize: '0.75rem', padding: '10px 12px 12px' }}>
+              {s.subtitle}
+            </p>
+          </motion.button>
+        ))}
+      </div>
+    </div>
   )
 }
 
@@ -261,74 +280,124 @@ function Essay({ essay, essayIndex }) {
   )
 }
 
-function ExpandedPanel({ section, onClose }) {
+// Full-screen reader. `openId` is fixed for as long as the modal is open —
+// it anchors the shared-layout entrance/exit morph to the card that was
+// actually clicked. `viewingId` is what's currently on screen inside it;
+// switching essays via the EssayStrip only changes viewingId, so the reader
+// itself stays put (a calm crossfade) instead of re-triggering the morph
+// animation on every tap.
+function ExpandedModal({ openId, viewingId, sections, onClose, onSwitch }) {
+  const layoutId = `mindset-card-${openId}`
+  const viewing = sections.find((s) => s.id === viewingId)
+  const others = sections.filter((s) => !s.isPlaceholder && s.id !== viewingId)
+  const closeBtnRef = useRef(null)
+
+  useEffect(() => { closeBtnRef.current?.focus() }, [])
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden'
+    const handleKey = (e) => { if (e.key === 'Escape') onClose() }
+    window.addEventListener('keydown', handleKey)
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', handleKey)
+    }
+  }, [onClose])
+
   return (
-    <motion.div
-      key={section.id}
-      initial={{ opacity: 0, height: 0 }}
-      animate={{ opacity: 1, height: 'auto' }}
-      exit={{ opacity: 0, height: 0 }}
-      transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
-      style={{ overflow: 'hidden', background: 'var(--color-ink)', borderTop: '3px solid var(--color-accent)' }}
-    >
-      <div style={{
-        maxWidth: 900, margin: '0 auto',
-        padding: 'clamp(40px, 6vw, 72px) clamp(20px, 5vw, 48px) clamp(48px, 6vw, 80px)',
-      }}>
-        {/* Panel header */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 52, gap: 24 }}>
-          <div>
-            <p className="label-caps" style={{ color: 'var(--color-accent)', marginBottom: 10 }}>
-              {section.subtitle}
-            </p>
-            <p style={{ color: 'var(--color-body-dark)', fontSize: '1rem', fontFamily: 'var(--font-reading)', maxWidth: '52ch' }}>
-              {section.description}
-            </p>
-          </div>
-          <button
-            onClick={onClose}
-            aria-label="Close"
-            className="panel-close"
-            style={{
-              background: 'none',
-              border: '1px solid rgba(255,255,255,0.2)',
-              color: 'rgba(255,255,255,0.8)',
-              cursor: 'pointer',
-              padding: '10px 20px',
-              minHeight: 44,
-              minWidth: 88,
-              fontFamily: 'var(--font-meta)',
-              fontSize: '0.8rem',
-              letterSpacing: '0.05em',
-              flexShrink: 0,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            ✕ Close
-          </button>
+    <div style={{ position: 'fixed', inset: 0, zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'clamp(12px, 3vw, 32px)' }}>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={onClose}
+        style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.85)' }}
+      />
+      <motion.div
+        layoutId={layoutId}
+        transition={{ type: 'spring', bounce: 0.14, duration: 0.5 }}
+        role="dialog"
+        aria-modal="true"
+        aria-label={viewing.subtitle}
+        style={{
+          position: 'relative', width: '100%', maxWidth: 900, maxHeight: '88vh',
+          background: 'var(--color-ink)', border: '3px solid var(--color-accent)',
+          overflowY: 'auto', zIndex: 1,
+        }}
+      >
+        <button
+          ref={closeBtnRef}
+          onClick={onClose}
+          aria-label="Close"
+          className="panel-close"
+          style={{
+            position: 'absolute', top: 20, right: 20, zIndex: 2,
+            background: 'rgba(0,0,0,0.55)', border: '1px solid rgba(255,255,255,0.25)',
+            color: 'rgba(255,255,255,0.85)', cursor: 'pointer', padding: '10px 20px',
+            minHeight: 44, fontFamily: 'var(--font-meta)', fontSize: '0.8rem', letterSpacing: '0.05em',
+          }}
+        >
+          ✕ Close
+        </button>
+
+        <motion.div layoutId={`mindset-image-${layoutId}`} style={{ height: 260, overflow: 'hidden' }}>
+          <AnimatePresence mode="wait">
+            <motion.img
+              key={viewing.id}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              src={viewing.essays[0]?.photo}
+              alt=""
+              aria-hidden="true"
+              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+            />
+          </AnimatePresence>
+        </motion.div>
+
+        <div style={{ padding: 'clamp(28px, 5vw, 56px) clamp(20px, 5vw, 48px) clamp(48px, 6vw, 72px)' }}>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={viewing.id}
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <motion.p layoutId={viewing.id === openId ? `mindset-title-${layoutId}` : undefined} className="label-caps" style={{ color: 'var(--color-accent)', marginBottom: 10 }}>
+                {viewing.subtitle}
+              </motion.p>
+              <motion.p layoutId={viewing.id === openId ? `mindset-desc-${layoutId}` : undefined} style={{ color: 'var(--color-body-dark)', fontSize: '1rem', fontFamily: 'var(--font-reading)', maxWidth: '52ch', marginBottom: 48 }}>
+                {viewing.description}
+              </motion.p>
+
+              {viewing.essays.map((essay, i) => (
+                <Essay key={essay.heading} essay={essay} essayIndex={i} />
+              ))}
+
+              {viewing.placeholder && (
+                <p className="label-caps" style={{ color: 'rgba(255,255,255,0.25)', marginTop: 8 }}>
+                  {viewing.placeholder}
+                </p>
+              )}
+            </motion.div>
+          </AnimatePresence>
+
+          <EssayStrip current={viewing} others={others} onSelect={onSwitch} />
         </div>
-
-        {section.essays.map((essay, i) => (
-          <Essay key={essay.heading} essay={essay} essayIndex={i} />
-        ))}
-
-        {section.placeholder && (
-          <p className="label-caps" style={{ color: 'rgba(255,255,255,0.25)', marginTop: 8 }}>
-            {section.placeholder}
-          </p>
-        )}
-      </div>
-    </motion.div>
+      </motion.div>
+    </div>
   )
 }
 
 export function Mindset() {
-  const [activeId, setActiveId] = useState(null)
+  const [openId, setOpenId] = useState(null)
+  const [viewingId, setViewingId] = useState(null)
   const rows = chunk(SECTIONS, ROW_SIZE)
 
-  const toggle = (id) => setActiveId((prev) => (prev === id ? null : id))
+  const openSection = (id) => { setOpenId(id); setViewingId(id) }
+  const closeModal = () => { setOpenId(null); setViewingId(null) }
 
   return (
     <div>
@@ -347,46 +416,38 @@ export function Mindset() {
         </div>
       </div>
 
-      {/* ── Card grid ── */}
+      {/* ── Card grid — each real card is a shared-layout anchor; clicking one
+          morphs it directly into the full-screen reader below ── */}
       <div style={{ background: '#000' }}>
-        {rows.map((row, rowIndex) => {
-          const activeSection = row.find((s) => s.id === activeId)
-          return (
-            <div key={rowIndex}>
-              {/* Row of 4 cards */}
-              <div style={{
-                borderTop: rowIndex === 0 ? '3px solid var(--color-accent)' : 'none',
-                padding: 'clamp(20px, 3vw, 36px) clamp(16px, 3vw, 36px)',
-              }}>
-                <div
-                  className="grid grid-cols-2 md:grid-cols-4"
-                  style={{ gap: 'clamp(14px, 2vw, 26px)' }}
-                >
-                  {row.map((section) => (
-                    <SectionCard
-                      key={section.id}
-                      section={section}
-                      isActive={section.id === activeId}
-                      dimmed={!!activeSection && section.id !== activeId}
-                      onClick={() => toggle(section.id)}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              {/* Expanded panel — only for the row that contains the active card */}
-              <AnimatePresence>
-                {activeSection && (
-                  <ExpandedPanel
-                    section={activeSection}
-                    onClose={() => setActiveId(null)}
-                  />
-                )}
-              </AnimatePresence>
+        {rows.map((row, rowIndex) => (
+          <div key={rowIndex} style={{
+            borderTop: rowIndex === 0 ? '3px solid var(--color-accent)' : 'none',
+            padding: 'clamp(20px, 3vw, 36px) clamp(16px, 3vw, 36px)',
+          }}>
+            <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: 'clamp(14px, 2vw, 26px)' }}>
+              {row.map((section) => (
+                <SectionCard
+                  key={section.id}
+                  section={section}
+                  onOpen={() => openSection(section.id)}
+                />
+              ))}
             </div>
-          )
-        })}
+          </div>
+        ))}
       </div>
+
+      <AnimatePresence>
+        {openId && (
+          <ExpandedModal
+            openId={openId}
+            viewingId={viewingId}
+            sections={SECTIONS}
+            onClose={closeModal}
+            onSwitch={setViewingId}
+          />
+        )}
+      </AnimatePresence>
     </div>
   )
 }
