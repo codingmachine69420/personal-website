@@ -79,7 +79,7 @@ export function ProjectsExperiences() {
                     style={{
                       display: 'inline-block',
                       background: 'var(--color-accent)',
-                      color: '#000',
+                      color: 'var(--color-black, #000)',
                       textDecoration: 'none',
                       fontFamily: 'var(--font-meta)',
                       fontWeight: 600,
@@ -122,7 +122,7 @@ export function ProjectsExperiences() {
             style={{
               display: 'inline-block',
               background: 'var(--color-accent)',
-              color: '#000',
+              color: 'var(--color-black, #000)',
               textDecoration: 'none',
               fontFamily: 'var(--font-meta)',
               fontWeight: 600,

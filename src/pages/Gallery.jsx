@@ -28,7 +28,7 @@ const ArrowButton = forwardRef(function ArrowButton({ dir, onClick, label }, ref
       whileTap={{ scale: 0.88 }}
       style={{
         width: 40, height: 40, flexShrink: 0,
-        background: 'var(--color-accent)', border: 'none', color: '#000',
+        background: 'var(--color-accent)', border: 'none', color: 'var(--color-black, #000)',
         cursor: 'pointer', fontSize: '1.15rem', fontWeight: 700,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}

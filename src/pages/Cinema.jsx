@@ -190,7 +190,7 @@ export function Cinema() {
             <p className="label-caps" style={{ color: 'rgba(255,255,255,0.5)' }}>Full list</p>
             <span style={{
               background: '#c01400', color: '#fff',
-              fontFamily: 'var(--font-meta)', fontSize: '0.6875rem',
+              fontFamily: 'var(--font-meta)', fontSize: '0.75rem',
               fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em',
               padding: '3px 10px 4px', display: 'inline-block',
               transform: 'rotate(-1.5deg)',

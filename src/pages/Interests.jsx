@@ -29,7 +29,7 @@ export function Interests() {
 
           {/* Cinema article */}
           <article style={{ borderBottom: '1px solid rgba(28,28,28,0.1)', paddingBottom: 64 }}>
-            <p className="label-caps" style={{ color: 'var(--color-accent)', marginBottom: 16 }}>Cinema</p>
+            <p className="label-caps" style={{ color: 'var(--color-ink)', marginBottom: 16 }}>Cinema</p>
 
             <h2 className="font-editorial" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: 'var(--color-ink)', marginBottom: 24, lineHeight: 0.95 }}>
               Film as Art Form

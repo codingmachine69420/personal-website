@@ -35,7 +35,7 @@ export function CollageBanner({ title, topPhotos, bottomPhotos }) {
           <h1> that used to repeat it below the banner was removed), so
           it's the real heading, not decorative. */}
       <div style={{
-        background: '#000',
+        background: 'var(--color-black, #000)',
         padding: 'clamp(14px, 2.5vw, 26px) clamp(16px, 3vw, 32px)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}>

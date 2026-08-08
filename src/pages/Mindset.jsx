@@ -47,8 +47,8 @@ const SECTIONS = [
         paragraphs: [
           "Say I went to the store and bought an eighty dollar game. I put it on easy mode and completed the campaign in five hours. I would have felt that it was eighty dollars wasted. If only I had put it on hard mode, spent more time on the game — the completion would have felt way more deserved. I see life the same way. If things are too easy, the level of satisfaction is low. We have to sacrifice for success, and that's when you feel like you truly deserve it.",
         ],
-        photo: `${BASE}images/gallery/hong-kong-skyline.jpeg`,
-        photoAlt: 'Hong Kong skyline — a city that earns it',
+        photo: `${BASE}images/gallery/Athens.jpeg`,
+        photoAlt: 'Back turned to the camera, flexing over the Athens skyline',
         imgRight: false,
       },
     ],
@@ -65,8 +65,8 @@ const SECTIONS = [
           'Whenever someone laughs at or criticises me — if it is something I have worked hard on and am confident in — I take their opinion, work on it in the background, but don\'t retaliate in front of them.',
           "Say if you love vanilla ice cream. You love it to death and there's nothing better in the world. Even if the entire world tells you that it's bad, you would just laugh in their face — because people's opinions don't matter for what they are. Same logic.",
         ],
-        photo: `${BASE}images/gallery/santorini-sunset.jpeg`,
-        photoAlt: 'Santorini sunset — golden hour, no worries',
+        photo: `${BASE}images/gallery/Grandest Stadium in all of Football.jpeg`,
+        photoAlt: 'The Santiago Bernabéu — betting on the biggest stage',
         imgRight: true,
       },
     ],
@@ -406,7 +406,7 @@ export function Mindset() {
 
       {/* ── Card grid — each real card is a shared-layout anchor; clicking one
           morphs it directly into the full-screen reader below ── */}
-      <div style={{ background: '#000' }}>
+      <div style={{ background: 'var(--color-black, #000)' }}>
         {rows.map((row, rowIndex) => (
           <div key={rowIndex} style={{
             borderTop: rowIndex === 0 ? '3px solid var(--color-accent)' : 'none',

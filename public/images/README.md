@@ -5,9 +5,8 @@ matching content file to point at them (paths are relative to `/public`,
 so a file at `public/images/gallery/harbour.jpg` is referenced as
 `/images/gallery/harbour.jpg`).
 
-- `profile/` — headshot / about-page photo. Not yet referenced anywhere —
-  add one and use it from `src/pages/Work.jsx` or `src/pages/Home.jsx` if
-  you want a profile photo.
+- `profile/` — headshot / about-page photo, referenced from
+  `src/pages/ProjectsExperiences.jsx` (`ExpandableProfileCard`).
 - `projects/` — screenshots for the Projects page. Referenced from
   `src/content/projects.js` (the `image` field on each project).
 - `gallery/` — travel/personal photos for the Gallery page. Referenced

@@ -38,7 +38,7 @@ export const photosByYear = [
       { src: '/images/gallery/Japan.jpeg', alt: 'Japan', caption: 'Japan', width: 1200, height: 1600 },
       { src: '/images/gallery/First trip to Enagland!.jpeg', alt: 'First trip to England!', caption: 'First trip to England!', width: 1600, height: 1200 },
       { src: '/images/gallery/Best Team in the World.jpeg', alt: 'Best Team in the World', caption: 'Best Team in the World', width: 1600, height: 1200 },
-      { src: '/images/gallery/Grandest Stadium in all of Football.jpeg', alt: 'Grandest Stadium in all of Football', caption: 'Grandest Stadium in all of Football', width: 1200, height: 1600 },
+      { src: '/images/gallery/Grandest Stadium in all of Football.jpeg', alt: 'Santiago Bernabéu', caption: 'Santiago Bernabéu', width: 1200, height: 1600 },
     ],
   },
   {
@@ -65,6 +65,19 @@ export const photosByYear = [
       { src: '/images/gallery/hong-kong-skyline.jpeg', alt: 'Hong Kong skyline at dusk from Victoria Peak', caption: 'Hong Kong', width: 1500, height: 2000 },
       { src: '/images/gallery/madrid-church.jpeg', alt: 'Church in Madrid — golden hour light on the dome', caption: 'Madrid', width: 1500, height: 2000 },
       { src: '/images/gallery/madrid-royal-palace.jpeg', alt: 'Royal Palace of Madrid — ceiling fresco and crystal chandelier', caption: 'Royal Palace, Madrid', width: 1500, height: 2000 },
+
+      // ── Newly added (2026-08-09) — captions/placement are a first pass,
+      // Anson to correct titles, locations and years as needed. ──
+      { src: '/images/gallery/Disneyland in the Rain.jpeg', alt: 'Disneyland in the Rain', caption: 'Disneyland in the Rain', width: 3024, height: 4032 },
+      { src: '/images/gallery/A Game of Pool.jpeg', alt: 'A Game of Pool', caption: 'A Game of Pool', width: 1576, height: 2100 },
+      { src: '/images/gallery/Pickup Basketball in Toronto.jpeg', alt: 'Pickup Basketball in Toronto', caption: 'Pickup Basketball in Toronto', width: 1080, height: 1620 },
+      { src: '/images/gallery/Halloween on Campus.jpeg', alt: 'Halloween on Campus', caption: 'Halloween on Campus', width: 3025, height: 4538 },
+      { src: '/images/gallery/Waiting Around.jpeg', alt: 'Waiting Around', caption: 'Waiting Around', width: 4032, height: 3024 },
+      { src: '/images/gallery/Night on the Boat.jpeg', alt: 'Night on the Boat', caption: 'Night on the Boat', width: 3024, height: 4032 },
+      { src: '/images/gallery/Dinner in Athens.jpeg', alt: 'Dinner in Athens', caption: 'Dinner in Athens', width: 1536, height: 2048 },
+      { src: '/images/gallery/Lunar New Year Dinner in Hong Kong.jpeg', alt: 'Lunar New Year Dinner in Hong Kong', caption: 'Lunar New Year Dinner in Hong Kong', width: 3024, height: 4032 },
+      { src: '/images/gallery/Bookstore in Madrid.jpeg', alt: 'Bookstore in Madrid', caption: 'Bookstore in Madrid', width: 1535, height: 2302 },
+      { src: '/images/gallery/Hiking with Friends in Hong Kong.jpeg', alt: 'Hiking with Friends in Hong Kong', caption: 'Hiking with Friends in Hong Kong', width: 3024, height: 4032 },
     ],
   },
 ]

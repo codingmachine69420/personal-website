@@ -11,7 +11,7 @@ const sections = directory
 
 export function Home() {
   return (
-    <div style={{ background: '#000', minHeight: '100vh' }}>
+    <div style={{ background: 'var(--color-black, #000)', minHeight: '100vh' }}>
 
       {/* ── Status notice — was "Work in Progress"; changed to reflect that the site keeps changing rather than sitting unfinished ── */}
       <div style={{ display: 'flex', justifyContent: 'center', padding: '28px 24px 0' }}>
@@ -80,7 +80,7 @@ export function Home() {
             pos="center 72%"
           />
           {/* Fade the photo's inner edge to black so it bleeds out of the text panel rather than sitting in a hard tile */}
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, #000 0%, rgba(0,0,0,0.55) 22%, transparent 55%)' }} aria-hidden="true" />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, var(--color-black, #000) 0%, rgba(0,0,0,0.55) 22%, transparent 55%)' }} aria-hidden="true" />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 26%, transparent 74%, rgba(0,0,0,0.55) 100%)' }} aria-hidden="true" />
         </div>
       </div>
@@ -95,7 +95,7 @@ export function Home() {
             strength={5}
             pos="center 72%"
           />
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, #000 0%, rgba(0,0,0,0.35) 45%, transparent 75%)' }} aria-hidden="true" />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, var(--color-black, #000) 0%, rgba(0,0,0,0.35) 45%, transparent 75%)' }} aria-hidden="true" />
         </div>
         <div style={{
           padding: '0 clamp(20px, 5vw, 48px) clamp(48px, 6vw, 72px)',

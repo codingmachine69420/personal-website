@@ -16,7 +16,7 @@ const NotFound            = lazy(() => import('./pages/NotFound').then(m => ({ d
 function App() {
   return (
     <MotionConfig reducedMotion="user">
-      <Suspense fallback={<div style={{ background: '#000', minHeight: '100vh' }} />}>
+      <Suspense fallback={<div style={{ background: 'var(--color-black, #000)', minHeight: '100vh' }} />}>
         <Routes>
           <Route element={<Layout />}>
             <Route index element={<Home />} />

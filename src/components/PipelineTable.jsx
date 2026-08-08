@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const BASE = import.meta.env.BASE_URL
@@ -26,9 +26,9 @@ function CursorTooltip({ pos, containerWidth, children }) {
       style={{
         position: 'absolute', left: clampedX, top: pos.y - 38,
         transform: 'translateX(-50%)', zIndex: 5, pointerEvents: 'none',
-        background: '#000', color: '#fff', border: '1px solid var(--color-accent)',
+        background: 'var(--color-black, #000)', color: '#fff', border: '1px solid var(--color-accent)',
         padding: '5px 10px', whiteSpace: 'nowrap',
-        fontFamily: 'var(--font-meta)', fontSize: '0.6875rem', fontWeight: 600, letterSpacing: '0.04em',
+        fontFamily: 'var(--font-meta)', fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.04em',
       }}
     >
       {children}
@@ -39,14 +39,22 @@ function CursorTooltip({ pos, containerWidth, children }) {
 function StageBar({ stageCount, reachedIndex, stageLabel }) {
   const [hoverPos, setHoverPos] = useState(null)
   const [width, setWidth] = useState(0)
+  const rafRef = useRef(null)
 
   return (
     <div
       style={{ position: 'relative', height: 32 }}
       onMouseMove={(e) => {
-        const rect = e.currentTarget.getBoundingClientRect()
-        setWidth(rect.width)
-        setHoverPos({ x: e.clientX - rect.left, y: e.clientY - rect.top })
+        // Throttle to one position update per paint instead of per raw
+        // mousemove event — same visible cursor-tracking, fewer re-renders.
+        if (rafRef.current) return
+        const { clientX, clientY, currentTarget } = e
+        rafRef.current = requestAnimationFrame(() => {
+          rafRef.current = null
+          const rect = currentTarget.getBoundingClientRect()
+          setWidth(rect.width)
+          setHoverPos({ x: clientX - rect.left, y: clientY - rect.top })
+        })
       }}
       onMouseLeave={() => setHoverPos(null)}
     >
@@ -76,6 +84,7 @@ function Carousel({ project }) {
       <img
         src={`${BASE}${images[idx].replace(/^\//, '')}`}
         alt={`${project.name} screenshot ${idx + 1}`}
+        loading="lazy"
         style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
       />
       {multi && (
@@ -153,7 +162,7 @@ function PipelineRow({ project, stages, isFirst }) {
           aria-hidden="true"
           style={{
             width: 28, height: 28, flexShrink: 0,
-            background: 'var(--color-accent)', color: '#000',
+            background: 'var(--color-accent)', color: 'var(--color-black, #000)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             fontWeight: 700, fontSize: '1.05rem', lineHeight: 1,
           }}
@@ -190,7 +199,7 @@ function PipelineRow({ project, stages, isFirst }) {
                   Currently: {stages[project.stageIndex]}
                 </p>
                 {project.status && (
-                  <p className="label-caps" style={{ color: 'var(--color-accent)', fontSize: '0.6875rem', border: '1px solid var(--color-accent)', display: 'inline-block', padding: '4px 10px', marginBottom: 16 }}>
+                  <p className="label-caps" style={{ color: 'var(--color-accent)', fontSize: '0.75rem', border: '1px solid var(--color-accent)', display: 'inline-block', padding: '4px 10px', marginBottom: 16 }}>
                     {project.status}
                   </p>
                 )}
@@ -217,7 +226,7 @@ function PipelineRow({ project, stages, isFirst }) {
                       target="_blank"
                       rel="noreferrer"
                       className="label-caps"
-                      style={{ display: 'inline-block', color: '#000', background: 'var(--color-accent)', padding: '10px 20px', textDecoration: 'none' }}
+                      style={{ display: 'inline-block', color: 'var(--color-black, #000)', background: 'var(--color-accent)', padding: '10px 20px', textDecoration: 'none' }}
                     >
                       For more details, click here →
                     </a>
@@ -227,7 +236,7 @@ function PipelineRow({ project, stages, isFirst }) {
                       className="label-caps"
                       style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'rgba(255,255,255,0.35)', border: '1px solid rgba(255,255,255,0.15)', padding: '10px 20px', cursor: 'not-allowed' }}
                     >
-                      For more details, click here <span style={{ fontSize: '0.65rem' }}>(coming soon)</span>
+                      For more details, click here <span style={{ fontSize: '0.75rem' }}>(coming soon)</span>
                     </span>
                   )
                 )}
@@ -260,7 +269,7 @@ export function PipelineTable({ stages, projects }) {
         <p className="label-caps" style={{ color: 'rgba(255,255,255,0.5)' }}>Program</p>
         <div style={{ display: 'grid', gridTemplateColumns: `repeat(${stages.length}, 1fr)`, gap: 3 }}>
           {stages.map((s) => (
-            <p key={s} className="label-caps" style={{ color: 'rgba(255,255,255,0.5)', textAlign: 'center', fontSize: '0.6875rem' }}>
+            <p key={s} className="label-caps" style={{ color: 'rgba(255,255,255,0.5)', textAlign: 'center', fontSize: '0.75rem' }}>
               {s}
             </p>
           ))}
