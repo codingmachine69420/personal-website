@@ -58,7 +58,7 @@ export function TextEffect({
           <motion.span
             variants={item}
             transition={{ duration, ease: [0.16, 1, 0.3, 1] }}
-            style={{ display: 'inline-block', willChange: 'transform, opacity, filter' }}
+            style={{ display: 'inline-block' }}
           >
             {seg === ' ' ? ' ' : seg}
           </motion.span>
