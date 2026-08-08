@@ -180,9 +180,9 @@ function SectionCard({ section, onOpen }) {
         border: 'none', cursor: 'pointer', textAlign: 'left', padding: 0, width: '100%',
       }}
     >
-      <motion.div layoutId={`mindset-image-${layoutId}`} style={{ height: 200, overflow: 'hidden', background: '#111', flexShrink: 0 }}>
+      <div style={{ height: 200, overflow: 'hidden', background: '#111', flexShrink: 0 }}>
         <img src={coverPhoto} alt="" aria-hidden="true" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-      </motion.div>
+      </div>
 
       <div style={{ padding: '20px 20px 26px', flex: 1 }}>
         <motion.h2 layoutId={`mindset-title-${layoutId}`} className="font-editorial" style={{ fontSize: 'clamp(1.125rem, 2vw, 1.5rem)', color: '#fff', marginBottom: 10 }}>
@@ -340,23 +340,11 @@ function ExpandedModal({ openId, viewingId, sections, onClose, onSwitch }) {
           ✕ Close
         </button>
 
-        <motion.div layoutId={`mindset-image-${layoutId}`} style={{ height: 260, overflow: 'hidden' }}>
-          <AnimatePresence mode="wait">
-            <motion.img
-              key={viewing.id}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              src={viewing.essays[0]?.photo}
-              alt=""
-              aria-hidden="true"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-            />
-          </AnimatePresence>
-        </motion.div>
-
-        <div style={{ padding: 'clamp(28px, 5vw, 56px) clamp(20px, 5vw, 48px) clamp(48px, 6vw, 72px)' }}>
+        {/* No top cover-photo banner here on purpose — the essay's own photo
+            already appears inline (see Essay below), so a repeated strip of
+            the same image at the top just duplicated it. Removed per
+            feedback; don't re-add it. */}
+        <div style={{ padding: 'clamp(56px, 7vw, 80px) clamp(20px, 5vw, 48px) clamp(48px, 6vw, 72px)' }}>
           <AnimatePresence mode="wait">
             <motion.div
               key={viewing.id}

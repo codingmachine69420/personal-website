@@ -13,7 +13,7 @@ export function Home() {
   return (
     <div style={{ background: '#000', minHeight: '100vh' }}>
 
-      {/* ── WIP notice ── */}
+      {/* ── Status notice — was "Work in Progress"; changed to reflect that the site keeps changing rather than sitting unfinished ── */}
       <div style={{ display: 'flex', justifyContent: 'center', padding: '28px 24px 0' }}>
         <div style={{
           display: 'inline-flex', alignItems: 'center', gap: 10,
@@ -22,9 +22,9 @@ export function Home() {
           padding: '9px 22px 11px',
           transform: 'rotate(-1deg)',
         }}>
-          <span style={{ color: '#fff', fontSize: '1rem' }}>⚠</span>
+          <span style={{ color: '#fff', fontSize: '1rem' }}>⟳</span>
           <span className="font-editorial" style={{ color: '#fff', fontSize: '1rem', letterSpacing: '0.08em' }}>
-            Work in Progress
+            Constantly Updated!
           </span>
         </div>
       </div>
