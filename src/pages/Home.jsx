@@ -49,17 +49,23 @@ export function Home() {
             className="font-editorial"
             style={{ fontSize: 'clamp(3.5rem, 7vw, 7rem)', color: '#fff', marginBottom: 24, lineHeight: 0.92 }}
           >
-            <TextEffect>Discovering</TextEffect><br /><TextEffect delay={0.35}>Anson</TextEffect>
+            <TextEffect per="word" preset="slide">Discovering</TextEffect><br /><TextEffect per="word" preset="slide" delay={0.35}>Anson</TextEffect>
           </h1>
-          <p style={{
-            color: 'var(--color-body-dark)',
-            fontSize: '1.125rem',
-            lineHeight: 1.7,
-            maxWidth: '46ch',
-            fontFamily: 'var(--font-reading)',
-          }}>
+          <TextEffect
+            per="word"
+            as="p"
+            preset="slide"
+            delay={0.6}
+            style={{
+              color: 'var(--color-body-dark)',
+              fontSize: '1.125rem',
+              lineHeight: 1.7,
+              maxWidth: '46ch',
+              fontFamily: 'var(--font-reading)',
+            }}
+          >
             Hi, I'm Anson and I am 21. I will be great. This website represents who I am and the things I do — it also is the start of a journey into something bigger than I could imagine right now.
-          </p>
+          </TextEffect>
           <p className="label-caps" style={{ color: 'var(--color-accent)', marginTop: 20, fontSize: '0.8125rem' }}>
             {site.tagline}
           </p>
@@ -106,17 +112,23 @@ export function Home() {
             className="font-editorial"
             style={{ fontSize: 'clamp(3.5rem, 10vw, 8rem)', color: '#fff', marginBottom: 24, lineHeight: 0.92 }}
           >
-            <TextEffect>Discovering</TextEffect><br /><TextEffect delay={0.35}>Anson</TextEffect>
+            <TextEffect per="word" preset="slide">Discovering</TextEffect><br /><TextEffect per="word" preset="slide" delay={0.35}>Anson</TextEffect>
           </h1>
-          <p style={{
-            color: 'var(--color-body-dark)',
-            fontSize: '1.125rem',
-            lineHeight: 1.7,
-            maxWidth: '52ch',
-            fontFamily: 'var(--font-reading)',
-          }}>
+          <TextEffect
+            per="word"
+            as="p"
+            preset="slide"
+            delay={0.6}
+            style={{
+              color: 'var(--color-body-dark)',
+              fontSize: '1.125rem',
+              lineHeight: 1.7,
+              maxWidth: '52ch',
+              fontFamily: 'var(--font-reading)',
+            }}
+          >
             Hi, I'm Anson and I am 21. I will be great. This website represents who I am and the things I do — it also is the start of a journey into something bigger than I could imagine right now.
-          </p>
+          </TextEffect>
           <p className="label-caps" style={{ color: 'var(--color-accent)', marginTop: 20, fontSize: '0.8125rem' }}>
             {site.tagline}
           </p>
