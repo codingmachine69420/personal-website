@@ -1,7 +1,11 @@
-import { useState } from 'react'
 import { projects } from '../content/projects'
 import { CollageBanner } from '../components/CollageBanner'
 import { ExpandableProfileCard } from '../components/ExpandableProfileCard'
+import { PipelineTable } from '../components/PipelineTable'
+
+// Pipeline stages, left to right — see content/projects.js for how each
+// project's stageIndex was assigned.
+const STAGES = ['Idea Generation', 'Developing', 'Testing', 'Live']
 
 const BASE = import.meta.env.BASE_URL
 
@@ -10,7 +14,7 @@ const BASE = import.meta.env.BASE_URL
 // biggest top-row slot — it's thematically on-topic for this page (winning
 // a case competition).
 const collageTop = [
-  { src: '/images/gallery/On stage pic.JPEG', alt: 'Winning first place at the STRIVE Junior Tier case competition', pos: 'center 40%', grow: 1.4 },
+  { src: '/images/gallery/On stage pic.JPEG', alt: 'Winning first place at the STRIVE Junior Tier case competition', pos: 'center 34%', grow: 1.4 },
   { src: '/images/gallery/Graduation!.jpeg', alt: 'Graduation', pos: 'center 43%', grow: 1 },
 ]
 const collageBottom = [
@@ -27,164 +31,6 @@ const employers = [
   { name: 'Odysseus Capital Asia', src: 'images/logos/ody.jpg' },
   { name: 'PwC', src: 'images/logos/PwC.webp' },
 ]
-
-function ImageCarousel({ project }) {
-  const [idx, setIdx] = useState(0)
-  const images = project.images ?? []
-  const multi = images.length > 1
-
-  return (
-    <div style={{ position: 'relative', background: '#0d0d0d' }}>
-      <img
-        src={`${BASE}${images[idx].replace(/^\//, '')}`}
-        alt={`${project.name} screenshot ${idx + 1}`}
-        style={{ width: '100%', maxHeight: '55vh', objectFit: 'contain', display: 'block' }}
-      />
-      {multi && (
-        <button
-          onClick={() => setIdx((i) => (i - 1 + images.length) % images.length)}
-          aria-label="Previous"
-          style={{
-            position: 'absolute', left: 0, top: 0, bottom: 0, width: 48,
-            background: 'rgba(0,0,0,0.5)', border: 'none', color: '#fff',
-            cursor: 'pointer', fontSize: '1.25rem',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            transition: 'background 0.15s',
-          }}
-          onMouseEnter={e => e.currentTarget.style.background = 'rgba(217,162,27,0.8)'}
-          onMouseLeave={e => e.currentTarget.style.background = 'rgba(0,0,0,0.5)'}
-        >&lt;</button>
-      )}
-      {multi && (
-        <button
-          onClick={() => setIdx((i) => (i + 1) % images.length)}
-          aria-label="Next"
-          style={{
-            position: 'absolute', right: 0, top: 0, bottom: 0, width: 48,
-            background: 'rgba(0,0,0,0.5)', border: 'none', color: '#fff',
-            cursor: 'pointer', fontSize: '1.25rem',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            transition: 'background 0.15s',
-          }}
-          onMouseEnter={e => e.currentTarget.style.background = 'rgba(217,162,27,0.8)'}
-          onMouseLeave={e => e.currentTarget.style.background = 'rgba(0,0,0,0.5)'}
-        >&gt;</button>
-      )}
-      {multi && (
-        <div style={{ position: 'absolute', bottom: 12, left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: 8 }}>
-          {images.map((_, i) => (
-            <button key={i} onClick={() => setIdx(i)} aria-label={`Screenshot ${i + 1}`}
-              style={{ width: 8, height: 8, padding: 0, border: 'none', cursor: 'pointer',
-                background: i === idx ? 'var(--color-accent)' : 'rgba(255,255,255,0.4)',
-                transition: 'background 0.2s' }} />
-          ))}
-        </div>
-      )}
-    </div>
-  )
-}
-
-function SideCarousel({ project }) {
-  const [idx, setIdx] = useState(0)
-  const images = project.images ?? []
-  const multi = images.length > 1
-
-  return (
-    <div style={{ position: 'relative', flex: '0 0 320px', height: 'clamp(360px, 70vw, 560px)', background: '#0d0d0d' }}>
-      <img
-        src={`${BASE}${images[idx].replace(/^\//, '')}`}
-        alt={`${project.name} screenshot ${idx + 1}`}
-        style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
-      />
-      {multi && (
-        <button onClick={() => setIdx((i) => (i - 1 + images.length) % images.length)} aria-label="Previous"
-          style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 40, background: 'rgba(0,0,0,0.5)',
-            border: 'none', color: '#fff', cursor: 'pointer', fontSize: '1rem',
-            display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background 0.15s' }}
-          onMouseEnter={e => e.currentTarget.style.background = 'rgba(217,162,27,0.8)'}
-          onMouseLeave={e => e.currentTarget.style.background = 'rgba(0,0,0,0.5)'}>&lt;</button>
-      )}
-      {multi && (
-        <button onClick={() => setIdx((i) => (i + 1) % images.length)} aria-label="Next"
-          style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: 40, background: 'rgba(0,0,0,0.5)',
-            border: 'none', color: '#fff', cursor: 'pointer', fontSize: '1rem',
-            display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background 0.15s' }}
-          onMouseEnter={e => e.currentTarget.style.background = 'rgba(217,162,27,0.8)'}
-          onMouseLeave={e => e.currentTarget.style.background = 'rgba(0,0,0,0.5)'}>&gt;</button>
-      )}
-      {multi && (
-        <div style={{ position: 'absolute', bottom: 10, left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: 6 }}>
-          {images.map((_, i) => (
-            <button key={i} onClick={() => setIdx(i)} aria-label={`Screenshot ${i + 1}`}
-              style={{ width: 7, height: 7, padding: 0, border: 'none', cursor: 'pointer',
-                background: i === idx ? 'var(--color-accent)' : 'rgba(255,255,255,0.4)' }} />
-          ))}
-        </div>
-      )}
-    </div>
-  )
-}
-
-function ProjectCard({ project, index }) {
-  const isSide = project.layout === 'side'
-  const divider = { borderTop: index === 0 ? 'none' : '1px solid rgba(255,255,255,0.08)', paddingTop: index === 0 ? 0 : 72, marginBottom: 72 }
-
-  return (
-    <article style={divider}>
-      {isSide ? (
-        <div style={{ display: 'flex', gap: 48, alignItems: 'flex-start', flexWrap: 'wrap' }}>
-          <SideCarousel project={project} />
-          <div style={{ flex: 1, minWidth: 260, paddingTop: 8 }}>
-            <h2 className="font-editorial" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#fff', marginBottom: 16 }}>
-              {project.name}
-            </h2>
-            {project.status && (
-              <p className="label-caps" style={{ color: 'var(--color-accent)', fontSize: '0.6875rem', border: '1px solid var(--color-accent)', display: 'inline-block', padding: '4px 10px', marginBottom: 16 }}>
-                {project.status}
-              </p>
-            )}
-            <p style={{ color: 'var(--color-body-dark)', fontSize: '0.9375rem', lineHeight: 1.7, marginBottom: 24 }}>
-              {project.description}
-            </p>
-            {project.stack.length > 0 && (
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 24 }}>
-                {project.stack.map((t) => (
-                  <span key={t} className="label-caps"
-                    style={{ fontSize: '0.75rem', color: 'var(--color-body-dark)', border: '1px solid rgba(255,255,255,0.12)', padding: '3px 8px' }}>{t}</span>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-      ) : (
-        <>
-          <ImageCarousel project={project} />
-          <div style={{ paddingTop: 28 }}>
-            <h2 className="font-editorial" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#fff', marginBottom: 16 }}>
-              {project.name}
-            </h2>
-            {project.status && (
-              <p className="label-caps" style={{ color: 'var(--color-accent)', fontSize: '0.6875rem', border: '1px solid var(--color-accent)', display: 'inline-block', padding: '4px 10px', marginBottom: 16 }}>
-                {project.status}
-              </p>
-            )}
-            <p style={{ color: 'var(--color-body-dark)', fontSize: '0.9375rem', lineHeight: 1.7, maxWidth: '68ch', marginBottom: 24 }}>
-              {project.description}
-            </p>
-            {project.stack.length > 0 && (
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-                {project.stack.map((t) => (
-                  <span key={t} className="label-caps"
-                    style={{ fontSize: '0.75rem', color: 'var(--color-body-dark)', border: '1px solid rgba(255,255,255,0.12)', padding: '3px 8px' }}>{t}</span>
-                ))}
-              </div>
-            )}
-          </div>
-        </>
-      )}
-    </article>
-  )
-}
 
 export function ProjectsExperiences() {
   return (
@@ -293,13 +139,14 @@ export function ProjectsExperiences() {
         </div>
       </div>
 
-      {/* ── Projects ── */}
+      {/* ── Projects — pipeline view (replaces the old stacked-card list) ── */}
       <div style={{ background: 'var(--color-ink)', borderTop: '3px solid var(--color-accent)' }}>
-        <div style={{ maxWidth: 1000, margin: '0 auto', padding: 'clamp(48px, 6vw, 80px) clamp(20px, 5vw, 48px) 96px' }}>
-          <p className="label-caps" style={{ color: 'var(--color-accent)', marginBottom: 48 }}>Projects</p>
-          {projects.map((project, i) => (
-            <ProjectCard key={project.name} project={project} index={i} />
-          ))}
+        <div style={{ maxWidth: 1400, margin: '0 auto', padding: 'clamp(48px, 6vw, 80px) 0 96px' }}>
+          <p className="label-caps" style={{ color: 'var(--color-accent)', marginBottom: 8, padding: '0 clamp(16px, 3vw, 28px)' }}>Pipeline</p>
+          <p style={{ color: 'var(--color-body-dark)', fontSize: '0.875rem', marginBottom: 40, padding: '0 clamp(16px, 3vw, 28px)', maxWidth: '60ch' }}>
+            Where each project actually stands. Click a row to expand it.
+          </p>
+          <PipelineTable stages={STAGES} projects={projects} />
         </div>
       </div>
     </div>
