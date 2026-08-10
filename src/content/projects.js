@@ -10,8 +10,13 @@
 //     live" -> Testing (backtesting IS a form of testing) but not Live.
 //   Earnings Signal Agent — status says "early development, not yet
 //     functional end-to-end" -> Developing.
-//   P&L Tracker, Compersion and Solace, AI News Dashboard — nothing built,
-//     idea stage only -> Idea Generation.
+//   Compersion and Solace — a demo/prototype exists (see imagesAreDemo on
+//     its entry) even though the real site isn't built -> Developing, not
+//     Idea Generation. Its `status` text below still says "nothing built
+//     yet" — that's about the real site, not the demo; left as-is pending
+//     Anson's rewrite of this entry's copy (flagged inline below).
+//   P&L Tracker, AI News Dashboard — nothing built, idea stage only ->
+//     Idea Generation.
 // `pipelineSummary` is a one-line paraphrase of each project's own
 // description for the pipeline row — not new information.
 export const projects = [
@@ -89,7 +94,7 @@ export const projects = [
     // as the P&L Tracker above. Anson should rewrite this in his own voice
     // before treating it as real copy anywhere else on the site.
     name: 'Compersion and Solace',
-    stageIndex: 0,
+    stageIndex: 1,
     pipelineSummary: "Mental health support site, focused on men's wellbeing",
     status: 'Idea stage — hobby project, nothing built yet.',
     description:
