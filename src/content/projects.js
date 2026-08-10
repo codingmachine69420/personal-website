@@ -95,7 +95,17 @@ export const projects = [
     description:
       "I believe mental health — men's and women's both — deserves more attention than it currently gets, which is why I want to build this as a hobby project: a mental health support website modeled loosely on how Reframe supports people cutting back on drinking, but aimed at emotional support through both happiness and heartbreak, with a particular focus on men's mental health.",
     stack: [],
-    images: ['/images/projects/placeholder-2.svg'],
+    // These 4 screenshots are from a standalone demo/prototype Anson built,
+    // not the real site (status above is still accurate: idea stage, nothing
+    // built at compersionandsolace's actual domain yet). imagesAreDemo drives
+    // the "Demo" badge Carousel renders over these — see PipelineTable.jsx.
+    images: [
+      '/images/projects/Compersion and Solace (1).png',
+      '/images/projects/Compersion and Solace (2).png',
+      '/images/projects/Compersion and Solace (3).png',
+      '/images/projects/Compersion and Solace (4).png',
+    ],
+    imagesAreDemo: true,
     demoUrl: '',
     repoUrl: '',
   },

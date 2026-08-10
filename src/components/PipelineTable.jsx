@@ -87,6 +87,21 @@ function Carousel({ project }) {
         loading="lazy"
         style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
       />
+      {project.imagesAreDemo && (
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute', top: 10, left: 10, zIndex: 4,
+            background: 'var(--color-black, #000)', color: 'var(--color-accent)',
+            border: '1px solid var(--color-accent)',
+            padding: '3px 8px', whiteSpace: 'nowrap',
+            fontFamily: 'var(--font-meta)', fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.06em',
+            textTransform: 'uppercase',
+          }}
+        >
+          Demo — not the live site
+        </div>
+      )}
       {multi && (
         <>
           <button
