@@ -22,7 +22,7 @@ export function Home() {
           padding: '9px 22px 11px',
           transform: 'rotate(-1deg)',
         }}>
-          <span style={{ color: '#fff', fontSize: '1rem' }}>⟳</span>
+          <span className="status-spin" aria-hidden="true" style={{ color: '#fff', fontSize: '1rem' }}>⟳</span>
           <span className="font-editorial" style={{ color: '#fff', fontSize: '1rem', letterSpacing: '0.08em' }}>
             Constantly Updated!
           </span>
@@ -172,7 +172,7 @@ export function Home() {
                 {item.description}
               </p>
               <p className="label-caps" style={{ color: 'var(--color-accent)', marginTop: 32, fontSize: '0.75rem' }}>
-                Explore →
+                Explore <span className="nav-card-arrow" aria-hidden="true">→</span>
               </p>
             </motion.div>
           </Link>

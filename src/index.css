@@ -107,6 +107,34 @@
   }
   .nav-card:hover { border-bottom-color: var(--color-accent); }
 
+  /* Physical lift on hover — gated to fine pointers so a tap on touch
+     doesn't leave the card visually "stuck" raised after navigating away. */
+  @media (hover: hover) and (pointer: fine) {
+    .nav-card {
+      transition: border-bottom-color 0.2s, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .nav-card:hover {
+      transform: translateY(-4px);
+    }
+  }
+
+  /* "Explore →" arrow nudges right on hover — same fine-pointer gate */
+  .nav-card-arrow {
+    display: inline-block;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .nav-card:hover .nav-card-arrow { transform: translateX(4px); }
+  }
+
+  /* Status banner icon — slow continuous spin, reinforcing "Constantly
+     Updated" rather than sitting static next to copy that says otherwise. */
+  @keyframes status-spin { to { transform: rotate(360deg); } }
+  .status-spin {
+    display: inline-block;
+    animation: status-spin 3.2s linear infinite;
+  }
+
   /* Journey carousel: image zoom + arrow fill */
   .journey-arrow { transition: background 0.2s, color 0.2s; }
   .journey-arrow:not([disabled]):hover { background: var(--color-accent); color: #000; }

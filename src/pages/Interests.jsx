@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import { cinema } from '../content/interests'
 import { TattooScatter } from '../components/TattooScatter'
 import { LabeledProgressIndicator } from '../components/LabeledProgressIndicator'
@@ -9,16 +10,33 @@ export function Interests() {
 
   return (
     <div>
-      {/* ── Header ── */}
+      {/* ── Header — same one-time reveal cadence as PageHeader.jsx / Home's hero ── */}
       <div style={{ background: 'var(--color-ink)', padding: 'clamp(64px, 10vw, 120px) clamp(20px, 5vw, 48px) clamp(48px, 6vw, 80px)' }}>
         <div style={{ maxWidth: 900, margin: '0 auto' }}>
-          <div style={{ width: 44, height: 4, background: 'var(--color-accent)', marginBottom: 24 }} aria-hidden="true" />
-          <h1 className="font-editorial" style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', color: '#fff', marginBottom: 24 }}>
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            style={{ width: 44, height: 4, background: 'var(--color-accent)', marginBottom: 24, transformOrigin: 'left' }}
+            aria-hidden="true"
+          />
+          <motion.h1
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="font-editorial"
+            style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', color: '#fff', marginBottom: 24 }}
+          >
             Hobbies &amp; Interests
-          </h1>
-          <p style={{ color: 'var(--color-body-dark)', fontSize: '1.125rem', lineHeight: 1.7, maxWidth: '52ch' }}>
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
+            style={{ color: 'var(--color-body-dark)', fontSize: '1.125rem', lineHeight: 1.7, maxWidth: '52ch' }}
+          >
             Things I keep coming back to outside of work. The obsessions, the lists, the ongoing projects of living a full life.
-          </p>
+          </motion.p>
         </div>
       </div>
 

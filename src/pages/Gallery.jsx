@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback, forwardRef } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { PageHeader } from '../components/PageHeader'
 import { photosByYear } from '../content/gallery'
 
@@ -110,11 +110,15 @@ function GalleryLightbox({ photos, index, onClose, onNavigate, onJump }) {
   }, [onClose, onNavigate])
 
   return (
-    <div
+    <motion.div
       role="dialog"
       aria-modal="true"
       aria-label={photo.alt}
       onClick={onClose}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
       style={{
         position: 'fixed', inset: 0,
         background: 'rgba(0,0,0,0.93)',
@@ -123,8 +127,17 @@ function GalleryLightbox({ photos, index, onClose, onNavigate, onJump }) {
         padding: 'clamp(16px, 4vw, 40px)',
       }}
     >
-      <div
+      {/* Modal content — center-anchored (not trigger-anchored, so
+          transform-origin: center is correct here), scales in slightly
+          rather than from scale(0) since nothing in the real world appears
+          from nothing. Exit is faster than entry — the system's response
+          to closing should feel snappier than the deliberate open. */}
+      <motion.div
         onClick={(e) => e.stopPropagation()}
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.97 }}
+        transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
         style={{ maxWidth: 900, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
       >
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', marginBottom: 12 }}>
@@ -174,8 +187,8 @@ function GalleryLightbox({ photos, index, onClose, onNavigate, onJump }) {
           prevRef={prevBtnRef}
           nextRef={nextBtnRef}
         />
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   )
 }
 
@@ -261,15 +274,18 @@ export function Gallery() {
         </div>
       </div>
 
-      {activeIndex !== null && (
-        <GalleryLightbox
-          photos={allPhotos}
-          index={activeIndex}
-          onClose={handleClose}
-          onNavigate={handleNavigate}
-          onJump={handleJump}
-        />
-      )}
+      <AnimatePresence>
+        {activeIndex !== null && (
+          <GalleryLightbox
+            key="lightbox"
+            photos={allPhotos}
+            index={activeIndex}
+            onClose={handleClose}
+            onNavigate={handleNavigate}
+            onJump={handleJump}
+          />
+        )}
+      </AnimatePresence>
     </div>
   )
 }

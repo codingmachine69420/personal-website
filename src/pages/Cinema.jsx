@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import { cinema } from '../content/interests'
 
 const TMDB_TOKEN     = import.meta.env.VITE_TMDB_TOKEN
@@ -159,13 +160,31 @@ export function Cinema() {
           >
             ← Interests
           </Link>
-          <div style={{ width: 44, height: 4, background: 'var(--color-accent)', marginBottom: 20 }} aria-hidden="true" />
-          <h1 className="font-editorial" style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', color: '#fff', marginBottom: 8 }}>
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            style={{ width: 44, height: 4, background: 'var(--color-accent)', marginBottom: 20, transformOrigin: 'left' }}
+            aria-hidden="true"
+          />
+          <motion.h1
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="font-editorial"
+            style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', color: '#fff', marginBottom: 8 }}
+          >
             Cinema
-          </h1>
-          <p className="label-caps" style={{ color: 'var(--color-body-dark)' }}>
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
+            className="label-caps"
+            style={{ color: 'var(--color-body-dark)' }}
+          >
             2026 Watchlist — {watchedFilms.length} watched · {unwatchedFilms.length} to go
-          </p>
+          </motion.p>
         </div>
       </div>
 

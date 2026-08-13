@@ -64,7 +64,16 @@ function StageBar({ stageCount, reachedIndex, stageLabel }) {
         ))}
       </div>
       <div style={{ position: 'absolute', inset: 0, display: 'grid', gridTemplateColumns: `repeat(${stageCount}, 1fr)`, gap: 3 }}>
-        <div style={{ gridColumn: `1 / ${reachedIndex + 2}`, background: 'var(--color-accent)' }} />
+        {/* Fills in from the left on first reveal — the bar IS the pipeline
+            metaphor, so it should visibly progress rather than appear
+            already-finished. scaleX (not width) keeps this transform-only. */}
+        <motion.div
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          style={{ gridColumn: `1 / ${reachedIndex + 2}`, background: 'var(--color-accent)', transformOrigin: 'left' }}
+        />
       </div>
       <CursorTooltip pos={hoverPos} containerWidth={width}>{stageLabel}</CursorTooltip>
     </div>
