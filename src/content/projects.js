@@ -15,8 +15,13 @@
 //     Idea Generation. Its `status` text below still says "nothing built
 //     yet" — that's about the real site, not the demo; left as-is pending
 //     Anson's rewrite of this entry's copy (flagged inline below).
-//   P&L Tracker, AI News Dashboard — nothing built, idea stage only ->
-//     Idea Generation.
+//   P&L Tracker for Rideshare Drivers — advanced to Developing per Anson's
+//     direct instruction (2026-08-13), same grey-row fix as Compersion and
+//     Solace: the collapsed-row grey-out in PipelineTable.jsx is driven
+//     purely by stageIndex === 0. Its description below still reads "Still
+//     in early planning; nothing built yet" — that text hasn't been
+//     updated to match, flagged here pending Anson's rewrite.
+//   AI News Dashboard — nothing built, idea stage only -> Idea Generation.
 // `pipelineSummary` is a one-line paraphrase of each project's own
 // description for the pipeline row — not new information.
 export const projects = [
@@ -79,7 +84,7 @@ export const projects = [
   },
   {
     name: 'P&L Tracker for Rideshare Drivers — In Progress',
-    stageIndex: 0,
+    stageIndex: 1,
     pipelineSummary: 'Profitability tracker for rideshare drivers',
     description:
       "I wanted a way for rideshare drivers to easily track their income, instead of counting receipts or adding up invoices. Most driver-facing apps only show gross fares — I want this to pull trip income together with the real costs of driving (fuel, maintenance, insurance, platform commissions) to show actual per-hour and per-mile profitability, plus a running mileage log for tax purposes. Still in early planning; nothing built yet.",

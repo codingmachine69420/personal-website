@@ -30,6 +30,10 @@
     background: #000;
     font-family: var(--font-reading);
     font-size: 1rem;
+    /* Source Serif 4 is loaded as a true variable font (opsz axis, see
+       index.html) — this makes the browser actually interpolate stroke
+       contrast per rendered size instead of silently ignoring the axis. */
+    font-optical-sizing: auto;
   }
 
   /* Hard corners everywhere — border-radius is off-brand for this design */

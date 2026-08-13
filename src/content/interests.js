@@ -37,5 +37,6 @@ export const cinema = {
     { title: 'Pulp Fiction',                watched: false, rating: null,  poster: null },
     { title: 'Argo',                        watched: true,  rating: 3.65,  poster: null },
     { title: 'The Backrooms',               watched: true,  rating: 3,     poster: null },
+    { title: "If I Had Legs I'd Kick You",  watched: true,  rating: 3.8,   poster: null },
   ],
 }

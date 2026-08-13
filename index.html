@@ -9,10 +9,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!-- Preload the display face stylesheet — it's the first thing visible -->
+    <!--
+      Source Serif 4 requested as opsz,wght@8..60 (its true variable range,
+      not a fixed static instance) so `font-optical-sizing: auto` in
+      index.css can actually interpolate stroke contrast between the
+      reading font's smallest use (0.875rem, Mindset card blurbs) and
+      largest (1.0625rem, essay body) — invisible detail, not a font swap.
+    -->
     <link rel="preload" as="style"
-      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Serif+4:wght@400;600&family=Barlow:wght@500;600&display=swap" />
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Barlow:wght@500;600&display=swap" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Serif+4:wght@400;600&family=Barlow:wght@500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Barlow:wght@500;600&display=swap"
       rel="stylesheet"
     />
     <script>
