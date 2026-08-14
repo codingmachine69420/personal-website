@@ -1,15 +1,26 @@
 // Interests — hobbies, passions, and ongoing lists.
 
 // Research papers — reading them as a way to improve my personal skills.
-// TODO(Anson): add real entries. Each: { title, link, why, cover }.
+// Each: { title, link, why, cover }.
 //   - link: URL to the paper (arXiv, journal, PDF, etc.)
 //   - cover: path under /public/images/papers/ if a cover image exists
-//     (e.g. extracted from the PDF's first page) — leave null otherwise,
-//     same convention as cinema's poster: null.
+//     (extracted from the PDF's first page) — leave null otherwise, same
+//     convention as cinema's poster: null.
 export const papers = {
   teaser: `Reading research papers as a way to improve my personal skills.`,
   list: [
-    // { title: '', link: '', why: '', cover: null },
+    {
+      title: 'Structural Limits of OHLCV-Based Intraday Signals in MNQ Futures: A Systematic Falsification Study',
+      link: 'https://arxiv.org/abs/2605.04004',
+      why: 'I want to build a better understanding of the feasibility of algorithmic trading and get a real handle on its mechanics — not just the headline results.',
+      cover: '/images/papers/mesfin-2026.jpg',
+    },
+    {
+      title: 'A Taxonomy of Anomalies and Their Trading Costs',
+      link: 'https://academic.oup.com/rfs/article/29/1/104/1844518',
+      why: 'Same reason — trying to actually understand the mechanics of algorithmic trading and what makes a strategy feasible in practice, not just in a backtest.',
+      cover: '/images/papers/novy-marx-velikov-2016.jpg',
+    },
   ],
 }
 

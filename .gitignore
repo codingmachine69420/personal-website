@@ -1,3 +1,7 @@
+# Source PDFs (one is a paywalled journal article — don't redistribute;
+# only the extracted cover images under public/images/papers/ are committed)
+/Research Papers/
+
 # Logs
 logs
 *.log
