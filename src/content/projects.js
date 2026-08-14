@@ -47,18 +47,9 @@ export const projects = [
     status: 'Still in development — backtested on historical data only, not yet traded live.',
     description:
       'A late-day momentum strategy on Nasdaq-100 futures (NQ/MNQ), backtested over ten years on QuantConnect. Right now it’s purely in testing — I don’t call a strategy real until it clears a fixed set of criteria, not just a good-looking equity curve.',
-    // Rendered as its own labeled paragraph under `description` — see
-    // PipelineTable.jsx. Replaces the older, longer writeup (exit rules,
-    // FOMC handling, pre-registered accept/reject test) per Anson's edit;
-    // that fuller version is meant to live in the PDF `detailsPdf` will
-    // eventually point to, not here.
-    strategyNote: {
-      label: 'Current Strategy:',
-      text: "At 2:45 PM ET it measures the day's move from the session open in ATR units — taking only moves between 0.25× and 1.20× daily ATR, ignoring days too quiet to signal anything and days already too extended to chase. Direction must be confirmed by the price sitting on the correct side of VWAP, and a distance filter rejects entries hugging VWAP too closely, since forensics on an earlier version showed those trades were coin flips.",
-    },
     // The bar a version has to clear before it's treated as a real edge
     // rather than a curve-fit result. Rendered as a compact list under
-    // strategyNote — see PipelineTable.jsx. `why` is a short summary, not
+    // description — see PipelineTable.jsx. `why` is a short summary, not
     // a full explanation for every row.
     testingCriteria: {
       label: 'Testing Criteria:',
