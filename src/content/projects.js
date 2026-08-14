@@ -46,7 +46,7 @@ export const projects = [
     pipelineSummary: 'Late-day momentum strategy on Nasdaq futures',
     status: 'Still in development — backtested on historical data only, not yet traded live.',
     description:
-      'A late-day momentum strategy on Nasdaq-100 futures (NQ/MNQ), backtested over ten years on QuantConnect.',
+      'A late-day momentum strategy on Nasdaq-100 futures (NQ/MNQ), backtested over ten years on QuantConnect. Right now it’s purely in testing — I don’t call a strategy real until it clears a fixed set of criteria, not just a good-looking equity curve.',
     // Rendered as its own labeled paragraph under `description` — see
     // PipelineTable.jsx. Replaces the older, longer writeup (exit rules,
     // FOMC handling, pre-registered accept/reject test) per Anson's edit;
@@ -55,6 +55,20 @@ export const projects = [
     strategyNote: {
       label: 'Current Strategy:',
       text: "At 2:45 PM ET it measures the day's move from the session open in ATR units — taking only moves between 0.25× and 1.20× daily ATR, ignoring days too quiet to signal anything and days already too extended to chase. Direction must be confirmed by the price sitting on the correct side of VWAP, and a distance filter rejects entries hugging VWAP too closely, since forensics on an earlier version showed those trades were coin flips.",
+    },
+    // The bar a version has to clear before it's treated as a real edge
+    // rather than a curve-fit result. Rendered as a compact list under
+    // strategyNote — see PipelineTable.jsx. `why` is a short summary, not
+    // a full explanation for every row.
+    testingCriteria: {
+      label: 'Testing Criteria:',
+      items: [
+        { criterion: 'T-statistic',       threshold: '≥ 2.0 (out-of-sample)', why: 'Below this, the result could plausibly be noise.' },
+        { criterion: 'Trade count',       threshold: '≥ 30 (out-of-sample)',  why: 'Too few trades and variance swamps the signal.' },
+        { criterion: 'Net return',        threshold: 'Positive after 2pt friction', why: 'A gross edge that dies to costs isn’t tradeable.' },
+        { criterion: 'Year stability',    threshold: 'Consistent across all years', why: 'One strong year and two flat ones is luck, not a pattern.' },
+        { criterion: 'Permutation test',  threshold: 'p < 0.05, where applicable', why: 'A shuffled target shouldn’t produce a similar result.' },
+      ],
     },
     // No file yet — Anson plans a PDF walking through different bot
     // versions. Renders as a visible-but-disabled "coming soon" button

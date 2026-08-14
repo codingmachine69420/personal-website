@@ -231,10 +231,26 @@ function PipelineRow({ project, stages, isFirst }) {
                   {project.description}
                 </p>
                 {project.strategyNote && (
-                  <p style={{ color: 'var(--color-body-dark)', fontSize: '0.9375rem', lineHeight: 1.7, marginBottom: 20 }}>
+                  <p style={{ color: 'var(--color-body-dark)', fontSize: '0.9375rem', lineHeight: 1.7, marginBottom: project.testingCriteria ? 16 : 20 }}>
                     <strong style={{ color: '#fff' }}>{project.strategyNote.label} </strong>
                     {project.strategyNote.text}
                   </p>
+                )}
+                {project.testingCriteria && (
+                  <div style={{ marginBottom: 20 }}>
+                    <p className="label-caps" style={{ color: '#fff', fontSize: '0.8125rem', marginBottom: 10 }}>
+                      {project.testingCriteria.label}
+                    </p>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                      {project.testingCriteria.items.map((item) => (
+                        <div key={item.criterion} style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 10px', fontSize: '0.875rem', lineHeight: 1.5 }}>
+                          <span className="label-caps" style={{ color: '#fff', fontSize: '0.75rem', flexShrink: 0 }}>{item.criterion}</span>
+                          <span style={{ color: 'var(--color-accent)', fontFamily: 'var(--font-meta)', fontSize: '0.75rem', flexShrink: 0 }}>{item.threshold}</span>
+                          <span style={{ color: 'var(--color-body-dark)' }}>— {item.why}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 )}
                 {project.stack.length > 0 && (
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 'detailsPdf' in project ? 20 : 0 }}>

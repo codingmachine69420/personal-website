@@ -10,6 +10,7 @@ const ProjectsExperiences = lazy(() => import('./pages/ProjectsExperiences').the
 const Gallery             = lazy(() => import('./pages/Gallery').then(m => ({ default: m.Gallery })))
 const Interests           = lazy(() => import('./pages/Interests').then(m => ({ default: m.Interests })))
 const Cinema              = lazy(() => import('./pages/Cinema').then(m => ({ default: m.Cinema })))
+const ResearchPapers      = lazy(() => import('./pages/ResearchPapers').then(m => ({ default: m.ResearchPapers })))
 const WritingPost         = lazy(() => import('./pages/WritingPost').then(m => ({ default: m.WritingPost })))
 const NotFound            = lazy(() => import('./pages/NotFound').then(m => ({ default: m.NotFound })))
 
@@ -27,6 +28,7 @@ function App() {
             <Route path="gallery"          element={<Gallery />} />
             <Route path="interests"        element={<Interests />} />
             <Route path="interests/cinema" element={<Cinema />} />
+            <Route path="interests/papers" element={<ResearchPapers />} />
 
             {/* Legacy writing post route */}
             <Route path="writing/:slug" element={<WritingPost />} />

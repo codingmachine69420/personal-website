@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { cinema } from '../content/interests'
+import { cinema, papers } from '../content/interests'
 import { TattooScatter } from '../components/TattooScatter'
 import { LabeledProgressIndicator } from '../components/LabeledProgressIndicator'
 
@@ -44,6 +44,27 @@ export function Interests() {
       <div style={{ background: 'var(--color-paper)', borderTop: '3px solid var(--color-accent)', position: 'relative', overflow: 'hidden' }}>
         <TattooScatter />
         <div style={{ maxWidth: 900, margin: '0 auto', padding: 'clamp(48px, 6vw, 80px) clamp(20px, 5vw, 48px) 96px', position: 'relative', zIndex: 1 }}>
+
+          {/* Research Papers article */}
+          <article style={{ borderBottom: '1px solid rgba(28,28,28,0.1)', paddingBottom: 64, marginBottom: 64 }}>
+            <p className="label-caps" style={{ color: 'var(--color-ink)', marginBottom: 16 }}>Research</p>
+
+            <h2 className="font-editorial" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: 'var(--color-ink)', marginBottom: 24, lineHeight: 0.95 }}>
+              Papers I've Read
+            </h2>
+
+            <p style={{ color: 'var(--color-body-light)', fontSize: '1.0625rem', lineHeight: 1.75, maxWidth: '60ch', marginBottom: 32 }}>
+              {papers.teaser}
+            </p>
+
+            <Link
+              to="/interests/papers"
+              className="cta-link"
+              style={{ textDecoration: 'none' }}
+            >
+              Reading List
+            </Link>
+          </article>
 
           {/* Cinema article */}
           <article style={{ borderBottom: '1px solid rgba(28,28,28,0.1)', paddingBottom: 64 }}>

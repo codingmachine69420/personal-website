@@ -11,21 +11,15 @@ export const site = {
   ],
 }
 
+// Order: Projects & Experiences, Interests, Mindset, Photo Gallery
+// (per Anson's direct instruction, 2026-08-14 — was Mindset-first).
 export const directory = [
-  {
-    id: 'mindset',
-    label: 'Mindset',
-    href: '/mindset',
-    color: 'cyan',
-    floor: '01',
-    description: 'How I think\n\nThe values and philosophy that shape who I am.',
-  },
   {
     id: 'projects',
     label: 'Projects & Experiences',
     href: '/projects',
     color: 'amber',
-    floor: '02',
+    floor: '01',
     description: 'Always Building.',
   },
   {
@@ -33,8 +27,16 @@ export const directory = [
     label: 'Interests',
     href: '/interests',
     color: 'rose',
-    floor: '03',
+    floor: '02',
     description: 'Is he fun?',
+  },
+  {
+    id: 'mindset',
+    label: 'Mindset',
+    href: '/mindset',
+    color: 'cyan',
+    floor: '03',
+    description: 'How I think\n\nThe values and philosophy that shape who I am.',
   },
   {
     id: 'gallery',

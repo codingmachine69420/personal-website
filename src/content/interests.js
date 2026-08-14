@@ -1,5 +1,18 @@
 // Interests — hobbies, passions, and ongoing lists.
 
+// Research papers — reading them as a way to improve my personal skills.
+// TODO(Anson): add real entries. Each: { title, link, why, cover }.
+//   - link: URL to the paper (arXiv, journal, PDF, etc.)
+//   - cover: path under /public/images/papers/ if a cover image exists
+//     (e.g. extracted from the PDF's first page) — leave null otherwise,
+//     same convention as cinema's poster: null.
+export const papers = {
+  teaser: `Reading research papers as a way to improve my personal skills.`,
+  list: [
+    // { title: '', link: '', why: '', cover: null },
+  ],
+}
+
 export const cinema = {
   // Teaser shown on the /interests hub
   teaser: `I believe movies are a way for modern day artists to express their artform — combining storytelling and visually stunning screens. I think more after a movie than I ever do normally. I gain a sense of motivation or a sudden urge to be great after a movie, a sense of sadness and regret, or a wave of reminiscence. Movies are a very important part of my life. My top 3 of all time, in no particular order: Top Gun, La La Land, Interstellar.`,
