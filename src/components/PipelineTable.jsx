@@ -297,6 +297,15 @@ function PipelineRow({ project, stages, isFirst }) {
 }
 
 export function PipelineTable({ stages, projects }) {
+  // Rows always order by stage, furthest-along first — Live, then Testing,
+  // then Developing, then Idea Generation last — per Anson's direct
+  // instruction (2026-08-15). Sort here rather than relying on
+  // content/projects.js's array order, since Array.prototype.sort is
+  // stable: ties (same stageIndex) keep their original relative order,
+  // and no one has to remember to hand-reorder the content file whenever
+  // a project's stage changes.
+  const sortedProjects = [...projects].sort((a, b) => b.stageIndex - a.stageIndex)
+
   return (
     <div>
       {/* Header row */}
@@ -316,7 +325,7 @@ export function PipelineTable({ stages, projects }) {
         </div>
       </div>
 
-      {projects.map((project, i) => (
+      {sortedProjects.map((project, i) => (
         <PipelineRow key={project.name} project={project} stages={stages} isFirst={i === 0} />
       ))}
     </div>
