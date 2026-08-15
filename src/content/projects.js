@@ -30,13 +30,17 @@
 //     (2026-08-15).
 // `pipelineSummary` is a one-line paraphrase of each project's own
 // description for the pipeline row — not new information.
+// All descriptions below are now first person, per Anson's direct
+// instruction (2026-08-15) — SignalFeed, Algo Trading Bot, and Earnings
+// Signal Agent were converted from third person on that date; pronoun/voice
+// only, no content changes.
 export const projects = [
   {
     name: 'SignalFeed',
     stageIndex: 3,
     pipelineSummary: 'Sentiment AI agent for semiconductor & AI stocks',
     description:
-      'A sentiment-driven Agent that feeds me information through a dashboard for mobile. Instead of charts and indicators, it tracks the signals that actually move stocks first — breaking news, government announcements, earnings calls, and SEC filings — scoring them in real time using AI. Covers 14+ semiconductor and AI stocks across the full supply chain (GPU, CPU, memory, equipment, energy/nuclear), with each stock getting a live sentiment score from 0–100. High-strength signals surface as ranked cards telling you exactly what moved, why it matters, and which stock it hits.',
+      'I built a sentiment-driven agent that feeds me information through a dashboard for mobile. Instead of charts and indicators, it tracks the signals that actually move stocks first — breaking news, government announcements, earnings calls, and SEC filings — scoring them in real time using AI. It covers 14+ semiconductor and AI stocks across the full supply chain (GPU, CPU, memory, equipment, energy/nuclear), with each stock getting a live sentiment score from 0–100. High-strength signals surface as ranked cards telling me exactly what moved, why it matters, and which stock it hits.',
     stack: ['Python', 'React Native', 'AI', 'SEC EDGAR', 'Reuters', 'Reddit', 'Congress'],
     images: [
       '/images/projects/Sentiment Dashboard  (1).png',
@@ -52,7 +56,7 @@ export const projects = [
     pipelineSummary: 'Late-day momentum strategy on Nasdaq futures',
     status: 'Still in development — backtested on historical data only, not yet traded live.',
     description:
-      'A late-day momentum strategy on Nasdaq-100 futures (NQ/MNQ), backtested over ten years on QuantConnect. Right now it’s purely in testing — I don’t call a strategy real until it clears a fixed set of criteria, not just a good-looking equity curve.',
+      'I built a late-day momentum strategy on Nasdaq-100 futures (NQ/MNQ), backtested over ten years on QuantConnect. Right now it’s purely in testing — I don’t call a strategy real until it clears a fixed set of criteria, not just a good-looking equity curve.',
     // The bar a version has to clear before it's treated as a real edge
     // rather than a curve-fit result. Rendered as a compact list under
     // description — see PipelineTable.jsx. `why` is a short summary, not
@@ -87,7 +91,7 @@ export const projects = [
     pipelineSummary: 'LLM agent for earnings calls & filings',
     status: 'In progress — early development, not yet functional end-to-end.',
     description:
-      'An LLM agent, currently in development, that reads through earnings reports and call transcripts to surface what usually gets buried in the wall of text — new customer wins, margin inflections, and forward-looking catalysts management flags but a quick skim would miss.',
+      "I'm currently building an LLM agent that reads through earnings reports and call transcripts to surface what usually gets buried in the wall of text — new customer wins, margin inflections, and forward-looking catalysts management flags but a quick skim would miss.",
     stack: [],
     images: ['/images/projects/placeholder-3.svg'],
     demoUrl: '',
