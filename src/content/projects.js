@@ -21,7 +21,13 @@
 //     purely by stageIndex === 0. Its description below still reads "Still
 //     in early planning; nothing built yet" — that text hasn't been
 //     updated to match, flagged here pending Anson's rewrite.
-//   AI News Dashboard — nothing built, idea stage only -> Idea Generation.
+//   AI Newsletter — live automated agent that compiles and emails a daily
+//     AI intelligence brief (retries the send before falling back to a
+//     draft; skips weekends) -> Live, per Anson's direct instruction
+//     (2026-08-15).
+//   Daily Gap Ups — live automated agent that emails a pre-market gap
+//     report every morning -> Live, per Anson's direct instruction
+//     (2026-08-15).
 // `pipelineSummary` is a one-line paraphrase of each project's own
 // description for the pipeline row — not new information.
 export const projects = [
@@ -125,14 +131,27 @@ export const projects = [
     repoUrl: '',
   },
   {
-    name: 'AI News Dashboard',
-    stageIndex: 0,
-    pipelineSummary: 'Personal dashboard for the newest AI news',
-    status: 'Idea stage — personal use only for now.',
+    name: 'AI Newsletter',
+    stageIndex: 3,
+    pipelineSummary: 'Automated daily AI intelligence brief, delivered by email',
     description:
-      "I want a dashboard that feeds me the newest AI news in one place — for now just for my own use, but with a possible future path to a public newsletter built on top of it.",
+      "Every morning around 10am, I get an automated AI intelligence brief in my inbox. It rounds up the day's real developments across AI news, new research and benchmarks, a dedicated China AI section, and financial and earnings moves — plus a short read on social sentiment — built from primary sources rather than aggregators. It fact-checks itself before sending: dates get re-verified against the article, unconfirmed or stale claims get dropped and noted as such, and a section with nothing worth reporting just gets skipped rather than padded with filler.",
     stack: [],
-    images: ['/images/projects/placeholder-4.svg'],
+    // Real screenshot of the actual email. Filename is 'AI Newsleter.png'
+    // (missing a 't') as Anson saved it — referenced as-is, not renamed.
+    images: ['/images/projects/AI Newsleter.png'],
+    demoUrl: '',
+    repoUrl: '',
+  },
+  {
+    name: 'Daily Gap Ups',
+    stageIndex: 3,
+    pipelineSummary: 'Automated pre-market gap report, delivered by email every morning',
+    description:
+      "Last summer, while I was working at Odysseus, my boss Joseph wanted a gap-up report every morning when the market opened — a list of stocks that had jumped overnight, so he could read overnight sentiment and see which clusters of stocks might move during the day. He pushed us to automate it instead of typing it out by hand each morning, but we couldn't get it working at the time. This summer, I finally built the same gap-up report he wanted, fully automated and delivered to my inbox every morning. It scans US-listed stocks that gapped at the open, ranks them by size of the move, and for each one reports market cap, sector, and whether the move extended, faded, or held in the first twenty minutes after the open — plus a same-day catalyst with a source link, or an honest \"no catalyst identified\" instead of a guess. It closes with a \"faders\" section calling out any stock that gapped one way and then reversed, since those are usually worth a second look. Prices come from Alpaca's free IEX feed, so it's directional, not exact.",
+    stack: ['GitHub Actions', 'Alpaca API', 'Gmail API'],
+    // Real screenshot of the actual email.
+    images: ['/images/projects/Gap Ups.png'],
     demoUrl: '',
     repoUrl: '',
   },
