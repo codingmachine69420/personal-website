@@ -141,9 +141,12 @@ export const projects = [
     description:
       "Every morning around 10am, I get an automated AI intelligence brief in my inbox. It rounds up the day's real developments across AI news, new research and benchmarks, a dedicated China AI section, and financial and earnings moves — plus a short read on social sentiment — built from primary sources rather than aggregators. It fact-checks itself before sending: dates get re-verified against the article, unconfirmed or stale claims get dropped and noted as such, and a section with nothing worth reporting just gets skipped rather than padded with filler.",
     stack: [],
-    // Real screenshot of the actual email. Filename is 'AI Newsleter.png'
-    // (missing a 't') as Anson saved it — referenced as-is, not renamed.
-    images: ['/images/projects/AI Newsleter.png'],
+    // Real screenshots of the actual email — swapped 2026-08-16 for a
+    // newer, sharper pair (replaces the old single 'AI Newsleter.png').
+    images: [
+      '/images/projects/AI Newsletter NEW (1).png',
+      '/images/projects/AI Newsletter NEW (2).png',
+    ],
     demoUrl: '',
     repoUrl: '',
   },
