@@ -50,11 +50,15 @@ export function Interests() {
             <p className="label-caps" style={{ color: 'var(--color-ink)', marginBottom: 16 }}>Research</p>
 
             <h2 className="font-editorial" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: 'var(--color-ink)', marginBottom: 24, lineHeight: 0.95 }}>
-              Papers I've Read
+              Papers I've Read<span aria-hidden="true" style={{ color: 'var(--color-accent)' }}>*</span>
             </h2>
 
-            <p style={{ color: 'var(--color-body-light)', fontSize: '1.0625rem', lineHeight: 1.75, maxWidth: '60ch', marginBottom: 32 }}>
+            <p style={{ color: 'var(--color-body-light)', fontSize: '1.0625rem', lineHeight: 1.75, maxWidth: '60ch', marginBottom: 12 }}>
               {papers.teaser}
+            </p>
+
+            <p className="label-caps" style={{ color: 'var(--color-body-light)', fontSize: '0.75rem', marginBottom: 32 }}>
+              * {papers.note}
             </p>
 
             <Link

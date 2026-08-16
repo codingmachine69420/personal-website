@@ -8,6 +8,10 @@
 //     convention as cinema's poster: null.
 export const papers = {
   teaser: `Reading research papers as a way to improve my personal skills.`,
+  // Footnote clarifying scope — this is not a lifetime reading list, just
+  // papers read starting August 2026. Rendered as an asterisk + small print
+  // on both the Interests hub and the full Reading List page.
+  note: `Papers read since August 2026.`,
   list: [
     {
       title: 'Structural Limits of OHLCV-Based Intraday Signals in MNQ Futures: A Systematic Falsification Study',

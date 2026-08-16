@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { CarouselNavigator } from './CarouselNavigator'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -86,8 +87,19 @@ function StageBar({ stageCount, reachedIndex, stageLabel }) {
 // on a click anywhere except the image itself — the stopPropagation lives
 // on the image's own wrapper, not a padded content box around it, so
 // "click outside the picture" is exactly what closes it, per Anson's ask.
-function ImageLightbox({ src, alt, isDemo, onClose }) {
+// When the project has more than one screenshot, the same CarouselNavigator
+// used in Gallery's lightbox appears below the image so you can flip
+// through that project's own screenshots without closing — scoped to
+// `images` (this project's array only), never spilling into another row's
+// pictures. A single-image project renders no nav at all, unchanged from
+// before.
+function ImageLightbox({ images, index, projectName, isDemo, onNavigate, onJump, onClose }) {
   const closeBtnRef = useRef(null)
+  const prevBtnRef = useRef(null)
+  const nextBtnRef = useRef(null)
+  const multi = images.length > 1
+  const src = `${BASE}${images[index].replace(/^\//, '')}`
+  const alt = `${projectName} screenshot ${index + 1}`
 
   useEffect(() => { closeBtnRef.current?.focus() }, [])
 
@@ -96,11 +108,30 @@ function ImageLightbox({ src, alt, isDemo, onClose }) {
     return () => { document.body.style.overflow = '' }
   }, [])
 
+  // Escape to close, arrow keys to navigate (multi-image only), Tab trapped
+  // between whichever controls exist (close, plus prev/next when multi) —
+  // same pattern as GalleryLightbox in pages/Gallery.jsx.
   useEffect(() => {
-    const handleKey = (e) => { if (e.key === 'Escape') onClose() }
+    const handleKey = (e) => {
+      if (e.key === 'Escape') { onClose(); return }
+      if (multi) {
+        if (e.key === 'ArrowLeft') { onNavigate(-1); return }
+        if (e.key === 'ArrowRight') { onNavigate(1); return }
+      }
+      if (e.key !== 'Tab') return
+      const nodes = [closeBtnRef.current, prevBtnRef.current, nextBtnRef.current].filter(Boolean)
+      if (!nodes.length) return
+      const first = nodes[0]
+      const last = nodes[nodes.length - 1]
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last.focus() }
+      } else {
+        if (document.activeElement === last) { e.preventDefault(); first.focus() }
+      }
+    }
     window.addEventListener('keydown', handleKey)
     return () => window.removeEventListener('keydown', handleKey)
-  }, [onClose])
+  }, [onClose, onNavigate, multi])
 
   return (
     <motion.div
@@ -141,12 +172,12 @@ function ImageLightbox({ src, alt, isDemo, onClose }) {
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.97 }}
         transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
-        style={{ position: 'relative', display: 'inline-flex', maxWidth: '90vw', maxHeight: '85vh' }}
+        style={{ position: 'relative', display: 'inline-flex', maxWidth: '90vw', maxHeight: multi ? '75vh' : '85vh' }}
       >
         <img
           src={src}
           alt={alt}
-          style={{ maxHeight: '85vh', maxWidth: '90vw', objectFit: 'contain', display: 'block' }}
+          style={{ maxHeight: multi ? '75vh' : '85vh', maxWidth: '90vw', objectFit: 'contain', display: 'block' }}
         />
         {isDemo && (
           <div
@@ -164,6 +195,19 @@ function ImageLightbox({ src, alt, isDemo, onClose }) {
           </div>
         )}
       </motion.div>
+      {multi && (
+        <div onClick={(e) => e.stopPropagation()} style={{ position: 'fixed', bottom: 'clamp(16px, 4vw, 40px)', left: 0, right: 0, display: 'flex', justifyContent: 'center' }}>
+          <CarouselNavigator
+            total={images.length}
+            index={index}
+            onNavigate={onNavigate}
+            onJump={onJump}
+            prevRef={prevBtnRef}
+            nextRef={nextBtnRef}
+            itemLabel="screenshot"
+          />
+        </div>
+      )}
     </motion.div>
   )
 }
@@ -171,7 +215,9 @@ function ImageLightbox({ src, alt, isDemo, onClose }) {
 // Same carousel behavior as the plain-list page had (prev/next + dot
 // indicators) — just laid out to sit in the pipeline row's right-hand
 // image column instead of full-width above the text. Clicking the image
-// itself opens the ImageLightbox above.
+// itself opens the ImageLightbox above; the thumbnail and lightbox share
+// the same `idx` state, so closing the lightbox leaves the thumbnail on
+// whichever screenshot you last viewed.
 function Carousel({ project }) {
   const [idx, setIdx] = useState(0)
   const [lightboxOpen, setLightboxOpen] = useState(false)
@@ -179,6 +225,9 @@ function Carousel({ project }) {
   const multi = images.length > 1
   const src = `${BASE}${images[idx].replace(/^\//, '')}`
   const alt = `${project.name} screenshot ${idx + 1}`
+
+  const navigate = (dir) => setIdx((i) => (i + dir + images.length) % images.length)
+  const jump = (i) => setIdx(i)
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%', minHeight: 220, background: '#0d0d0d' }}>
@@ -191,7 +240,15 @@ function Carousel({ project }) {
       />
       <AnimatePresence>
         {lightboxOpen && (
-          <ImageLightbox src={src} alt={alt} isDemo={project.imagesAreDemo} onClose={() => setLightboxOpen(false)} />
+          <ImageLightbox
+            images={images}
+            index={idx}
+            projectName={project.name}
+            isDemo={project.imagesAreDemo}
+            onNavigate={navigate}
+            onJump={jump}
+            onClose={() => setLightboxOpen(false)}
+          />
         )}
       </AnimatePresence>
       {project.imagesAreDemo && (
@@ -212,7 +269,7 @@ function Carousel({ project }) {
       {multi && (
         <>
           <button
-            onClick={(e) => { e.stopPropagation(); setIdx((i) => (i - 1 + images.length) % images.length) }}
+            onClick={(e) => { e.stopPropagation(); navigate(-1) }}
             aria-label="Previous screenshot"
             style={{
               position: 'absolute', left: 0, top: 0, bottom: 0, width: 40,
@@ -225,7 +282,7 @@ function Carousel({ project }) {
             onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(0,0,0,0.5)' }}
           >&lt;</button>
           <button
-            onClick={(e) => { e.stopPropagation(); setIdx((i) => (i + 1) % images.length) }}
+            onClick={(e) => { e.stopPropagation(); navigate(1) }}
             aria-label="Next screenshot"
             style={{
               position: 'absolute', right: 0, top: 0, bottom: 0, width: 40,
@@ -241,7 +298,7 @@ function Carousel({ project }) {
             {images.map((_, i) => (
               <button
                 key={i}
-                onClick={(e) => { e.stopPropagation(); setIdx(i) }}
+                onClick={(e) => { e.stopPropagation(); jump(i) }}
                 aria-label={`Screenshot ${i + 1}`}
                 style={{
                   width: 7, height: 7, padding: 0, border: 'none', cursor: 'pointer',
@@ -257,8 +314,7 @@ function Carousel({ project }) {
   )
 }
 
-function PipelineRow({ project, stages, isFirst }) {
-  const [open, setOpen] = useState(false)
+function PipelineRow({ project, stages, isFirst, open, onToggle }) {
   const images = project.images ?? []
   const isIdeaStage = project.stageIndex === 0
   // Idea-stage rows read muted grey while collapsed — a visual cue that
@@ -270,7 +326,7 @@ function PipelineRow({ project, stages, isFirst }) {
   return (
     <div style={{ borderTop: isFirst ? 'none' : '1px solid rgba(255,255,255,0.08)' }}>
       <button
-        onClick={() => setOpen((o) => !o)}
+        onClick={onToggle}
         aria-expanded={open}
         style={{
           display: 'grid', width: '100%',
@@ -404,6 +460,11 @@ export function PipelineTable({ stages, projects }) {
   // a project's stage changes.
   const sortedProjects = [...projects].sort((a, b) => b.stageIndex - a.stageIndex)
 
+  // Only one row open at a time — per Anson's direct instruction
+  // (2026-08-16). A single "which project is open" value, not a per-row
+  // boolean: opening a new row implicitly closes whichever was open.
+  const [openProject, setOpenProject] = useState(null)
+
   return (
     <div>
       {/* Header row */}
@@ -424,7 +485,14 @@ export function PipelineTable({ stages, projects }) {
       </div>
 
       {sortedProjects.map((project, i) => (
-        <PipelineRow key={project.name} project={project} stages={stages} isFirst={i === 0} />
+        <PipelineRow
+          key={project.name}
+          project={project}
+          stages={stages}
+          isFirst={i === 0}
+          open={openProject === project.name}
+          onToggle={() => setOpenProject((cur) => (cur === project.name ? null : project.name))}
+        />
       ))}
     </div>
   )

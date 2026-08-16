@@ -69,7 +69,7 @@ export function ResearchPapers() {
             className="font-editorial"
             style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', color: '#fff', marginBottom: 8 }}
           >
-            Reading List
+            Reading List<span aria-hidden="true" style={{ color: 'var(--color-accent)' }}>*</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 12 }}
@@ -78,7 +78,7 @@ export function ResearchPapers() {
             className="label-caps"
             style={{ color: 'var(--color-body-dark)' }}
           >
-            {papers.list.length} paper{papers.list.length === 1 ? '' : 's'}
+            {papers.list.length} paper{papers.list.length === 1 ? '' : 's'} · * {papers.note}
           </motion.p>
         </div>
       </div>
