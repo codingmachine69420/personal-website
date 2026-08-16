@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const BASE = import.meta.env.BASE_URL
@@ -80,22 +80,120 @@ function StageBar({ stageCount, reachedIndex, stageLabel }) {
   )
 }
 
+// Fullscreen enlarge on click — same backdrop/close conventions as
+// Gallery's lightbox (GalleryLightbox in pages/Gallery.jsx): near-black
+// scrim, ✕ button, Escape to close, body scroll locked while open. Closes
+// on a click anywhere except the image itself — the stopPropagation lives
+// on the image's own wrapper, not a padded content box around it, so
+// "click outside the picture" is exactly what closes it, per Anson's ask.
+function ImageLightbox({ src, alt, isDemo, onClose }) {
+  const closeBtnRef = useRef(null)
+
+  useEffect(() => { closeBtnRef.current?.focus() }, [])
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden'
+    return () => { document.body.style.overflow = '' }
+  }, [])
+
+  useEffect(() => {
+    const handleKey = (e) => { if (e.key === 'Escape') onClose() }
+    window.addEventListener('keydown', handleKey)
+    return () => window.removeEventListener('keydown', handleKey)
+  }, [onClose])
+
+  return (
+    <motion.div
+      role="dialog"
+      aria-modal="true"
+      aria-label={alt}
+      onClick={onClose}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+      style={{
+        position: 'fixed', inset: 0,
+        background: 'rgba(0,0,0,0.93)',
+        zIndex: 1000,
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        padding: 'clamp(16px, 4vw, 40px)',
+      }}
+    >
+      <button
+        ref={closeBtnRef}
+        onClick={onClose}
+        aria-label="Close"
+        style={{
+          position: 'fixed', top: 'clamp(12px, 3vw, 28px)', right: 'clamp(12px, 3vw, 28px)',
+          background: 'none', border: 'none', color: 'rgba(255,255,255,0.7)',
+          cursor: 'pointer', fontSize: '1.5rem', lineHeight: 1,
+          minWidth: 44, minHeight: 44,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          zIndex: 1001,
+        }}
+      >
+        ✕
+      </button>
+      <motion.div
+        onClick={(e) => e.stopPropagation()}
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.97 }}
+        transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
+        style={{ position: 'relative', display: 'inline-flex', maxWidth: '90vw', maxHeight: '85vh' }}
+      >
+        <img
+          src={src}
+          alt={alt}
+          style={{ maxHeight: '85vh', maxWidth: '90vw', objectFit: 'contain', display: 'block' }}
+        />
+        {isDemo && (
+          <div
+            aria-hidden="true"
+            style={{
+              position: 'absolute', top: 10, left: 10,
+              background: 'var(--color-black, #000)', color: 'var(--color-accent)',
+              border: '1px solid var(--color-accent)',
+              padding: '3px 8px', whiteSpace: 'nowrap',
+              fontFamily: 'var(--font-meta)', fontSize: '0.7rem', fontWeight: 600, letterSpacing: '0.06em',
+              textTransform: 'uppercase',
+            }}
+          >
+            Demo — not the live site
+          </div>
+        )}
+      </motion.div>
+    </motion.div>
+  )
+}
+
 // Same carousel behavior as the plain-list page had (prev/next + dot
 // indicators) — just laid out to sit in the pipeline row's right-hand
-// image column instead of full-width above the text.
+// image column instead of full-width above the text. Clicking the image
+// itself opens the ImageLightbox above.
 function Carousel({ project }) {
   const [idx, setIdx] = useState(0)
+  const [lightboxOpen, setLightboxOpen] = useState(false)
   const images = project.images ?? []
   const multi = images.length > 1
+  const src = `${BASE}${images[idx].replace(/^\//, '')}`
+  const alt = `${project.name} screenshot ${idx + 1}`
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%', minHeight: 220, background: '#0d0d0d' }}>
       <img
-        src={`${BASE}${images[idx].replace(/^\//, '')}`}
-        alt={`${project.name} screenshot ${idx + 1}`}
+        src={src}
+        alt={alt}
         loading="lazy"
-        style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
+        onClick={() => setLightboxOpen(true)}
+        style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block', cursor: 'zoom-in' }}
       />
+      <AnimatePresence>
+        {lightboxOpen && (
+          <ImageLightbox src={src} alt={alt} isDemo={project.imagesAreDemo} onClose={() => setLightboxOpen(false)} />
+        )}
+      </AnimatePresence>
       {project.imagesAreDemo && (
         <div
           aria-hidden="true"
