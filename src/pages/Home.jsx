@@ -4,7 +4,7 @@ import { site, directory } from '../content/site'
 import { ParallaxPhoto } from '../components/ParallaxPhoto'
 import { TextEffect } from '../components/TextEffect'
 
-const jumpPhoto = `${import.meta.env.BASE_URL}images/gallery/santorini-jump.jpeg`
+const jumpPhoto = `${import.meta.env.BASE_URL}images/gallery/A picture a random Spanish Uncle took of me.jpeg`
 
 // All four sections render as identical nav cards — no primary/secondary split.
 const sections = directory

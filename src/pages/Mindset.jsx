@@ -9,13 +9,13 @@ const BASE = import.meta.env.BASE_URL
 // biggest top-row slot — the milestone photo, thematically on point for a
 // page about how I think and what shapes me.
 const collageTop = [
-  { src: '/images/gallery/Hike in BC.jpeg', alt: 'Balancing on the rocks, Hike in BC', pos: 'center 72%', grow: 1.2 },
+  { src: '/images/gallery/Hike during our Senior Skip day back in high school in Victoria.jpeg', alt: 'Balancing on the rocks, Hike in BC', pos: 'center 72%', grow: 1.2 },
   { src: '/images/gallery/Beautiful hike in Victoria, BC.jpeg', alt: 'Hiking above Victoria, BC', pos: 'center 35%', grow: 1 },
 ]
 const collageBottom = [
   { src: '/images/gallery/Middle School In Hong Kong (~2019).jpeg', alt: 'Middle school in Hong Kong', pos: 'center 62%', grow: 0.9 },
   { src: '/images/gallery/Prague during Christmas.jpeg', alt: 'Prague at Christmas', pos: 'center 48%', grow: 1 },
-  { src: '/images/gallery/Athens.jpeg', alt: 'Athens at dusk', pos: 'center 62%', grow: 0.9 },
+  { src: '/images/gallery/Atop of a mountain right next to the Acropolis in Athens, Greece.jpeg', alt: 'Athens at dusk', pos: 'center 62%', grow: 0.9 },
 ]
 
 const SECTIONS = [
@@ -31,7 +31,7 @@ const SECTIONS = [
           'I grew up as an introvert. I felt out of place when there were a large number of people in a room. I always felt that I had to please every person in the room, so I would be too scared to talk to anyone.',
           'Working at RBC as a winter intern opened my eyes to the world of being an extrovert. I was forced to make small talk with managers and directors every single day — and normally I would have had my lunch hour or after-work commute to wind down. But no, I had friends come along every step of the way. Slowly but surely, this mentality of talking to everyone, everywhere, all at once, every single day bled into my other activities. After work I went to the gym, and it was during this period where I met many of my gym friends. Having chats between sets made the gym feel like a hangout instead of an obligation.',
         ],
-        photo: `${BASE}images/gallery/hiking-hong-kong.jpeg`,
+        photo: `${BASE}images/gallery/Hiking after a quick boat ride from Cheung Chau.jpeg`,
         photoAlt: 'Hiking trail in Hong Kong — discomfort chosen on purpose',
         imgRight: true,
       },
@@ -47,7 +47,7 @@ const SECTIONS = [
         paragraphs: [
           "Say I went to the store and bought an eighty dollar game. I put it on easy mode and completed the campaign in five hours. I would have felt that it was eighty dollars wasted. If only I had put it on hard mode, spent more time on the game — the completion would have felt way more deserved. I see life the same way. If things are too easy, the level of satisfaction is low. We have to sacrifice for success, and that's when you feel like you truly deserve it.",
         ],
-        photo: `${BASE}images/gallery/Athens.jpeg`,
+        photo: `${BASE}images/gallery/Atop of a mountain right next to the Acropolis in Athens, Greece.jpeg`,
         photoAlt: 'Back turned to the camera, flexing over the Athens skyline',
         imgRight: false,
       },
@@ -65,7 +65,7 @@ const SECTIONS = [
           'Whenever someone laughs at or criticises me — if it is something I have worked hard on and am confident in — I take their opinion, work on it in the background, but don\'t retaliate in front of them.',
           "Say if you love vanilla ice cream. You love it to death and there's nothing better in the world. Even if the entire world tells you that it's bad, you would just laugh in their face — because people's opinions don't matter for what they are. Same logic.",
         ],
-        photo: `${BASE}images/gallery/Grandest Stadium in all of Football.jpeg`,
+        photo: `${BASE}images/gallery/Santiago Bernabeu.jpeg`,
         photoAlt: 'The Santiago Bernabéu — betting on the biggest stage',
         imgRight: true,
       },
@@ -93,7 +93,7 @@ const SECTIONS = [
           'And it is the same curiosity that made me start a website and write down these oddly boring stories, in the hope that one day it will be a documentation of my life and my beliefs.',
           "Curiosity is the strongest medicine we have. It is the reason we have advancements in our society. It is the reason we don't sit in caves, eating berries for breakfast, lunch, and dinner. It is the reason why ideologies and political views develop. It is human nature — one that we have to discover within ourselves.",
         ],
-        photo: `${BASE}images/gallery/madrid-royal-palace.jpeg`,
+        photo: `${BASE}images/gallery/Royal Palace in Madrid.jpeg`,
         photoAlt: 'Royal Palace of Madrid — centuries of accumulated curiosity',
         imgRight: true,
       },

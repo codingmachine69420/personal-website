@@ -14,11 +14,11 @@ const BASE = import.meta.env.BASE_URL
 // biggest top-row slot — it's thematically on-topic for this page (winning
 // a case competition).
 const collageTop = [
-  { src: '/images/gallery/On stage pic.JPEG', alt: 'Winning first place at the STRIVE Junior Tier case competition', pos: 'center 34%', grow: 1.4 },
+  { src: '/images/gallery/My First Case Competition.JPEG', alt: 'Winning first place at the STRIVE Junior Tier case competition', pos: 'center 34%', grow: 1.4 },
   { src: '/images/gallery/Graduation!.jpeg', alt: 'Graduation', pos: 'center 43%', grow: 1 },
 ]
 const collageBottom = [
-  { src: '/images/gallery/Korea.jpeg', alt: 'Seoul with my mom', pos: 'center 55%', grow: 0.9 },
+  { src: '/images/gallery/Family Trip in Korea.jpeg', alt: 'Seoul with my mom', pos: 'center 55%', grow: 0.9 },
   { src: '/images/gallery/Formal Dinner in High School.jpeg', alt: 'Formal dinner in high school', pos: 'center 45%', grow: 1.1 },
   { src: '/images/gallery/The boys.jpeg', alt: 'The boys, school days', pos: 'center 60%', grow: 0.8 },
 ]
