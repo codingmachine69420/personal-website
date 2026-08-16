@@ -4,9 +4,12 @@
 // Captions/alt below were resynced 2026-08-16 after Anson renamed every file
 // in public/images/gallery/ to be used as the caption — `caption`/`alt` now
 // equal the new filename verbatim (minus extension), matching this site's
-// existing convention. See his typo/placement flags relayed alongside this
-// change (in the PR/commit description, not here) rather than silently
-// "fixed" in this file.
+// existing convention. Three typos flagged in that pass were confirmed and
+// fixed per Anson's follow-up (both the caption text and the actual files
+// were renamed): "Enagland" -> "England", "Nara , Japan" -> "Nara, Japan",
+// "Bernabeu" -> "Bernabéu". Five more renamed files that weren't wired into
+// the gallery yet were added in the same pass — each flagged inline below
+// with "Newly added 2026-08-16" since their year placement is a guess.
 export const photosByYear = [
   {
     year: 2019,
@@ -42,10 +45,14 @@ export const photosByYear = [
       { src: '/images/gallery/Graduation!.jpeg', alt: 'Graduation!', caption: 'Graduation!', width: 1200, height: 1600 },
       { src: '/images/gallery/Joining my friends in their high school graduation dinner in Hong Kong.jpeg', alt: 'Joining my friends in their high school graduation dinner in Hong Kong', caption: 'Joining my friends in their high school graduation dinner in Hong Kong', width: 1600, height: 1600 },
       { src: '/images/gallery/Tokyo, Japan with Parents.jpeg', alt: 'Tokyo, Japan with Parents', caption: 'Tokyo, Japan with Parents', width: 1200, height: 1600 },
-      { src: '/images/gallery/Backstreet in Nara , Japan.jpeg', alt: 'Backstreet in Nara , Japan', caption: 'Backstreet in Nara , Japan', width: 1200, height: 1600 },
-      { src: '/images/gallery/First trip to Enagland!.jpeg', alt: 'First trip to Enagland!', caption: 'First trip to Enagland!', width: 1600, height: 1200 },
+      { src: '/images/gallery/Backstreet in Nara, Japan.jpeg', alt: 'Backstreet in Nara, Japan', caption: 'Backstreet in Nara, Japan', width: 1200, height: 1600 },
+      { src: '/images/gallery/First trip to England!.jpeg', alt: 'First trip to England!', caption: 'First trip to England!', width: 1600, height: 1200 },
+      // Newly added 2026-08-16 — placed here as a best guess (pairs with
+      // "First trip to England!" above, same first-London-trip era);
+      // Anson to confirm/move if wrong.
+      { src: '/images/gallery/First time in London as an adult.jpeg', alt: 'First time in London as an adult', caption: 'First time in London as an adult', width: 1200, height: 1600 },
       { src: '/images/gallery/Emirates Stadium in London - the best club in the world.jpeg', alt: 'Emirates Stadium in London - the best club in the world', caption: 'Emirates Stadium in London - the best club in the world', width: 1600, height: 1200 },
-      { src: '/images/gallery/Santiago Bernabeu.jpeg', alt: 'Santiago Bernabeu', caption: 'Santiago Bernabeu', width: 1200, height: 1600 },
+      { src: '/images/gallery/Santiago Bernabéu.jpeg', alt: 'Santiago Bernabéu', caption: 'Santiago Bernabéu', width: 1200, height: 1600 },
     ],
   },
   {
@@ -57,6 +64,9 @@ export const photosByYear = [
       { src: '/images/gallery/Prague during Christmas.jpeg', alt: 'Prague during Christmas', caption: 'Prague during Christmas', width: 1108, height: 1600 },
       { src: '/images/gallery/Quick Trip to Vancouver (UBC) in the Autumn.jpeg', alt: 'Quick Trip to Vancouver (UBC) in the Autumn', caption: 'Quick Trip to Vancouver (UBC) in the Autumn', width: 1200, height: 1600 },
       { src: '/images/gallery/Toronto Island!.jpeg', alt: 'Toronto Island!', caption: 'Toronto Island!', width: 1200, height: 1600 },
+      // Newly added 2026-08-16 — placed here as a best guess (grouped with
+      // the other Toronto photos above); Anson to confirm/move if wrong.
+      { src: '/images/gallery/The Toronto Skyline.jpeg', alt: 'The Toronto Skyline', caption: 'The Toronto Skyline', width: 1500, height: 2000 },
       // Not renamed by Anson (still its old kebab-case filename) — left on
       // its existing hand-set caption rather than reverting to the raw
       // "toronto-island-ducks" slug. Flagged separately for him to confirm.
@@ -69,10 +79,19 @@ export const photosByYear = [
     photos: [
       { src: '/images/gallery/Atop of a mountain right next to the Acropolis in Athens, Greece.jpeg', alt: 'Atop of a mountain right next to the Acropolis in Athens, Greece', caption: 'Atop of a mountain right next to the Acropolis in Athens, Greece', width: 1200, height: 1600 },
       { src: '/images/gallery/Parthenon in Athens.jpeg', alt: 'Parthenon in Athens', caption: 'Parthenon in Athens', width: 900, height: 1600 },
+      // Newly added 2026-08-16 — placed here as a best guess (companion to
+      // the Parthenon photo above); Anson to confirm/move if wrong.
+      { src: "/images/gallery/Another picture of the Parthenon because who doesn't like the Parthenon.jpeg", alt: "Another picture of the Parthenon because who doesn't like the Parthenon", caption: "Another picture of the Parthenon because who doesn't like the Parthenon", width: 1500, height: 2000 },
       { src: '/images/gallery/in Santorini.jpeg', alt: 'in Santorini', caption: 'in Santorini', width: 1200, height: 1600 },
       { src: '/images/gallery/Spain 2026 Summer.jpeg', alt: 'Spain 2026 Summer', caption: 'Spain 2026 Summer', width: 1200, height: 1600 },
       { src: '/images/gallery/In the Streets in Santorini.jpeg', alt: 'In the Streets in Santorini', caption: 'In the Streets in Santorini', width: 1500, height: 2000 },
+      // Newly added 2026-08-16 — placed here as a best guess (grouped with
+      // the Santorini photos above); Anson to confirm/move if wrong.
+      { src: '/images/gallery/Mediterranean Sunset.jpeg', alt: 'Mediterranean Sunset', caption: 'Mediterranean Sunset', width: 1500, height: 2000 },
       { src: '/images/gallery/Dusk in Hong Kong.jpeg', alt: 'Dusk in Hong Kong', caption: 'Dusk in Hong Kong', width: 1500, height: 2000 },
+      // Newly added 2026-08-16 — placed here as a best guess (grouped with
+      // the Hong Kong photo above); Anson to confirm/move if wrong.
+      { src: '/images/gallery/The Unbeatable Hong Kong Skyline.jpeg', alt: 'The Unbeatable Hong Kong Skyline', caption: 'The Unbeatable Hong Kong Skyline', width: 1500, height: 2000 },
       { src: '/images/gallery/This is just a cool picture I took in Madrid.jpeg', alt: 'This is just a cool picture I took in Madrid', caption: 'This is just a cool picture I took in Madrid', width: 1500, height: 2000 },
       { src: '/images/gallery/Royal Palace in Madrid.jpeg', alt: 'Royal Palace in Madrid', caption: 'Royal Palace in Madrid', width: 1500, height: 2000 },
 

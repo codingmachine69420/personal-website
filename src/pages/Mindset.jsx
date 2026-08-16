@@ -65,7 +65,7 @@ const SECTIONS = [
           'Whenever someone laughs at or criticises me — if it is something I have worked hard on and am confident in — I take their opinion, work on it in the background, but don\'t retaliate in front of them.',
           "Say if you love vanilla ice cream. You love it to death and there's nothing better in the world. Even if the entire world tells you that it's bad, you would just laugh in their face — because people's opinions don't matter for what they are. Same logic.",
         ],
-        photo: `${BASE}images/gallery/Santiago Bernabeu.jpeg`,
+        photo: `${BASE}images/gallery/Santiago Bernabéu.jpeg`,
         photoAlt: 'The Santiago Bernabéu — betting on the biggest stage',
         imgRight: true,
       },
