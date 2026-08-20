@@ -37,46 +37,58 @@ function CursorTooltip({ pos, containerWidth, children }) {
   )
 }
 
-function StageBar({ stageCount, reachedIndex, stageLabel }) {
+// `staticLabel`: on mobile there's no cursor to hover with — CursorTooltip
+// would just never appear — so the row's current stage is printed as a
+// permanent caption under the bar instead of waiting on a hover event that
+// touch input can't produce. Desktop keeps the hover tooltip only, since a
+// second always-on label there would be redundant clutter alongside it.
+function StageBar({ stageCount, reachedIndex, stageLabel, staticLabel }) {
   const [hoverPos, setHoverPos] = useState(null)
   const [width, setWidth] = useState(0)
   const rafRef = useRef(null)
 
   return (
-    <div
-      style={{ position: 'relative', height: 32 }}
-      onMouseMove={(e) => {
-        // Throttle to one position update per paint instead of per raw
-        // mousemove event — same visible cursor-tracking, fewer re-renders.
-        if (rafRef.current) return
-        const { clientX, clientY, currentTarget } = e
-        rafRef.current = requestAnimationFrame(() => {
-          rafRef.current = null
-          const rect = currentTarget.getBoundingClientRect()
-          setWidth(rect.width)
-          setHoverPos({ x: clientX - rect.left, y: clientY - rect.top })
-        })
-      }}
-      onMouseLeave={() => setHoverPos(null)}
-    >
-      <div style={{ position: 'absolute', inset: 0, display: 'grid', gridTemplateColumns: `repeat(${stageCount}, 1fr)`, gap: 3 }} aria-hidden="true">
-        {Array.from({ length: stageCount }).map((_, i) => (
-          <div key={i} style={{ background: 'rgba(255,255,255,0.06)' }} />
-        ))}
+    <div>
+      <div
+        style={{ position: 'relative', height: 32 }}
+        onMouseMove={(e) => {
+          // Throttle to one position update per paint instead of per raw
+          // mousemove event — same visible cursor-tracking, fewer re-renders.
+          if (rafRef.current) return
+          const { clientX, clientY, currentTarget } = e
+          rafRef.current = requestAnimationFrame(() => {
+            rafRef.current = null
+            const rect = currentTarget.getBoundingClientRect()
+            setWidth(rect.width)
+            setHoverPos({ x: clientX - rect.left, y: clientY - rect.top })
+          })
+        }}
+        onMouseLeave={() => setHoverPos(null)}
+      >
+        <div style={{ position: 'absolute', inset: 0, display: 'grid', gridTemplateColumns: `repeat(${stageCount}, 1fr)`, gap: 3 }} aria-hidden="true">
+          {Array.from({ length: stageCount }).map((_, i) => (
+            <div key={i} style={{ background: 'rgba(255,255,255,0.06)' }} />
+          ))}
+        </div>
+        <div style={{ position: 'absolute', inset: 0, display: 'grid', gridTemplateColumns: `repeat(${stageCount}, 1fr)`, gap: 3 }}>
+          {/* Fills in from the left on first reveal — the bar IS the pipeline
+              metaphor, so it should visibly progress rather than appear
+              already-finished. scaleX (not width) keeps this transform-only. */}
+          <motion.div
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true, amount: 0.6 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            style={{ gridColumn: `1 / ${reachedIndex + 2}`, background: 'var(--color-accent)', transformOrigin: 'left' }}
+          />
+        </div>
+        <CursorTooltip pos={hoverPos} containerWidth={width}>{stageLabel}</CursorTooltip>
       </div>
-      <div style={{ position: 'absolute', inset: 0, display: 'grid', gridTemplateColumns: `repeat(${stageCount}, 1fr)`, gap: 3 }}>
-        {/* Fills in from the left on first reveal — the bar IS the pipeline
-            metaphor, so it should visibly progress rather than appear
-            already-finished. scaleX (not width) keeps this transform-only. */}
-        <motion.div
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={{ once: true, amount: 0.6 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          style={{ gridColumn: `1 / ${reachedIndex + 2}`, background: 'var(--color-accent)', transformOrigin: 'left' }}
-        />
-      </div>
-      <CursorTooltip pos={hoverPos} containerWidth={width}>{stageLabel}</CursorTooltip>
+      {staticLabel && (
+        <p className="label-caps" style={{ color: 'var(--color-accent)', fontSize: '0.75rem', marginTop: 8 }}>
+          Currently: {stageLabel}
+        </p>
+      )}
     </div>
   )
 }
@@ -325,11 +337,19 @@ function PipelineRow({ project, stages, isFirst, open, onToggle }) {
 
   return (
     <div style={{ borderTop: isFirst ? 'none' : '1px solid rgba(255,255,255,0.08)' }}>
+      {/* ── Desktop row: icon | name+summary | stage bar, three grid columns
+          side by side. The stage bar's `minmax(320px, 1fr)` column alone
+          needs ~500px+ to lay out without squeezing, so this variant is
+          desktop-only (className, not a breakpoint-aware inline style —
+          `display: 'grid'` never lives in this element's own style object,
+          so the Tailwind `hidden` class isn't fighting an inline override
+          the way it would if both declared `display`). ── */}
       <button
         onClick={onToggle}
         aria-expanded={open}
+        className="hidden md:grid"
         style={{
-          display: 'grid', width: '100%',
+          width: '100%',
           gridTemplateColumns: '32px minmax(150px, 220px) minmax(320px, 1fr)',
           gap: 'clamp(16px, 2.5vw, 36px)', alignItems: 'center',
           padding: 'clamp(18px, 2.5vw, 24px) clamp(16px, 3vw, 28px)',
@@ -358,6 +378,46 @@ function PipelineRow({ project, stages, isFirst, open, onToggle }) {
         <StageBar stageCount={stages.length} reachedIndex={project.stageIndex} stageLabel={stages[project.stageIndex]} />
       </button>
 
+      {/* ── Mobile row: name+toggle on one line, full-width stage bar below
+          it with a permanent "Currently: X" caption (see StageBar's
+          `staticLabel` — the desktop hover tooltip can't fire without a
+          cursor, so touch gets the same information as fixed text instead
+          of losing it). Rethought for the narrow context rather than the
+          desktop grid scaled down, per adapt.md. ── */}
+      <button
+        onClick={onToggle}
+        aria-expanded={open}
+        className="block md:hidden"
+        style={{
+          width: '100%',
+          padding: 'clamp(16px, 4vw, 20px)',
+          background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12, marginBottom: 14 }}>
+          <span style={{ minWidth: 0 }}>
+            <span style={{ display: 'block', color: nameColor, fontFamily: 'var(--font-meta)', fontWeight: 600, fontSize: '0.9375rem', marginBottom: 4, transition: 'color 0.2s' }}>
+              {project.name}
+            </span>
+            <span style={{ display: 'block', color: summaryColor, fontSize: '0.75rem', lineHeight: 1.4, transition: 'color 0.2s' }}>
+              {project.pipelineSummary}
+            </span>
+          </span>
+          <span
+            aria-hidden="true"
+            style={{
+              width: 28, height: 28, flexShrink: 0,
+              background: 'var(--color-accent)', color: 'var(--color-black, #000)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontWeight: 700, fontSize: '1.05rem', lineHeight: 1,
+            }}
+          >
+            {open ? '−' : '+'}
+          </span>
+        </div>
+        <StageBar stageCount={stages.length} reachedIndex={project.stageIndex} stageLabel={stages[project.stageIndex]} staticLabel />
+      </button>
+
       <AnimatePresence initial={false}>
         {open && (
           <motion.div
@@ -367,13 +427,26 @@ function PipelineRow({ project, stages, isFirst, open, onToggle }) {
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             style={{ overflow: 'hidden' }}
           >
-            <div style={{
-              padding: '0 clamp(16px, 3vw, 28px) clamp(28px, 4vw, 40px) calc(32px + clamp(16px, 2.5vw, 36px))',
-              display: 'flex', gap: 'clamp(24px, 4vw, 40px)', flexWrap: 'wrap', alignItems: 'flex-start',
-            }}>
+            <div
+              // Left padding aligns the text block under the row's name
+              // column on desktop (icon column width + its gap) — that
+              // alignment target doesn't exist on the mobile row (no icon
+              // column there), so mobile just uses the same inset as the
+              // row's own horizontal padding instead of inheriting an offset
+              // that would eat width for no reason on a narrow screen.
+              className="pl-[clamp(16px,3vw,28px)] md:pl-[calc(32px+clamp(16px,2.5vw,36px))]"
+              style={{
+                paddingTop: 0, paddingRight: 'clamp(16px, 3vw, 28px)', paddingBottom: 'clamp(28px, 4vw, 40px)',
+                display: 'flex', gap: 'clamp(24px, 4vw, 40px)', flexWrap: 'wrap', alignItems: 'flex-start',
+              }}
+            >
               {/* Text — left */}
               <div style={{ flex: '1 1 320px', minWidth: 0 }}>
-                <p className="label-caps" style={{ color: 'rgba(255,255,255,0.4)', marginBottom: 14 }}>
+                {/* Desktop-only: mobile's collapsed row already states this
+                    via StageBar's `staticLabel`, right above this same
+                    panel — repeating it here would just be the same line
+                    twice in one view. */}
+                <p className="label-caps hidden md:block" style={{ color: 'rgba(255,255,255,0.4)', marginBottom: 14 }}>
                   Currently: {stages[project.stageIndex]}
                 </p>
                 {project.status && (
@@ -467,9 +540,13 @@ export function PipelineTable({ stages, projects }) {
 
   return (
     <div>
-      {/* Header row */}
-      <div style={{
-        display: 'grid', gridTemplateColumns: '32px minmax(150px, 220px) minmax(320px, 1fr)',
+      {/* Header row (desktop): Program label lined up with the same 4
+          stage columns every row's bar spans. Same overflow problem as the
+          row itself below ~500px, so desktop-only; the per-column labels
+          would also just repeat what each row already states via
+          StageBar's mobile `staticLabel`. */}
+      <div className="hidden md:grid" style={{
+        gridTemplateColumns: '32px minmax(150px, 220px) minmax(320px, 1fr)',
         gap: 'clamp(16px, 2.5vw, 36px)', alignItems: 'center',
         padding: '0 clamp(16px, 3vw, 28px) 16px', borderBottom: '2px solid var(--color-accent)',
       }}>
@@ -482,6 +559,19 @@ export function PipelineTable({ stages, projects }) {
             </p>
           ))}
         </div>
+      </div>
+
+      {/* Header row (mobile): same two facts — the column is "Program",
+          the stages run left to right — as one line of running text
+          instead of a 4-way grid that has no room to breathe at this
+          width. */}
+      <div className="block md:hidden" style={{
+        padding: '0 clamp(16px, 4vw, 20px) 14px', borderBottom: '2px solid var(--color-accent)',
+      }}>
+        <p className="label-caps" style={{ color: 'rgba(255,255,255,0.5)', marginBottom: 4 }}>Program</p>
+        <p className="label-caps" style={{ color: 'rgba(255,255,255,0.35)', fontSize: '0.75rem', lineHeight: 1.5 }}>
+          {stages.join(' → ')}
+        </p>
       </div>
 
       {sortedProjects.map((project, i) => (

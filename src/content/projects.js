@@ -8,13 +8,12 @@
 //     agent+dashboard -> Live.
 //   Algo Trading Bot — status explicitly says "backtested... not yet traded
 //     live" -> Testing (backtesting IS a form of testing) but not Live.
-//   Earnings Signal Agent — status says "early development, not yet
-//     functional end-to-end" -> Developing.
-//   Compersion and Solace — a demo/prototype exists (see imagesAreDemo on
-//     its entry) even though the real site isn't built -> Developing, not
-//     Idea Generation. Its `status` text below still says "nothing built
-//     yet" — that's about the real site, not the demo; left as-is pending
-//     Anson's rewrite of this entry's copy (flagged inline below).
+//   Compersion and Solace — promoted to Testing per Anson's direct
+//     instruction (2026-08-21). A demo/prototype exists (see imagesAreDemo
+//     on its entry) even though the real site isn't built yet. Its `status`
+//     text below still says "nothing built yet" — that's about the real
+//     site, not the demo; left as-is pending Anson's rewrite of this entry's
+//     copy (flagged inline below).
 //   P&L Tracker for Rideshare Drivers — advanced to Developing per Anson's
 //     direct instruction (2026-08-13), same grey-row fix as Compersion and
 //     Solace: the collapsed-row grey-out in PipelineTable.jsx is driven
@@ -26,14 +25,16 @@
 //     draft; skips weekends) -> Live, per Anson's direct instruction
 //     (2026-08-15).
 //   Daily Gap Ups — live automated agent that emails a pre-market gap
-//     report every morning -> Live, per Anson's direct instruction
-//     (2026-08-15).
+//     report every morning, now as two separate alerts (the gap-up list,
+//     then a follow-up alert with the catalyst detail) -> Live, per Anson's
+//     direct instruction (2026-08-15, alert split 2026-08-21).
 // `pipelineSummary` is a one-line paraphrase of each project's own
 // description for the pipeline row — not new information.
 // All descriptions below are now first person, per Anson's direct
 // instruction (2026-08-15) — SignalFeed, Algo Trading Bot, and Earnings
 // Signal Agent were converted from third person on that date; pronoun/voice
-// only, no content changes.
+// only, no content changes. Earnings Signal Agent itself was removed from
+// the pipeline entirely on 2026-08-21, per Anson's direct instruction.
 export const projects = [
   {
     name: 'SignalFeed',
@@ -86,18 +87,6 @@ export const projects = [
     repoUrl: '',
   },
   {
-    name: 'Earnings Signal Agent — In Progress',
-    stageIndex: 1,
-    pipelineSummary: 'LLM agent for earnings calls & filings',
-    status: 'In progress — early development, not yet functional end-to-end.',
-    description:
-      "I'm currently building an LLM agent that reads through earnings reports and call transcripts to surface what usually gets buried in the wall of text — new customer wins, margin inflections, and forward-looking catalysts management flags but a quick skim would miss.",
-    stack: [],
-    images: ['/images/projects/placeholder-3.svg'],
-    demoUrl: '',
-    repoUrl: '',
-  },
-  {
     name: 'P&L Tracker for Rideshare Drivers — In Progress',
     stageIndex: 1,
     pipelineSummary: 'Profitability tracker for rideshare drivers',
@@ -114,7 +103,7 @@ export const projects = [
     // as the P&L Tracker above. Anson should rewrite this in his own voice
     // before treating it as real copy anywhere else on the site.
     name: 'Compersion and Solace',
-    stageIndex: 1,
+    stageIndex: 2,
     pipelineSummary: "Mental health support site, focused on men's wellbeing",
     status: 'Idea stage — hobby project, nothing built yet.',
     description:
@@ -155,10 +144,15 @@ export const projects = [
     stageIndex: 3,
     pipelineSummary: 'Automated pre-market gap report, delivered by email every morning',
     description:
-      "Last summer, while I was working at Odysseus, my boss Joseph wanted a gap-up report every morning when the market opened — a list of stocks that had jumped overnight, so he could read overnight sentiment and see which clusters of stocks might move during the day. He pushed us to automate it instead of typing it out by hand each morning, but we couldn't get it working at the time. This summer, I finally built the same gap-up report he wanted, fully automated and delivered to my inbox every morning. It scans US-listed stocks that gapped at the open, ranks them by size of the move, and for each one reports market cap, sector, and whether the move extended, faded, or held in the first twenty minutes after the open — plus a same-day catalyst with a source link, or an honest \"no catalyst identified\" instead of a guess. It closes with a \"faders\" section calling out any stock that gapped one way and then reversed, since those are usually worth a second look. Prices come from Alpaca's free IEX feed, so it's directional, not exact.",
+      "Last summer, while I was working at Odysseus, my boss Joseph wanted a gap-up report every morning when the market opened — a list of stocks that had jumped overnight, so he could read overnight sentiment and see which clusters of stocks might move during the day. He pushed us to automate it instead of typing it out by hand each morning, but we couldn't get it working at the time. This summer, I finally built the same gap-up report he wanted, fully automated and delivered to my inbox every morning — now as two separate alerts instead of one. The first is the gap-up alert itself: it scans US-listed stocks that gapped at the open, ranks them by size of the move, and for each one reports market cap, sector, and whether the move extended, faded, or held in the first twenty minutes after the open, closing with a \"faders\" section calling out any stock that gapped one way and then reversed, since those are usually worth a second look. The second alert follows right after with the why: a same-day catalyst with a source link for each stock, or an honest \"no catalyst identified\" instead of a guess. Prices come from Alpaca's free IEX feed, so it's directional, not exact.",
     stack: ['GitHub Actions', 'Alpaca API', 'Gmail API'],
-    // Real screenshot of the actual email.
-    images: ['/images/projects/Gap Ups.png'],
+    // Real screenshots of the actual emails — swapped 2026-08-21 for 3 new
+    // screenshots covering both alerts (replaces the old single 'Gap Ups.png').
+    images: [
+      '/images/projects/Gap Ups New pictures  (1).png',
+      '/images/projects/Gap Ups New pictures  (2).png',
+      '/images/projects/Gap Ups New pictures  (3).png',
+    ],
     demoUrl: '',
     repoUrl: '',
   },
