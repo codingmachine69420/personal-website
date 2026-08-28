@@ -4,6 +4,20 @@ import { cinema, papers } from '../content/interests'
 import { TattooScatter } from '../components/TattooScatter'
 import { LabeledProgressIndicator } from '../components/LabeledProgressIndicator'
 
+// Numbered section label — "001 — Cinema", "002 — Research". Tabular nums
+// keep the digits from jittering in width against the label-caps tracking.
+function SectionKicker({ index, children }) {
+  return (
+    <p className="label-caps" style={{ color: 'var(--color-ink)', marginBottom: 16, display: 'flex', alignItems: 'center', gap: 10 }}>
+      <span style={{ color: 'var(--color-accent)', fontVariantNumeric: 'tabular-nums' }}>
+        {String(index).padStart(3, '0')}
+      </span>
+      <span aria-hidden="true" style={{ color: 'rgba(28,28,28,0.25)' }}>—</span>
+      {children}
+    </p>
+  )
+}
+
 export function Interests() {
   const watched  = cinema.watchlist.filter((f) => f.watched).length
   const total    = cinema.watchlist.length
@@ -45,34 +59,17 @@ export function Interests() {
         <TattooScatter />
         <div style={{ maxWidth: 900, margin: '0 auto', padding: 'clamp(48px, 6vw, 80px) clamp(20px, 5vw, 48px) 96px', position: 'relative', zIndex: 1 }}>
 
-          {/* Research Papers article */}
-          <article style={{ borderBottom: '1px solid rgba(28,28,28,0.1)', paddingBottom: 64, marginBottom: 64 }}>
-            <p className="label-caps" style={{ color: 'var(--color-ink)', marginBottom: 16 }}>Research</p>
-
-            <h2 className="font-editorial" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: 'var(--color-ink)', marginBottom: 24, lineHeight: 0.95 }}>
-              Papers I've Read<span aria-hidden="true" style={{ color: 'var(--color-accent)' }}>*</span>
-            </h2>
-
-            <p style={{ color: 'var(--color-body-light)', fontSize: '1.0625rem', lineHeight: 1.75, maxWidth: '60ch', marginBottom: 12 }}>
-              {papers.teaser}
-            </p>
-
-            <p className="label-caps" style={{ color: 'var(--color-body-light)', fontSize: '0.75rem', marginBottom: 32 }}>
-              * {papers.note}
-            </p>
-
-            <Link
-              to="/interests/papers"
-              className="cta-link"
-              style={{ textDecoration: 'none' }}
-            >
-              Reading List
-            </Link>
-          </article>
-
-          {/* Cinema article */}
-          <article style={{ borderBottom: '1px solid rgba(28,28,28,0.1)', paddingBottom: 64 }}>
-            <p className="label-caps" style={{ color: 'var(--color-ink)', marginBottom: 16 }}>Cinema</p>
+          {/* Cinema article — 001. Previously listed second; now first since
+              the old "Papers I've Read" article ahead of it was retired
+              (see content/interests.js and PRODUCT.md backlog note). */}
+          <motion.article
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            style={{ borderBottom: '1px solid rgba(28,28,28,0.1)', paddingBottom: 64, marginBottom: 64 }}
+          >
+            <SectionKicker index={1}>Cinema</SectionKicker>
 
             <h2 className="font-editorial" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: 'var(--color-ink)', marginBottom: 24, lineHeight: 0.95 }}>
               Film as Art Form
@@ -95,10 +92,43 @@ export function Interests() {
                 percent={total ? (watched / total) * 100 : 0}
               />
             </div>
-          </article>
+          </motion.article>
 
-          {/* Placeholder — more interests to come */}
-          <p className="label-caps" style={{ color: 'rgba(28,28,28,0.3)', marginTop: 48 }}>
+          {/* Research Papers article — 002, new per Anson's direct
+              instruction (2026-08-29), replacing the retired "Papers I've
+              Read" section in this slot. */}
+          <motion.article
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.5, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            style={{ borderBottom: '1px solid rgba(28,28,28,0.1)', paddingBottom: 64 }}
+          >
+            <SectionKicker index={2}>Research</SectionKicker>
+
+            <h2 className="font-editorial" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: 'var(--color-ink)', marginBottom: 24, lineHeight: 0.95 }}>
+              Research Papers
+            </h2>
+
+            <p style={{ color: 'var(--color-body-light)', fontSize: '1.0625rem', lineHeight: 1.75, maxWidth: '60ch', marginBottom: 32 }}>
+              {papers.teaser}
+            </p>
+
+            <Link
+              to="/interests/papers"
+              className="cta-link"
+              style={{ textDecoration: 'none' }}
+            >
+              Reading List
+            </Link>
+          </motion.article>
+
+          {/* Placeholder — more interests to come. Now 003: it was
+              implicitly "next" before Research Papers claimed 002, so it
+              shifts back one per Anson's instruction. */}
+          <p className="label-caps" style={{ color: 'rgba(28,28,28,0.3)', marginTop: 48, display: 'flex', alignItems: 'center', gap: 10 }}>
+            <span style={{ fontVariantNumeric: 'tabular-nums' }}>003</span>
+            <span aria-hidden="true">—</span>
             More to follow
           </p>
         </div>

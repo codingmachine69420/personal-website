@@ -4,12 +4,26 @@ import { papers } from '../content/interests'
 
 const BASE = import.meta.env.BASE_URL
 
-function PaperRow({ paper }) {
+// A paper's link is either a canonical external URL (arXiv, a journal) or
+// a local path under /public for papers with no such URL yet — see the
+// convention documented above content/interests.js's `papers` export.
+function paperHref(link) {
+  return /^https?:\/\//.test(link) ? link : `${BASE}${encodeURI(link.replace(/^\//, ''))}`
+}
+
+function PaperRow({ paper, index }) {
   return (
-    <div style={{
-      display: 'flex', gap: 20,
-      padding: '24px 0', borderBottom: '1px solid rgba(255,255,255,0.06)',
-    }}>
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.45, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
+      className="paper-row"
+      style={{
+        display: 'flex', gap: 20,
+        padding: '24px 0', borderBottom: '1px solid rgba(255,255,255,0.06)',
+      }}
+    >
       {paper.cover ? (
         <img
           src={`${BASE}${paper.cover.replace(/^\//, '')}`}
@@ -23,21 +37,22 @@ function PaperRow({ paper }) {
 
       <div style={{ flex: 1, minWidth: 0 }}>
         <a
-          href={paper.link}
+          href={paperHref(paper.link)}
           target="_blank"
           rel="noreferrer"
+          className="paper-row-link"
           style={{
             display: 'block', color: '#fff', textDecoration: 'none',
             fontFamily: 'var(--font-reading)', fontSize: '1.0625rem', lineHeight: 1.4, marginBottom: 8,
           }}
         >
-          {paper.title} ↗
+          {paper.title} <span className="paper-row-arrow" aria-hidden="true">↗</span>
         </a>
         <p style={{ color: 'var(--color-body-dark)', fontSize: '0.9375rem', lineHeight: 1.65 }}>
           {paper.why}
         </p>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
@@ -62,6 +77,15 @@ export function ResearchPapers() {
             style={{ width: 44, height: 4, background: 'var(--color-accent)', marginBottom: 20, transformOrigin: 'left' }}
             aria-hidden="true"
           />
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            className="label-caps"
+            style={{ color: 'var(--color-accent)', marginBottom: 8, fontVariantNumeric: 'tabular-nums' }}
+          >
+            002
+          </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -69,7 +93,7 @@ export function ResearchPapers() {
             className="font-editorial"
             style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', color: '#fff', marginBottom: 8 }}
           >
-            Reading List<span aria-hidden="true" style={{ color: 'var(--color-accent)' }}>*</span>
+            Research Papers
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 12 }}
@@ -78,7 +102,7 @@ export function ResearchPapers() {
             className="label-caps"
             style={{ color: 'var(--color-body-dark)' }}
           >
-            {papers.list.length} paper{papers.list.length === 1 ? '' : 's'} · * {papers.note}
+            {papers.list.length} paper{papers.list.length === 1 ? '' : 's'}
           </motion.p>
         </div>
       </div>
@@ -87,7 +111,7 @@ export function ResearchPapers() {
       <div style={{ padding: 'clamp(36px, 4vw, 56px) clamp(20px, 5vw, 48px) 96px' }}>
         <div style={{ maxWidth: 900, margin: '0 auto' }}>
           {papers.list.length > 0 ? (
-            papers.list.map((paper) => <PaperRow key={paper.title} paper={paper} />)
+            papers.list.map((paper, i) => <PaperRow key={paper.title} paper={paper} index={i} />)
           ) : (
             <p className="label-caps" style={{ color: 'rgba(255,255,255,0.3)' }}>
               More to follow

@@ -126,7 +126,7 @@ const PLACEMENTS = [
   { Icon: BoatIcon,        top: '72%', left: '58%', size: 40, rotate: 14,  color: 'var(--color-ink)',    opacity: 0.46 },
   { Icon: RunningShoeIcon, top: '78%', left: '14%', size: 50, rotate: 8,   color: 'var(--color-ink)',    opacity: 0.5 },
   { Icon: LaptopIcon,      top: '84%', left: '78%', size: 40, rotate: -10, color: 'var(--color-accent)', opacity: 0.52 },
-  { Icon: BootIcon,        top: '90%', left: '32%', size: 46, rotate: 20,  color: 'var(--color-ink)',    opacity: 0.48 },
+  { Icon: BootIcon,        top: '90%', left: '15%', size: 46, rotate: 20,  color: 'var(--color-ink)',    opacity: 0.48 },
   { Icon: BasketballIcon,  top: '94%', left: '68%', size: 34, rotate: -14, color: 'var(--color-accent)', opacity: 0.5 },
 ]
 

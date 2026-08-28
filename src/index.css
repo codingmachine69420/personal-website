@@ -150,6 +150,17 @@
   .panel-close { transition: border-color 0.15s, color 0.15s; }
   .panel-close:hover { border-color: var(--color-accent) !important; color: var(--color-accent) !important; }
 
+  /* Research Papers list row — title dims to accent, arrow nudges out,
+     same restrained language as .nav-card-arrow rather than a new idiom. */
+  .paper-row-link { transition: color 0.18s; }
+  .paper-row-arrow { display: inline-block; transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
+  @media (hover: hover) and (pointer: fine) {
+    .paper-row-link:hover,
+    .paper-row-link:focus-visible { color: var(--color-accent) !important; }
+    .paper-row-link:hover .paper-row-arrow,
+    .paper-row-link:focus-visible .paper-row-arrow { transform: translate(2px, -2px); }
+  }
+
   /* ── Film-frame scrapbook gallery ── */
 
   /* Each photo is mounted as a 35mm frame: film base, punched sprocket

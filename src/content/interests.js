@@ -2,28 +2,35 @@
 
 // Research papers — reading them as a way to improve my personal skills.
 // Each: { title, link, why, cover }.
-//   - link: URL to the paper (arXiv, journal, PDF, etc.)
+//   - link: URL to the paper (arXiv, journal, PDF, etc.) — or a local path
+//     under /public if the paper has no canonical external URL yet;
+//     ResearchPapers.jsx tells the two apart and prefixes local paths
+//     with BASE_URL automatically.
 //   - cover: path under /public/images/papers/ if a cover image exists
 //     (extracted from the PDF's first page) — leave null otherwise, same
 //     convention as cinema's poster: null.
+//
+// 2026-08-29: retired the original "Papers I've Read" framing (title +
+// scope footnote) per Anson's direct instruction — backlogged in
+// PRODUCT.md, not deleted as an idea. Section is now "Research Papers"
+// on the Interests hub, second article (numbered 002; Cinema is 001).
+// The two original entries (Mesfin 2026, Novy-Marx & Velikov 2016) and
+// their cover images were removed at the same time — the source PDFs
+// still live in the repo's top-level "Research Papers" folder if ever
+// needed again.
 export const papers = {
   teaser: `Reading research papers as a way to improve my personal skills.`,
-  // Footnote clarifying scope — this is not a lifetime reading list, just
-  // papers read starting August 2026. Rendered as an asterisk + small print
-  // on both the Interests hub and the full Reading List page.
-  note: `Papers read since August 2026.`,
   list: [
     {
-      title: 'Structural Limits of OHLCV-Based Intraday Signals in MNQ Futures: A Systematic Falsification Study',
-      link: 'https://arxiv.org/abs/2605.04004',
-      why: 'I want to build a better understanding of the feasibility of algorithmic trading and get a real handle on its mechanics — not just the headline results.',
-      cover: '/images/papers/mesfin-2026.jpg',
-    },
-    {
-      title: 'A Taxonomy of Anomalies and Their Trading Costs',
-      link: 'https://academic.oup.com/rfs/article/29/1/104/1844518',
-      why: 'Same reason — trying to actually understand the mechanics of algorithmic trading and what makes a strategy feasible in practice, not just in a backtest.',
-      cover: '/images/papers/novy-marx-velikov-2016.jpg',
+      title: 'Timing the Market: A Skewed Perspective',
+      // Local PDF (no canonical external URL) — see /public/images/papers.
+      link: '/images/papers/Timing the Market -  A Skewed Perspective.pdf',
+      // Claude-drafted "why", not Anson's own words — flagged per
+      // CLAUDE.md content rules, same treatment as Compersion and Solace
+      // and the P&L Tracker in content/projects.js. Anson should rewrite
+      // this in his own voice.
+      why: "I want to understand how return skewness changes the case for trying to time the market at all — not just whether timing works, but what it costs when it doesn't.",
+      cover: null,
     },
   ],
 }
