@@ -158,7 +158,7 @@ export function Gallery() {
   return (
     <div>
       <PageHeader
-        eyebrow="04 — Gallery"
+        eyebrow="05 — Gallery"
         title="Gallery"
         description="Photos — travel and elsewhere."
       />

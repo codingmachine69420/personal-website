@@ -1,39 +1,16 @@
 // Interests — hobbies, passions, and ongoing lists.
 
-// Research papers — reading them as a way to improve my personal skills.
-// Each: { title, link, why, cover }.
-//   - link: URL to the paper (arXiv, journal, PDF, etc.) — or a local path
-//     under /public if the paper has no canonical external URL yet;
-//     ResearchPapers.jsx tells the two apart and prefixes local paths
-//     with BASE_URL automatically.
-//   - cover: path under /public/images/papers/ if a cover image exists
-//     (extracted from the PDF's first page) — leave null otherwise, same
-//     convention as cinema's poster: null.
+// 2026-08-30: Research Papers promoted from this hub's second article to
+// its own main page — see content/papers.js and pages/ResearchPapers.jsx,
+// now routed at /papers and listed in content/site.js's directory. Cinema
+// is the only article left here (001).
 //
 // 2026-08-29: retired the original "Papers I've Read" framing (title +
 // scope footnote) per Anson's direct instruction — backlogged in
-// PRODUCT.md, not deleted as an idea. Section is now "Research Papers"
-// on the Interests hub, second article (numbered 002; Cinema is 001).
-// The two original entries (Mesfin 2026, Novy-Marx & Velikov 2016) and
-// their cover images were removed at the same time — the source PDFs
-// still live in the repo's top-level "Research Papers" folder if ever
-// needed again.
-export const papers = {
-  teaser: `Reading research papers as a way to improve my personal skills.`,
-  list: [
-    {
-      title: 'Timing the Market: A Skewed Perspective',
-      // Local PDF (no canonical external URL) — see /public/images/papers.
-      link: '/images/papers/Timing the Market -  A Skewed Perspective.pdf',
-      // Claude-drafted "why", not Anson's own words — flagged per
-      // CLAUDE.md content rules, same treatment as Compersion and Solace
-      // and the P&L Tracker in content/projects.js. Anson should rewrite
-      // this in his own voice.
-      why: "I want to understand how return skewness changes the case for trying to time the market at all — not just whether timing works, but what it costs when it doesn't.",
-      cover: null,
-    },
-  ],
-}
+// PRODUCT.md, not deleted as an idea. The two original entries (Mesfin
+// 2026, Novy-Marx & Velikov 2016) and their cover images were removed at
+// the same time — the source PDFs still live in the repo's top-level
+// "Research Papers" folder if ever needed again.
 
 export const cinema = {
   // Teaser shown on the /interests hub

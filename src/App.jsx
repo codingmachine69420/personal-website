@@ -25,20 +25,23 @@ function App() {
             {/* Primary pages */}
             <Route path="mindset"          element={<Mindset />} />
             <Route path="projects"         element={<ProjectsExperiences />} />
+            <Route path="papers"           element={<ResearchPapers />} />
             <Route path="gallery"          element={<Gallery />} />
             <Route path="interests"        element={<Interests />} />
             <Route path="interests/cinema" element={<Cinema />} />
-            <Route path="interests/papers" element={<ResearchPapers />} />
 
             {/* Legacy writing post route */}
             <Route path="writing/:slug" element={<WritingPost />} />
 
             {/* Old routes — redirect to nearest equivalent */}
-            <Route path="driven"   element={<Navigate to="/"         replace />} />
-            <Route path="curious"  element={<Navigate to="/mindset"  replace />} />
-            <Route path="attitude" element={<Navigate to="/mindset"  replace />} />
-            <Route path="writing"  element={<Navigate to="/mindset"  replace />} />
-            <Route path="work"     element={<Navigate to="/projects" replace />} />
+            <Route path="driven"           element={<Navigate to="/"         replace />} />
+            <Route path="curious"          element={<Navigate to="/mindset"  replace />} />
+            <Route path="attitude"         element={<Navigate to="/mindset"  replace />} />
+            <Route path="writing"          element={<Navigate to="/mindset"  replace />} />
+            <Route path="work"             element={<Navigate to="/projects" replace />} />
+            {/* Research Papers promoted from an Interests sub-page to its
+                own main page on 2026-08-30 — keep old links working. */}
+            <Route path="interests/papers" element={<Navigate to="/papers"   replace />} />
 
             <Route path="*" element={<NotFound />} />
           </Route>

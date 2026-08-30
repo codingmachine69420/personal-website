@@ -1,58 +1,82 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { papers } from '../content/interests'
+import { papers } from '../content/papers'
 
 const BASE = import.meta.env.BASE_URL
 
 // A paper's link is either a canonical external URL (arXiv, a journal) or
 // a local path under /public for papers with no such URL yet — see the
-// convention documented above content/interests.js's `papers` export.
+// convention documented above content/papers.js's `papers` export.
 function paperHref(link) {
   return /^https?:\/\//.test(link) ? link : `${BASE}${encodeURI(link.replace(/^\//, ''))}`
 }
 
-function PaperRow({ paper, index }) {
+function PaperEntry({ paper, index }) {
+  const href = paperHref(paper.link)
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
+    <motion.article
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.45, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
-      className="paper-row"
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.5, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
       style={{
-        display: 'flex', gap: 20,
-        padding: '24px 0', borderBottom: '1px solid rgba(255,255,255,0.06)',
+        display: 'flex', gap: 32, flexWrap: 'wrap',
+        padding: '40px 0', borderBottom: '1px solid rgba(255,255,255,0.08)',
       }}
     >
-      {paper.cover ? (
-        <img
-          src={`${BASE}${paper.cover.replace(/^\//, '')}`}
-          alt={`${paper.title} cover`}
-          loading="lazy"
-          style={{ width: 84, flexShrink: 0, objectFit: 'cover' }}
-        />
-      ) : (
-        <div style={{ width: 84, height: 108, flexShrink: 0, background: 'rgba(255,255,255,0.06)' }} aria-hidden="true" />
-      )}
+      <a href={href} target="_blank" rel="noreferrer" style={{ flexShrink: 0, display: 'block' }}>
+        {paper.cover ? (
+          <img
+            src={`${BASE}${paper.cover.replace(/^\//, '')}`}
+            alt={`${paper.title} — title page`}
+            loading="lazy"
+            style={{ width: 140, display: 'block', objectFit: 'cover', border: '1px solid rgba(255,255,255,0.1)' }}
+          />
+        ) : (
+          <div style={{ width: 140, height: 180, background: 'rgba(255,255,255,0.06)' }} aria-hidden="true" />
+        )}
+      </a>
 
-      <div style={{ flex: 1, minWidth: 0 }}>
+      <div style={{ flex: '1 1 420px', minWidth: 0 }}>
+        <h2
+          className="font-editorial"
+          style={{ fontSize: 'clamp(1.5rem, 3vw, 2.25rem)', color: '#fff', marginBottom: 20, lineHeight: 1.05 }}
+        >
+          {paper.title}
+        </h2>
+
+        {paper.abstract && (
+          <div style={{ marginBottom: 28 }}>
+            <p className="label-caps" style={{ color: 'var(--color-accent)', marginBottom: 10 }}>
+              Abstract
+            </p>
+            {paper.abstract.split('\n\n').map((para, i) => (
+              <p
+                key={i}
+                style={{
+                  color: 'var(--color-body-dark)', fontFamily: 'var(--font-reading)',
+                  fontSize: '1.0625rem', lineHeight: 1.75, maxWidth: '68ch',
+                  marginBottom: i < paper.abstract.split('\n\n').length - 1 ? 18 : 0,
+                }}
+              >
+                {para}
+              </p>
+            ))}
+          </div>
+        )}
+
         <a
-          href={paperHref(paper.link)}
+          href={href}
           target="_blank"
           rel="noreferrer"
-          className="paper-row-link"
-          style={{
-            display: 'block', color: '#fff', textDecoration: 'none',
-            fontFamily: 'var(--font-reading)', fontSize: '1.0625rem', lineHeight: 1.4, marginBottom: 8,
-          }}
+          className="cta-link"
+          style={{ textDecoration: 'none' }}
         >
-          {paper.title} <span className="paper-row-arrow" aria-hidden="true">↗</span>
+          Read the Full Paper (PDF) ↗
         </a>
-        <p style={{ color: 'var(--color-body-dark)', fontSize: '0.9375rem', lineHeight: 1.65 }}>
-          {paper.why}
-        </p>
       </div>
-    </motion.div>
+    </motion.article>
   )
 }
 
@@ -64,11 +88,11 @@ export function ResearchPapers() {
       <div style={{ padding: 'clamp(64px, 10vw, 120px) clamp(20px, 5vw, 48px) clamp(48px, 6vw, 72px)', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
         <div style={{ maxWidth: 900, margin: '0 auto' }}>
           <Link
-            to="/interests"
+            to="/"
             className="label-caps"
             style={{ color: 'var(--color-accent)', textDecoration: 'none', display: 'inline-block', marginBottom: 32 }}
           >
-            ← Interests
+            ← Home
           </Link>
           <motion.div
             initial={{ scaleX: 0 }}
@@ -111,7 +135,7 @@ export function ResearchPapers() {
       <div style={{ padding: 'clamp(36px, 4vw, 56px) clamp(20px, 5vw, 48px) 96px' }}>
         <div style={{ maxWidth: 900, margin: '0 auto' }}>
           {papers.list.length > 0 ? (
-            papers.list.map((paper, i) => <PaperRow key={paper.title} paper={paper} index={i} />)
+            papers.list.map((paper, i) => <PaperEntry key={paper.title} paper={paper} index={i} />)
           ) : (
             <p className="label-caps" style={{ color: 'rgba(255,255,255,0.3)' }}>
               More to follow
