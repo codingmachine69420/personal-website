@@ -46,8 +46,37 @@ function PaperEntry({ paper, index }) {
           {paper.title}
         </h2>
 
+        {paper.published && (
+          <p style={{ marginBottom: 20 }}>
+            <span className="label-caps" style={{ color: 'var(--color-body-dark)' }}>
+              Published on{' '}
+            </span>
+            <a
+              href={paper.published.url}
+              target="_blank"
+              rel="noreferrer"
+              className="label-caps"
+              style={{ color: 'var(--color-accent)', textDecoration: 'underline', textUnderlineOffset: 4 }}
+            >
+              {paper.published.venue} ↗
+            </a>
+          </p>
+        )}
+
+        <div style={{ marginBottom: 32 }}>
+          <a
+            href={href}
+            target="_blank"
+            rel="noreferrer"
+            className="cta-link"
+            style={{ textDecoration: 'none' }}
+          >
+            Read the Full Paper (PDF) ↗
+          </a>
+        </div>
+
         {paper.abstract && (
-          <div style={{ marginBottom: 28 }}>
+          <div>
             <p className="label-caps" style={{ color: 'var(--color-accent)', marginBottom: 10 }}>
               Abstract
             </p>
@@ -65,16 +94,6 @@ function PaperEntry({ paper, index }) {
             ))}
           </div>
         )}
-
-        <a
-          href={href}
-          target="_blank"
-          rel="noreferrer"
-          className="cta-link"
-          style={{ textDecoration: 'none' }}
-        >
-          Read the Full Paper (PDF) ↗
-        </a>
       </div>
     </motion.article>
   )
