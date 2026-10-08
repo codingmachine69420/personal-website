@@ -137,6 +137,51 @@ export function ProjectsExperiences() {
             Open Resume →
           </a>
         </div>
+
+        {/* Substack strip — same layout and CTA treatment as the resume strip above */}
+        <div style={{
+          borderBottom: '1px solid rgba(255,255,255,0.08)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: 24,
+          padding: 'clamp(24px, 4vw, 40px) clamp(20px, 5vw, 48px)',
+        }}>
+          <div>
+            <p className="label-caps" style={{ color: 'var(--color-accent)', marginBottom: 10 }}>
+              Substack Page
+            </p>
+            <p style={{ color: '#fff', fontFamily: 'var(--font-meta)', fontSize: 'clamp(1.125rem, 2.5vw, 1.5rem)', fontWeight: 600, marginBottom: 6 }}>
+              A place where I document my trading journey
+            </p>
+            <p style={{ color: 'var(--color-body-dark)', fontSize: '0.9rem', fontFamily: 'var(--font-reading)', maxWidth: '44ch' }}>
+              Currently trading MNQ futures.
+            </p>
+          </div>
+          <a
+            href="https://substack.com/@ac12781701"
+            target="_blank"
+            rel="noreferrer"
+            className="resume-cta"
+            style={{
+              display: 'inline-block',
+              background: 'var(--color-accent)',
+              color: 'var(--color-black, #000)',
+              textDecoration: 'none',
+              fontFamily: 'var(--font-meta)',
+              fontWeight: 600,
+              fontSize: '1rem',
+              letterSpacing: '0.06em',
+              textTransform: 'uppercase',
+              padding: '18px 40px',
+              border: '2px solid var(--color-accent)',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            Open Substack →
+          </a>
+        </div>
       </div>
 
       {/* ── Projects — pipeline view (replaces the old stacked-card list) ── */}
