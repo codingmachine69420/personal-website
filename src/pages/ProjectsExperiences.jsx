@@ -72,7 +72,7 @@ export function ProjectsExperiences() {
                     ))}
                   </div>
                   <a
-                    href={`${BASE}resume.pdf`}
+                    href={`${BASE}PakYinAnsonChan_Resume.pdf`}
                     target="_blank"
                     rel="noreferrer"
                     className="resume-cta"
@@ -115,7 +115,7 @@ export function ProjectsExperiences() {
             </div>
           </div>
           <a
-            href={`${BASE}resume.pdf`}
+            href={`${BASE}PakYinAnsonChan_Resume.pdf`}
             target="_blank"
             rel="noreferrer"
             className="resume-cta"
